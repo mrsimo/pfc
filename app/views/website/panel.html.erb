@@ -1,16 +1,18 @@
-<% if @invites.length > 0 %>
+<% if current_user.invitations.length > 0 %>
 <div id="invitations">
 	<h3>You have been invited to some groups!</h3>
-	<% for invite in @invites do %>
+	<% for invitation in current_user.invitations do %>
 		<%= show_invitation invite %>
 	<% end %>
 </div>
 <% end %>
 <div class="clear"></div>
+
+
 <div id="documents" class="options">
 	<h2>Documents</h2>
 	<ul>
-		<% for doc in @documents %>
+		<% for doc in current_user.documents %>
 			<li>
 				<a href="/<%=doc.id%>"> <%= doc.title %> </a>
 				<p><%= doc.description %></p>
@@ -23,10 +25,13 @@
 		<li><%= link_to "New Document", {:controller => "document", :action => "new"} %></li>
 	</ul>
 </div>
+
+
+
 <div id="groups" class="options">
 	<h2>Groups</h2>
 	<ul>
-		<% for group in @groups do %>
+		<% for group in current_user.groups do %>
 		<li>
 			<%= link_to group.name, {:controller => "groups", :action => "view", :id => group.group_id} %>
 			<p><%= group.description %></p>

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 7) do
+ActiveRecord::Schema.define(:version => 9) do
 
   create_table "document_permissions", :force => true do |t|
     t.integer  "document_id",                :null => false
@@ -60,6 +60,22 @@ ActiveRecord::Schema.define(:version => 7) do
   end
 
   add_index "groups", ["owner_id"], :name => "index_groups_on_owner_id"
+
+  create_table "invitations", :force => true do |t|
+    t.integer  "target_id"
+    t.integer  "source_id"
+    t.integer  "group_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "memberships", :force => true do |t|
+    t.integer  "group_id",                      :null => false
+    t.integer  "user_id",                       :null => false
+    t.boolean  "admin",      :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "pages", :force => true do |t|
     t.integer  "number",      :null => false
