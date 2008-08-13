@@ -1,0 +1,41 @@
+<% if @invites.length > 0 %>
+<div id="invitations">
+	<h3>You have been invited to some groups!</h3>
+	<% for invite in @invites do %>
+		<%= show_invitation invite %>
+	<% end %>
+</div>
+<% end %>
+<div class="clear"></div>
+<div id="documents" class="options">
+	<h2>Documents</h2>
+	<ul>
+		<% for doc in @documents %>
+			<li>
+				<a href="/<%=doc.id%>"> <%= doc.title %> </a>
+				<p><%= doc.description %></p>
+				<span class="delete"><%= link_to "Delete", {:controller => "document", :action => "delete", :id => doc.id}, :confirm =>"Are you sure?" %></span>
+			</li>
+		<% end %>
+	</ul>
+
+	<ul>
+		<li><%= link_to "New Document", {:controller => "document", :action => "new"} %></li>
+	</ul>
+</div>
+<div id="groups" class="options">
+	<h2>Groups</h2>
+	<ul>
+		<% for group in @groups do %>
+		<li>
+			<%= link_to group.name, {:controller => "groups", :action => "view", :id => group.group_id} %>
+			<p><%= group.description %></p>
+			<span class="delete"><%= link_to "Delete", {:controller => "groups", :action => "delete", :id => group.group_id}, :confirm =>"Are you sure?" %></span>
+		</li>
+		<% end %>
+	</ul>
+	<ul>
+		<li><%= link_to "New Group", {:controller => "groups", :action => "new"} %></li>
+	</ul>
+</div>
+<div class="clear"/>

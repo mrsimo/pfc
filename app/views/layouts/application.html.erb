@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<link href="/stylesheets/styles.css" media="screen" rel="Stylesheet" type="text/css" />
+	<script type="text/javascript" charset="utf-8" language="javascript" src="/javascripts/jquery.js"></script>
+	<script type="text/javascript" charset="utf-8" language="javascript" src="/javascripts/stuff.js"></script>
+	<% if controller.action_name == "confirm_content" -%>
+	<link rel="stylesheet" href="/stylesheets/lightbox.css" type="text/css" media="screen" />
+	<script type="text/javascript" charset="utf-8" language="javascript" src="/javascripts/prototype.lite.js"></script>
+	<script type="text/javascript" charset="utf-8" language="javascript" src="/javascripts/moo.fx.js"></script>
+	<script type="text/javascript" charset="utf-8" language="javascript" src="/javascripts/litebox-1.0.js"></script>
+	<% end -%>
+</head>
+<body <%= "onload=\"initLightbox();\"" if controller.action_name == "confirm_content" %>>
+	<div id="header">
+		<div class="wrapper">
+			<h1><%= link_to 'Drawme', '/' %></h1>
+		</div>
+	</div>
+	<div id="content">
+		<div class="wrapper">
+			<% if flash[:notice] %>
+			<div id="flash" class="<%= flash[:type] -%>"><%=h flash[:notice] %></div>
+			<% end %>
+			<%= yield %>
+			
+		</div>
+	</div>
+	<div id="footer" class="clear">
+		<div class="wrapper">
+			<p>Drawme is a PFC by Albert Llop. Current version: Alpha</p>
+		</div>
+	</div>
+</body>
+</html>

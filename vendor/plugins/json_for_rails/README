@@ -1,0 +1,7 @@
+Adds JSON parsing support to Rails that mimics XML support:
+
+* Automatic param parsing for Mime::JSON requests
+* ActiveRecord::Base#to_json and ActiveRecord::Errors#to_json
+* Time class serialization using the xmlschema format
+
+Requires the fjson plugin.

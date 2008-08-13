@@ -1,0 +1,21 @@
+<div class="clear"></div>
+<div id="group-view-left">
+	<h4>Group <%= @group.name %></h4>
+	<p><%= @group.description %></p>
+</div>
+
+<div id="group-view-right">
+	<h4>Current members</h4>
+	<ul>
+		<% for member in @members do %>
+			<li> <%= member.login %> </li>
+		<% end %>
+	</ul>
+	
+	<p>You can invite new people, write his/her username:</p>
+	
+	<% form_tag :action => "invite", :id => @group.id do %>
+	<%= text_field_tag :user %>
+	<%= submit_tag "Invite!" %>
+	<% end %>
+</div>

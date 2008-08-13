@@ -1,0 +1,20 @@
+{
+	"background": "<%= @current_page.background %>",
+	"page_num": <%= @current_page.number %>,
+	"page_id": <%= @current_page.id %>,
+	"elements": [
+	<% if @elements[0] %>
+		{ 
+			"attr": <%= @elements[0].attr %>,
+			"id": <%= @elements[0].id %>
+		}
+		<% for i in (1..(@elements.length-1)) %>
+			, 	
+			{
+				"attr": <%= @elements[i].attr %>,
+				"id": <%= @elements[i].id %>
+			}
+		<% end %>
+	<% end %>
+	]
+}

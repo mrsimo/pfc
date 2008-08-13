@@ -1,0 +1,24 @@
+<% return if logged_in? %>
+<%= error_messages_for :user %>
+<div class="form">
+			
+		<% form_for :user, :url => {:action => "signup", :controller => "sessions"} do |f| -%>
+		<label for="login">Username</label>
+		<%= f.text_field :login %>
+		<span>Min 3 chars</span>
+		
+		<label for="email">Email</label>
+		<%= f.text_field :email %>
+		<span>To recover your password</span>
+		
+		<label for="password">Password</label>
+		<%= f.password_field :password %>
+		<span>Min 4 chars</span>
+		
+		<label for="password_confirmation">Confirm Password</label>
+		<%= f.password_field :password_confirmation %>
+		
+		<%= submit_tag 'Sign up', :class => "submit" %>
+		<% end -%>
+		
+</div>

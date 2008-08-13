@@ -1,0 +1,46 @@
+<div id="right">
+	<h2>System</h2>
+	<div id="login">
+	<% if !logged_in? %>
+		<%= render :partial => "sessions/login"%>
+		<p>or sign up in 10seconds!</p>
+		<%= render :partial => "sessions/signup" %>
+	<% else %>
+	<p>Welcome to drawme, <%= current_user.login %>!</p>
+	<ul>
+		<li id="control-panel"><%= link_to "Control Panel", { :controller => "website", :action => "panel" }%></li>
+		<li id="logout"><%= link_to "Logout", { :controller => "sessions", :action => "logout"}%></li>
+	</ul>
+	<% end %>
+	</div>
+</div>
+
+	<div id="speech">
+		Drawme is a shared whiteboard online application focused towards helping you with your presentations
+		<img src="images/intro-example.jpg" alt="Example image" />
+	</div>
+	<div id="intro">
+
+	
+
+	<p>
+		With drawme you will be able to:
+		<ul>
+			<li>Upload your documents</li>
+			<li>Draw and write all over them</li>
+			<li>Invite people to see exactly what you see</li>
+			<li>Have other people draw all over your documents</li>
+		</ul>
+	</p>
+	<p>
+		Drawme is the perfect solutions for when you have to make a presentation but the rest of the people are not phisically with you. Talk with them over your favourite converence technology, and help your expositions with the tools we provide you. All with the highest level of privacy and security.
+	</p>
+
+	<p>Fill up the super-fast, super-simple form and start working straight away. No second steps, no activation, just these four fields:</p>
+	</div>
+	
+
+
+
+
+

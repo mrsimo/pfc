@@ -1,0 +1,19 @@
+* Pensar en como optimizar las cosas. *
+** Para las consultas por get, no hace falta realmente que la URL sea bonita, así que se puede optimizar para que solo haga una consulta SQL, en vez de 3. Pasarle ID de la pagina, no ID de documento y NUM de pagina.
+
+* Rendering Module *
+** Firefox3: OK!
+** Firefox2: Lo de arrastrar cosas
+** Safari:
+** Opera: OK!
+
+** Todos
+*** Bubbling. Si sueltas fuera se queda pillao
+*** Parece que tiene problemas, mientras tas dibujando encima de algo ya dibujao, y hace una recarga, lo tuyo queda debajo.
+
+
+* DOCUMENTACION
+** Comentar problemas con los stringify de JSON. intentar entender q coño pasa xD
+
+
+<div unselectable="on" onselectstart="return false;" style="-moz-user-select:none">

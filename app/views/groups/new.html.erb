@@ -1,0 +1,18 @@
+<div id="new-group" class="form">
+	
+<% form_tag :action => "create" do -%>
+	
+	<label for="name">Name of the Group</label>
+	<%= text_field_tag :name %>
+	<label for="description">Description of the Group</label>
+	<%= text_area_tag :description %>
+
+	<%= submit_tag "Create",:id => "create-group-button" %>
+	
+<% end -%>
+
+</div>
+
+<div id="new-group-explanation">
+	<p>You can create a group to help you keep your friends organized. For example, you can give access to a document to a whole group, simplifying the process.</p>
+</div>

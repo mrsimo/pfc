@@ -1,0 +1,10 @@
+<% 
+	if params[:ext] == "gif"
+		headers["Content-Type"] = "image/gif" 
+	elsif params[:ext] == "jpg" || params[:ext] == "jpeg"
+		headers["Content-Type"] = "image/jpeg"
+	elsif params[:ext] == "png"
+		headers["Content-Type"] = "image/x-png"
+	end
+-%>
+<%= @f.read %>

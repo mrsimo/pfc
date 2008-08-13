@@ -1,0 +1,16 @@
+<div class="form">
+<% form_tag('/sessions/login') do -%>
+
+		<label for="login">Username</label>
+		<%= text_field_tag 'login', nil, :class => "input" %>
+
+		<label for="password">Password</label>
+		<%= password_field_tag 'password', nil, :class => "input" %>
+
+		<label for="remember_me" id="remember">Remember?</label>
+		<%= check_box_tag 'remember_me', :class => "checkbox" %>
+
+		<%= submit_tag 'Log in', :class => "submit" %>
+
+<% end -%>
+</div>

@@ -1,0 +1,75 @@
+#top { width:100%;height:50px;padding:0px;background-color:#222;color:#eee;text-align:center;font-size:1.8em;font-family: "Georgia";position:absolute; z-index:3;}
+#top p { padding:5px;margin:0px; }
+
+#pages { margin:10px; text-align:center; font-family:"Georgia"; background-color: #222; border: 2px solid #aaa;width:170px; color:white;
+		 position:absolute;left:70px; top:50px; z-index:3; }
+#pages p {padding:7px; margin:0px;}
+#pages p a { color: white;}
+#pages p a:hover{text-decoration:none;}
+#pages p input { display:inline; width:20px;text-align:center;}
+
+#tools { position: absolute;top:50px;background-color:#222;color: #eee;padding:10px;z-index:3;}
+
+#tools div { width:40px;height:40px;margin:5px;text-align:center;line-height:40px;border:1px dashed black;color: black;
+	font-size:1.5em;font-family: "Courier New";font-weight:bold;background-color: #fff; background-repeat: no-repeat; background-position: center center; }
+#tools div:hover { background-color: #ccc; }
+#tools div#color { margin-top:20px; }
+
+#tools div#pencil 	{background-image: url(/images/pencil_32x32.png);}
+#tools div#line 	{background-image: url(/images/stock_draw-line_24x24.png);}
+#tools div#square 	{background-image: url(/images/stock_draw-rounded-square_24x24.png);}
+#tools div#circle 	{background-image: url(/images/stock_draw-circle_24x24.png);}
+#tools div#text 	{background-image: url(/images/text_32x32.png);}
+#tools div#eraser 	{background-image: url(/images/deletecell_16x16.png);}
+
+#tools div#color 	{background-image: url(/images/colorscm_32x32.png);}
+#tools div#fill 	{background-image: url(/images/fill_32x32.png);}
+#tools div#thick 	{background-image: url(/images/fill_32x32.png);}
+
+#fill-dialog  { top: 418px; }
+#thick-dialog { top: 465px; }
+
+.tooltip { z-index:4;background-color:white;border:1px solid #ddd;color:#444; }
+.tooltip span { font-size:0.8em; }
+.tooltip .text { padding:.4ex .7ex .2ex; }
+
+.hidden { position:absolute;top:368px;left:70px;background-color:#222;padding:5px;z-index:110; }
+
+#color-dialog div {	width:15px;height:15px;border:1px solid black;margin:2px;float:left; }
+
+
+/* SLIDER DIALOGS */
+
+.ui-slider { background: #222 url(images/slider-bg-1.png) no-repeat center center;padding:0px; height:25px;width:210px;position: absolute;}
+.ui-slider-handle { position: absolute;z-index: 121; top: 0;width: 10px;height: 23px;
+	background: #555 url(images/0d0d0d_40x100_textures_02_glass_60.png) 0 50% repeat-x; border: 1px solid #dddddd; }
+.ui-slider-handle:hover { background: #0d0d0d url(images/0d0d0d_40x100_textures_02_glass_60.png) 0 50% repeat-x;border: 1px solid #dddddd; }
+.ui-slider-handle-active, .ui-slider-handle-active:hover { background: #0d0d0d url(images/0d0d0d_40x100_textures_02_glass_60.png) 0 50% repeat-x;
+	border: 1px solid #dddddd;}
+.ui-slider-range {height: .8em;background: #0d0d0d url(images/0d0d0d_40x100_textures_02_glass_60.png) 0 50% repeat-x;position: absolute;
+	border: 1px solid #595959;border-left: 0;border-right: 0;top: -1px;z-index:121; }
+
+/* DRAWING STUFF */
+textarea { font-size: 1.3em;font-family:"Verdana"; background: url(images/white65.png); }
+
+.ui-wrapper {z-index: 220;}
+.ui-resizable-handle {z-index:220;}
+body{
+	padding:0px;
+	margin:0px;
+}
+
+#protectiveLayer {
+	position:absolute;
+	width:5000px;
+	height:3500px;
+}
+
+#svgElem {
+	
+}
+
+#vmlElem{
+	z-index:10;
+	margin:0;
+}

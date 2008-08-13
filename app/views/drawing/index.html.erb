@@ -1,0 +1,95 @@
+<%
+	# User Agent descriptive strings:
+	# Internet Explorer: MSIE
+	# Mozilla Firefox: Mozilla
+	# Opera: Opera
+	# Safari: Safari
+ 	ua = request.user_agent
+
+	if ua.include? "MSIE"
+		headText = "<html xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:v=\"urn:schemas-microsoft-com:vml\">"
+		styleText = "<style>v\\:* { behavior: url(#default#VML);}</style>"
+		mainText = "<div id=\"vmlElem\" style=\"height:3500px;width:5000px;\">\n
+					</div>"
+	else
+		headText = " <!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">" + 
+					"<html xmlns=\"http://www.w3.org/1999/xhtml\">"
+		styleText = ""
+		mainText = "<div id=\"protectiveLayer\">\n
+						<svg id=\"svgElem\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" \n
+							preserveAspectRatio=\"none\" height=\"3500px\" width=\"5000px\">\n
+							<rect x=\"0\" y=\"0\" height=\"3500\" width=\"5000\" 
+							style=\"stroke:white;stroke-width:1px;fill:none;\" />\n
+						</svg>\n
+					</div>\n"
+		headers["Content-Type"] = "application/xhtml+xml" 
+	end
+%>
+<%= headText %>
+
+<head>
+	
+	<link href="/stylesheets/drawer.css" media="screen" rel="Stylesheet" type="text/css" />
+	
+	<%= styleText %>
+	<script type="text/javascript" charset="utf-8">
+		var docId = <%= @document.id %>;
+		var ownerId = <%= @document.user_id %>;
+		var pageId = <%= @current_page.id %>;
+		var pageNum = <%= @current_page.number %>;
+		var bg = "<%= @current_page.background %>";
+	</script>
+	<script type="text/javascript" charset="utf-8" language="javascript" src="/javascripts/jquery.js"></script>
+	<script type="text/javascript" charset="utf-8" language="javascript"  src="/javascripts/jqueryui.js"></script>
+	<script type="text/javascript" language="javascript" charset="utf-8" src="/javascripts/tooltip.js"></script>
+	<script type="text/javascript" language="javascript" charset="utf-8" src="/javascripts/drawer.js"></script>
+	
+	
+	<title>Drawme - You are drawing on Whiteboard n.<%= @document.id %></title>
+</head>
+<body>
+<div id="top">
+	<p><%= @document.title %>, <%= @pages.length %> pages.</p>
+</div>
+
+<div id="tools">
+
+		<div id="pencil" onclick="selectTool('pencil');"></div>
+		<div id="line" onclick="selectTool('line');"></div>
+		<div id="square" onclick="selectTool('square');"></div>
+		<div id="circle" onclick="selectTool('circle');"></div>
+		<div id="text" onclick="selectTool('text');"></div>
+		<div id="eraser" onclick="selectTool('eraser')"></div>
+		
+		<div id="color" onclick="toggle('color');"></div>
+		<div id="fill"  onclick="toggle('fill');">80</div>
+		<div id="thick" onclick="toggle('thick');">3</div>		
+</div>
+
+<div id="pages">
+	<p><a href="#" onclick="previousPage();">Previous</a> <input type="text" value="<%=@current_page.number%>" /> <a href="#" onclick="nextPage();">Next</a></p>
+</div>
+
+<div id="color-dialog" class="hidden" style="display:none;">
+	<div style="background-color:#fff" onclick="selectColor('#fff');"></div>
+	<div style="background-color:#f00" onclick="selectColor('#f00');"></div>
+	<div style="background-color:#0f0" onclick="selectColor('#0f0');"></div>
+	<div style="background-color:#00f" onclick="selectColor('#00f');"></div>
+	<div style="background-color:#ff0" onclick="selectColor('#ff0');"></div>
+	<div style="background-color:#f0f" onclick="selectColor('#f0f');"></div>
+	<div style="background-color:#0ff" onclick="selectColor('#0ff');"></div>
+	<div style="background-color:#000" onclick="selectColor('#000');"></div>
+</div>
+
+<div id="fill-dialog" class="hidden" style="display:none;">
+	<div class='ui-slider-handle'></div>	
+</div>
+
+<div id="thick-dialog" class="hidden" style="display:none;">
+	<div class='ui-slider-handle'></div>	
+</div>
+
+<%= mainText %>
+
+</body>
+</html>
