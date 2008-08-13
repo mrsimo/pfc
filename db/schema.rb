@@ -9,7 +9,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 8) do
+ActiveRecord::Schema.define(:version => 7) do
+
+  create_table "document_permissions", :force => true do |t|
+    t.integer  "document_id",                :null => false
+    t.integer  "user_id",                    :null => false
+    t.integer  "permission",  :default => 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "documents", :force => true do |t|
     t.string   "title"
@@ -35,6 +43,14 @@ ActiveRecord::Schema.define(:version => 8) do
 
   add_index "elements", ["page_id"], :name => "index_elements_on_page_id"
 
+  create_table "group_permissions", :force => true do |t|
+    t.integer  "document_id",                :null => false
+    t.integer  "group_id",                   :null => false
+    t.integer  "permission",  :default => 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "groups", :force => true do |t|
     t.string   "name",        :null => false
     t.text     "description"
@@ -45,28 +61,6 @@ ActiveRecord::Schema.define(:version => 8) do
 
   add_index "groups", ["owner_id"], :name => "index_groups_on_owner_id"
 
-  create_table "invitations", :force => true do |t|
-    t.integer  "invitator_id"
-    t.integer  "user_id"
-    t.integer  "group_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "invitations", ["group_id"], :name => "index_invitations_on_group_id"
-  add_index "invitations", ["invitator_id"], :name => "index_invitations_on_invitator_id"
-  add_index "invitations", ["user_id"], :name => "index_invitations_on_user_id"
-
-  create_table "memberships", :force => true do |t|
-    t.integer  "group_id"
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "memberships", ["user_id"], :name => "index_memberships_on_user_id"
-  add_index "memberships", ["group_id"], :name => "index_memberships_on_group_id"
-
   create_table "pages", :force => true do |t|
     t.integer  "number",      :null => false
     t.string   "background"
@@ -76,18 +70,6 @@ ActiveRecord::Schema.define(:version => 8) do
   end
 
   add_index "pages", ["document_id"], :name => "index_pages_on_document_id"
-
-  create_table "permissions", :force => true do |t|
-    t.integer  "target_type", :default => 0
-    t.integer  "target_id",                  :null => false
-    t.integer  "document_id",                :null => false
-    t.integer  "permission",                 :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "permissions", ["document_id"], :name => "index_permissions_on_document_id"
-  add_index "permissions", ["target_id"], :name => "index_permissions_on_target_id"
 
   create_table "users", :force => true do |t|
     t.string   "login"

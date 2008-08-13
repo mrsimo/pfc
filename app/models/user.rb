@@ -1,5 +1,14 @@
 require 'digest/sha1'
 class User < ActiveRecord::Base
+  # Mis cosas
+  has_many :documents, :dependent => :destroy
+  has_and_belongs_to_many :groups
+  
+  has_many :document_permissions, :dependent => :destroy
+  has_many :group_permissions, :through => :groups
+  
+  
+  # Cosas del plugin
   # Virtual attribute for the unencrypted password
   attr_accessor :password
 
