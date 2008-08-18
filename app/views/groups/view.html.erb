@@ -1,21 +1,37 @@
+<% @membership = @group.membership(current_user) %>
 <div class="clear"></div>
 <div id="group-view-left">
 	<h4>Group <%= @group.name %></h4>
 	<p><%= @group.description %></p>
+	<% if @membership.admin %>
+		<p><%= link_to "Edit", :action => "edit", :id => @group.id %></p>
+	<% end %>
 </div>
 
 <div id="group-view-right">
 	<h4>Current members</h4>
 	<ul>
-		<% for member in @members do %>
-			<li> <%= member.login %> </li>
+		<% for member in @group.members do %>
+			<li>
+				<% mms = @group.membership(member) %>
+				<% if !mms.admin %>
+					<%= link_to_remote image_tag("admin_not.png"), 
+						:url => {:action => "make_admin", :user_id => member.id, :group_id => @group.id} %>
+				<% else %>
+					<%= image_tag("admin.png")%>
+				<% end %>
+				<%= member.login %>
+				
+			</li>
 		<% end %>
 	</ul>
 	
-	<p>You can invite new people, write his/her username:</p>
-	
-	<% form_tag :action => "invite", :id => @group.id do %>
-	<%= text_field_tag :user %>
-	<%= submit_tag "Invite!" %>
+	<% if @membership.admin %>
+		<p>You can invite new people, write his/her username:</p>
+		
+		<% form_tag :action => "invite", :id => @group.id do %>
+		<%= text_field_tag :user %>
+		<%= submit_tag "Invite!" %>
+		<% end %>
 	<% end %>
 </div>

@@ -126,6 +126,7 @@ div#errorExplanation ul li {list-style-image:url(/images/cross.png);}
 #group-view-right * {margin:10px;}
 #group-view-right ul {list-style-type:none;margin:0; adding:0;}
 #group-view-right ul li {font-size:1.3em;width: 60%;border-bottom: 1px solid #222;border-left:1px solid #222;padding:5px;}
+#group-view-right img {margin:0;border:none;}
 
 /* INVITATIONS */
 #invitations {border: 2px solid #06f; background-color:#c6deff; margin-bottom:20px;}

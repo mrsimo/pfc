@@ -2,68 +2,64 @@ class GroupsController < ApplicationController
   before_filter :login_required
   
   def new
+    @group =  Group.new
   end
   
   def create
-    group = Group.new
-    group.name = params[:name]
-    group.description = params[:description]
+    group = Group.new(params[:group])
     group.owner_id = current_user.id
     flash[:notice] = "Group created correctly" if group.save
     
-    mem = Membership.new
-    mem.user_id = current_user.id
-    mem.group_id = group.id
+    mem = Membership.new :user_id => current_user.id, :group_id => group.id, :admin => true
     mem.save
     redirect_to :controller => "website", :action  => "panel"
   end
 
   def view
     @group = Group.find(params[:id])
-    @members = Membership.find_by_sql(["SELECT * FROM users u, memberships m WHERE m.user_id = u.id AND m.group_id = ?", params[:id]])
   end
   
+  def edit
+    @group = Group.find(params[:id])
+  end
+  
+  def update
+    @group = Group.find(params[:id])
+    flash[:notice] = "Grupo actualizado correctamente" if @group.update_attributes(params[:group])
+    redirect_to :action => 'view', :id => @group.id
+  end
+  
+  
   def invite
-    @group = Group.find(params[:id]) # This should be OK
-    @user = User.find_by_sql ["SELECT * FROM users WHERE upper(login) LIKE ?", params[:user]] # This might not be ok
-    if @user.length > 0
-      inv = Invitation.new
-      inv.invitator_id = current_user.id
-      inv.user_id = @user[0].id
-      inv.group_id = params[:id]
-      flash[:notice] = "Invitation sent!" if inv.save
-      redirect_to :controller => "website", :action => "panel"
+    user = User.find(:first, :conditions => ["upper(login) LIKE ?", params[:user]])
+    if user
+      # Possible problems, the user is already a member, or has another invitation
+      if Invitation.find_by_target_id(user.id)
+        flash[:notice] = "The user already has an invitation for this group! He just has to accept it :)"
+      elsif Membership.find_by_user_id_and_group_id(user.id,params[:id])
+        flash[:notice] = "The user is already a member of this group :)"
+      else
+        inv = Invitation.new :target_id => user.id, :source_id => current_user.id, :group_id => params[:id]
+        flash[:notice] = "Invitation sent!" if inv.save
+      end
     else
       flash[:notice] = "User not found, try again"
-      redirect_to :action => "view", :id => params[:id]
+      flash[:type] = "bad"
     end
+    redirect_to :action => "view", :id => params[:id]
   end
   
   def accept # an invite
-    # params :id es el id de la invitación
     i = Invitation.find params[:id]
-    check_destinatary?(i)
-    m = Membership.new
-    m.user_id = i.user_id
-    m.group_id = i.group_id
+    m = Membership.new :user_id => i.target_id, :group_id => i.group_id
     flash[:notice] = "Invitation accepted" if m.save
     i.destroy
     redirect_to :action => "panel", :controller => "website"
   end
   
   def reject # an invite
-    # params :id es el id de la invitacion
-    i = Invitation.find params[:id]
-    check_destinatary?(i)
-    i.destroy
+    Invitation.find(params[:id]).destroy
     flash[:notice] = "Invitation rejected"
-    flash[:type] = "bad"
     redirect_to :action => "panel", :controller => "website"
-  end
-  
-  protected
-  
-  def check_destinatary?(i)
-    redirect_to :controller => "website" if i.user_id != current_user.id
   end
 end
