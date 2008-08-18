@@ -1,5 +1,4 @@
 <% return if logged_in? %>
-<%= error_messages_for :user %>
 <div class="form">
 			
 		<% form_for :user, :url => {:action => "signup", :controller => "sessions"} do |f| -%>
@@ -19,6 +18,7 @@
 		<%= f.password_field :password_confirmation %>
 		
 		<%= submit_tag 'Sign up', :class => "submit" %>
+		<div class="clear"></div>
 		<% end -%>
 		
 </div>

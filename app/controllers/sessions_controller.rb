@@ -15,10 +15,10 @@ class SessionsController < ApplicationController
         self.current_user.remember_me
         cookies[:auth_token] = { :value => self.current_user.remember_token , :expires => self.current_user.remember_token_expires_at }
       end
-      redirect_back_or_default(:controller => '/website', :action => 'panel')
+      redirect_to :controller => '/website', :action => 'panel'
       flash[:notice] = "Logged in successfully"
     else 
-      redirect_back_or_default(:controller => '/website', :action => 'index')
+      redirect_to :controller => '/website', :action => 'index'
       flash[:notice] = "Incorrect user or password. Try again"
     end
   end
@@ -33,7 +33,7 @@ class SessionsController < ApplicationController
     Dir.mkdir("/rails/" + current_user.id.to_s + "/temp")
     Dir.mkdir("/rails/" + current_user.id.to_s + "/thumbnails")
     Dir.mkdir("/rails/" + current_user.id.to_s + "/extract")
-    redirect_back_or_default(:controller => '/website', :action => 'index')
+    redirect_to :controller => '/website', :action => 'panel'
     flash[:notice] = "Thanks for signing up!"
   rescue ActiveRecord::RecordInvalid
     render :action => 'signup'

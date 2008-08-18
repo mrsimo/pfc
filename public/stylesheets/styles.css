@@ -49,6 +49,10 @@ div.form textarea {width:274px;height:400px;}
 div.form input#remember_me {float:left;margin-top:14px;width:auto;}
 div.form input.submit {width:50%; font-size:1em; float:right; margin-top:10px;margin-bottom:10px;}
 
+#signup_alone {float:left;width:330px;border:1px solid #ddd;padding:20px;background-color:#fafafa;}
+
+div#errorExplanation {float:right;width:550px;border:1px solid #ddd;padding:20px;background-color:#fafafa;}
+div#errorExplanation ul li {list-style-image:url(/images/cross.png);}
 
 /* CONTROL PANEL */
 #documents { float:left; width:440px;}

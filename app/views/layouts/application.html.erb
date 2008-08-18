@@ -1,14 +1,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<link href="/stylesheets/styles.css" media="screen" rel="Stylesheet" type="text/css" />
-	<script type="text/javascript" charset="utf-8" language="javascript" src="/javascripts/jquery.js"></script>
-	<script type="text/javascript" charset="utf-8" language="javascript" src="/javascripts/stuff.js"></script>
+	<%= stylesheet_link_tag "styles" %>
+	<%= javascript_include_tag :defaults %>
 	<% if controller.action_name == "confirm_content" -%>
-	<link rel="stylesheet" href="/stylesheets/lightbox.css" type="text/css" media="screen" />
-	<script type="text/javascript" charset="utf-8" language="javascript" src="/javascripts/prototype.lite.js"></script>
-	<script type="text/javascript" charset="utf-8" language="javascript" src="/javascripts/moo.fx.js"></script>
-	<script type="text/javascript" charset="utf-8" language="javascript" src="/javascripts/litebox-1.0.js"></script>
+	<%= stylesheet_link_tag "lightbox.css" %>
+	<%= javascript_include_tag "prototype.lite" %>
+	<%= javascript_include_tag "moo.fx.js" %>
+	<%= javascript_include_tag "litebox-1.0" %>
 	<% end -%>
 </head>
 <body <%= "onload=\"initLightbox();\"" if controller.action_name == "confirm_content" %>>

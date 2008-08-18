@@ -10,4 +10,9 @@ class Page < ActiveRecord::Base
                                   :big => '800x800>'},
                   :thumbnail_class => "Thumbnail",
                   :path_prefix => "/document_images/"
+                  
+  def background_url
+    self.public_filename ? "/image/#{self.public_filename}" : nil
+  end
+  
 end
