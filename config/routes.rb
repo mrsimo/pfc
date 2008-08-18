@@ -2,7 +2,8 @@ ActionController::Routing::Routes.draw do |map|
   #Default one
   map.root :controller => "website", :action => "index"
 
-  map.connect 'get_image/:user/:document/:image.:ext', :controller => "document", :action =>"get_image"
+  map.connect 'image/:page', :controller => "document", :action =>"image"
+  map.connect 'image/:page/:thumb', :controller => "document", :action =>"image"
 
   # Install the default routes as the lowest priority.
   map.connect ':controller/:action/:id'

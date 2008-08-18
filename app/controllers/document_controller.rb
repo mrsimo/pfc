@@ -1,8 +1,8 @@
 class DocumentController < ApplicationController
   require 'zip/zip'
   require 'fileutils'
-  before_filter :login_required, :except => [ :get_image, :export ]
-  before_filter :authorized?, :only => [ :get_image, :export ]
+  before_filter :login_required, :except => [ :image, :export ]
+  before_filter :authorized?, :only => [ :image, :export ]
   
   # STEP ONE to create a document
   def new
@@ -106,9 +106,10 @@ class DocumentController < ApplicationController
   
   # Safe way to have only the adequate people access images. Images are in an unaccessible path
   # and they are read and transmited from that file directly.
-  def get_image
-    @f = File.open("/rails/" + params[:user] + "/" + params[:document] + "/" + params[:image] + "." + params[:ext])
-    render :layout => "drawing"
+  def image
+    @p = Page.find(params[:page])
+    @f = File.open(@p.public_filename(params[:thumb]))
+    render :layout => false
   end
   
   # Delete a document. We need extra checking besides people being loged, to see if the one deleting

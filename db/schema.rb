@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 9) do
+ActiveRecord::Schema.define(:version => 11) do
 
   create_table "document_permissions", :force => true do |t|
     t.integer  "document_id",                :null => false
@@ -78,14 +78,33 @@ ActiveRecord::Schema.define(:version => 9) do
   end
 
   create_table "pages", :force => true do |t|
-    t.integer  "number",      :null => false
+    t.integer  "number",       :null => false
     t.string   "background"
-    t.integer  "document_id", :null => false
+    t.integer  "document_id",  :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "parent_id"
+    t.string   "content_type"
+    t.string   "filename"
+    t.string   "thumbnail"
+    t.integer  "size"
+    t.integer  "width"
+    t.integer  "height"
   end
 
   add_index "pages", ["document_id"], :name => "index_pages_on_document_id"
+
+  create_table "thumbnails", :force => true do |t|
+    t.integer  "parent_id"
+    t.string   "content_type"
+    t.string   "filename"
+    t.string   "thumbnail"
+    t.integer  "size"
+    t.integer  "width"
+    t.integer  "height"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "login"

@@ -1,7 +1,7 @@
 class CreatePages < ActiveRecord::Migration
   def self.up
     create_table :pages do |t|
-      t.integer :number, :null => false 
+      t.integer :number, :null => false
       t.string :background
       t.integer :document_id, :null => false
 
