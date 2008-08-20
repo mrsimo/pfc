@@ -1,25 +1,29 @@
-<div id="right">
-	<h2>System</h2>
-	<div id="login">
-	<% if !logged_in? %>
-		<%= render :partial => "sessions/login"%>
-		<p>or sign up in 10seconds!</p>
-		<%= render :partial => "sessions/signup" %>
-	<% else %>
-	<p>Welcome to drawme, <%= current_user.login %>!</p>
-	<ul>
-		<li id="control-panel"><%= link_to "Control Panel", { :controller => "website", :action => "panel" }%></li>
-		<li id="logout"><%= link_to "Logout", { :controller => "sessions", :action => "logout"}%></li>
-	</ul>
-	<% end %>
+<% if logged_in? %>
+	<div id="small-panel" class="panel">
+		Hello <%= current_user.login %>!
+		<ul>
+			<li id="control-panel"><%= link_to "Control Panel", { :controller => "website", :action => "panel" }%></li>
+			<li id="logout"><%= link_to "Logout", { :controller => "sessions", :action => "logout"}%></li>
+		</ul>
 	</div>
-</div>
+<% else %>
+	<div id="big-panel">
+		<div id="login">
+			<%= render :partial => "sessions/login"%>
+		</div>
+		<div id="signup">
+			<%= render :partial => "sessions/signup" %>
+		</div>
+	</div>
+<% end %>
 
-	<div id="speech">
-		Drawme is a shared whiteboard online application focused towards helping you with your presentations
-		<img src="images/intro-example.jpg" alt="Example image" />
-	</div>
-	<div id="intro">
+
+
+<div id="speech">
+	Drawme is a shared whiteboard online application focused towards helping you with your presentations
+	<img src="images/intro-example.jpg" alt="Example image" />
+</div>
+<div id="intro">
 
 	
 

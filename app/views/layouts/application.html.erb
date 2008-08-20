@@ -12,23 +12,16 @@
 </head>
 <body <%= "onload=\"initLightbox();\"" if controller.action_name == "confirm_content" %>>
 	<div id="header">
-		<div class="wrapper">
 			<h1><%= link_to 'Drawme', '/' %></h1>
-		</div>
 	</div>
 	<div id="content">
-		<div class="wrapper">
 			<% if flash[:notice] %>
 			<div id="flash" class="<%= flash[:type] -%>"><%=h flash[:notice] %></div>
 			<% end %>
 			<%= yield %>
-			
-		</div>
 	</div>
 	<div id="footer" class="clear">
-		<div class="wrapper">
 			<p>Drawme is a PFC by Albert Llop. Current version: Alpha</p>
-		</div>
 	</div>
 </body>
 </html>

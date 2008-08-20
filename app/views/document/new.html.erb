@@ -1,12 +1,6 @@
 <h4>New Document</h4>
-<p>First of all, select the document you would like to use as background for your whiteboard. We accept, for now, PDF's and ZIP's with images.</p>
 
 <div id="new-doc" class="form center">
-	<% form_tag "/document/confirm_content", :multipart => true do -%>
-		
-		<%= file_field_tag :file %>
-		
-		<%= submit_tag "Next" %>
-		
-	<% end -%>
+		<% @action = 'create' %>
+		<%= render :partial => 'form' %>
 </div>

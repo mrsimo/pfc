@@ -6,6 +6,7 @@ class DocumentController < ApplicationController
   
   # STEP ONE to create a document
   def new
+    @doc = Document.new
   end
   
   # STEP TWO We browse the content of the file given, and show it to him. 
