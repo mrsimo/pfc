@@ -1,6 +1,5 @@
-<% return if logged_in? %>
-<div class="form">
-			
+<% return if logged_in? %>	
+		<h6>Sign Up</h6>
 		<% form_for :user, :url => {:action => "signup", :controller => "sessions"} do |f| -%>
 		<label for="login">Username</label>
 		<%= f.text_field :login %>
@@ -20,5 +19,3 @@
 		<%= submit_tag 'Sign up', :class => "submit" %>
 		<div class="clear"></div>
 		<% end -%>
-		
-</div>

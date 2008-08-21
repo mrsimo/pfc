@@ -1,12 +1,4 @@
-<% if logged_in? %>
-	<div id="small-panel" class="panel">
-		Hello <%= current_user.login %>!
-		<ul>
-			<li id="control-panel"><%= link_to "Control Panel", { :controller => "website", :action => "panel" }%></li>
-			<li id="logout"><%= link_to "Logout", { :controller => "sessions", :action => "logout"}%></li>
-		</ul>
-	</div>
-<% else %>
+<% if !logged_in? %>
 	<div id="big-panel">
 		<div id="login">
 			<%= render :partial => "sessions/login"%>
@@ -17,16 +9,11 @@
 	</div>
 <% end %>
 
-
-
 <div id="speech">
-	Drawme is a shared whiteboard online application focused towards helping you with your presentations
-	<img src="images/intro-example.jpg" alt="Example image" />
+<p>Drawme is a shared whiteboard online application focused towards helping you with your presentations</p>
 </div>
+
 <div id="intro">
-
-	
-
 	<p>
 		With drawme you will be able to:
 		<ul>
@@ -41,4 +28,4 @@
 	</p>
 
 	<p>Fill up the super-fast, super-simple form and start working straight away. No second steps, no activation, just these four fields:</p>
-	</div>
+</div>

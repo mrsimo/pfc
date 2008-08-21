@@ -1,6 +1,5 @@
-<div class="form">
+<h6>Login</h6>
 <% form_tag('/sessions/login') do -%>
-
 		<label for="login">Username</label>
 		<%= text_field_tag 'login', nil, :class => "input" %>
 
@@ -13,4 +12,3 @@
 		<%= submit_tag 'Log in', :class => "submit" %>
 
 <% end -%>
-</div>

@@ -2,6 +2,7 @@ class WebsiteController < ApplicationController
   before_filter :login_required, :only => [ :panel ]
   
   def index
+    redirect_to :action => "panel" if logged_in?
   end
   
   def panel
