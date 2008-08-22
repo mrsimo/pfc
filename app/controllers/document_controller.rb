@@ -83,32 +83,28 @@ class DocumentController < ApplicationController
   end
   
   def add_element
-    @doc = Document.find(params[:id])
-    @current_page = Page.find(:first, :conditions => {:document_id => params[:id], :number => @doc.current_page})
-    @element = Element.new(:attr => params[:attr], :page_id => @current_page.id )
-    @result = @element.save
-    session[:last] = @element
+    doc = Document.find(params[:id])
+    element = Element.create(:attr => params[:attr], :page_id => doc.get_current_page.id)
+    render :text => "#{element.id}"
   end
 
-  def list_elements # List everything!
-    
-    @doc = Document.find(params[:id])
-    @current_page = Page.find(:first, :conditions => {:document_id => @doc.id, :number => @doc.current_page})
-    @elements = Element.find(:all, :conditions => { :page_id => @current_page.id } )
-     
-  end # list
+  def list_elements
+    doc = Document.find(params[:id])
+    @current_page = doc.get_current_page
+    @elements = @current_page.elements
+    render :layout => false
+  end
 
-  def remove_element # /element/remove/:id
+  def remove_element
     Element.find(params[:id]).destroy
-  end # remove
+    render :text => "OK"
+  end
   
-  def change_page #
-    
-    @document = Document.find(params[:id])
-    @document.current_page = params[:page]
-    @document.save
-    
-    @current_page = Page.find(:first, :conditions => {:document_id => @document.id, :number => params[:page]})
+  def change_page
+    doc = Document.find(params[:id])
+    doc.current_page = params[:page]
+    doc.save
+    render :text => "#{doc.get_current_page.id}"
   end
   
   # Safe way to have only the adequate people access images. Images are in an unaccessible path
