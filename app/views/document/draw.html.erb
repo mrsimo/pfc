@@ -24,7 +24,7 @@
 					</div>\n"
 		headers["Content-Type"] = "application/xhtml+xml" 
 	end
-%>
+-%>
 <%= headText %>
 
 <head>
@@ -35,9 +35,8 @@
 	<script type="text/javascript" charset="utf-8">
 		var docId = <%= @document.id %>;
 		var ownerId = <%= @document.user_id %>;
-		var pageId = <%= @current_page.id %>;
-		var pageNum = <%= @current_page.number %>;
-		var bg = "<%= @current_page.background %>";
+		var pageId = <%= @document.get_current_page.id %>;
+		var pageNum = <%= @document.get_current_page.number %>;
 	</script>
 	<script type="text/javascript" charset="utf-8" language="javascript" src="/javascripts/jquery.js"></script>
 	<script type="text/javascript" charset="utf-8" language="javascript"  src="/javascripts/jqueryui.js"></script>
@@ -49,7 +48,7 @@
 </head>
 <body>
 <div id="top">
-	<p><%= @document.title %>, <%= @pages.length %> pages.</p>
+	<p><%= @document.title %>, <%= @document.pages.size %> pages.</p>
 </div>
 
 <div id="tools">
@@ -67,7 +66,7 @@
 </div>
 
 <div id="pages">
-	<p><a href="#" onclick="previousPage();">Previous</a> <input type="text" value="<%=@current_page.number%>" /> <a href="#" onclick="nextPage();">Next</a></p>
+	<p><a href="#" onclick="previousPage();">Previous</a> <input type="text" value="<%= @document.get_current_page.number %>" /> <a href="#" onclick="nextPage();">Next</a></p>
 </div>
 
 <div id="color-dialog" class="hidden" style="display:none;">

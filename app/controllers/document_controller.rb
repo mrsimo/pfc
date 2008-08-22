@@ -79,10 +79,37 @@ class DocumentController < ApplicationController
   
   def draw
     @document = Document.find(params[:id])
-    @pages = Page.find(:all, :conditions => {:document_id => params[:id]})
-    @current_page = Page.find(:first, :conditions => { :document_id => params[:id], :number => @document.current_page })
+    render :layout => false
   end
   
+  def add_element
+    @doc = Document.find(params[:id])
+    @current_page = Page.find(:first, :conditions => {:document_id => params[:id], :number => @doc.current_page})
+    @element = Element.new(:attr => params[:attr], :page_id => @current_page.id )
+    @result = @element.save
+    session[:last] = @element
+  end
+
+  def list_elements # List everything!
+    
+    @doc = Document.find(params[:id])
+    @current_page = Page.find(:first, :conditions => {:document_id => @doc.id, :number => @doc.current_page})
+    @elements = Element.find(:all, :conditions => { :page_id => @current_page.id } )
+     
+  end # list
+
+  def remove_element # /element/remove/:id
+    Element.find(params[:id]).destroy
+  end # remove
+  
+  def change_page #
+    
+    @document = Document.find(params[:id])
+    @document.current_page = params[:page]
+    @document.save
+    
+    @current_page = Page.find(:first, :conditions => {:document_id => @document.id, :number => params[:page]})
+  end
   
   # Safe way to have only the adequate people access images. Images are in an unaccessible path
   # and they are read and transmited from that file directly.
@@ -91,5 +118,8 @@ class DocumentController < ApplicationController
     @f = File.open(@p.public_filename(params[:thumb]))
     render :layout => false
   end
+  
+  
+  
   
 end

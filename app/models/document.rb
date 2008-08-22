@@ -20,4 +20,8 @@ class Document < ActiveRecord::Base
   has_many :pages, :dependent => :destroy
   has_many :elements, :through => :pages
   belongs_to :owner, :class_name => "User", :foreign_key => "user_id"
+  
+  def get_current_page
+    Page.find_by_number_and_document_id self.current_page, self.id
+  end
 end
