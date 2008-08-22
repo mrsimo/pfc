@@ -1,3 +1,16 @@
+# == Schema Information
+# Schema version: 13
+#
+# Table name: groups
+#
+#  id          :integer(11)     not null, primary key
+#  name        :string(255)     default(""), not null
+#  description :text            
+#  owner_id    :integer(11)     not null
+#  created_at  :datetime        
+#  updated_at  :datetime        
+#
+
 class Group < ActiveRecord::Base
   has_many :memberships
   has_many :members, :through => :memberships, :source => "user"

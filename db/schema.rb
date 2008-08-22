@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 11) do
+ActiveRecord::Schema.define(:version => 13) do
 
   create_table "document_permissions", :force => true do |t|
     t.integer  "document_id",                :null => false
@@ -22,21 +22,21 @@ ActiveRecord::Schema.define(:version => 11) do
   create_table "documents", :force => true do |t|
     t.string   "title"
     t.text     "description"
-    t.integer  "num_pages"
     t.integer  "current_page", :default => 1
-    t.integer  "user_id",                     :null => false
-    t.integer  "height"
-    t.integer  "width"
-    t.integer  "public"
+    t.integer  "user_id",                       :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "height",       :default => 600
+    t.integer  "width",        :default => 800
+    t.integer  "num_pages",    :default => 20
+    t.boolean  "public"
   end
 
   add_index "documents", ["user_id"], :name => "index_documents_on_user_id"
 
   create_table "elements", :force => true do |t|
-    t.string   "attr",       :null => false
-    t.integer  "page_id",    :null => false
+    t.string   "attr",       :default => "", :null => false
+    t.integer  "page_id",                    :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -52,9 +52,9 @@ ActiveRecord::Schema.define(:version => 11) do
   end
 
   create_table "groups", :force => true do |t|
-    t.string   "name",        :null => false
+    t.string   "name",        :default => "", :null => false
     t.text     "description"
-    t.integer  "owner_id",    :null => false
+    t.integer  "owner_id",                    :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

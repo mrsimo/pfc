@@ -1,3 +1,23 @@
+# == Schema Information
+# Schema version: 13
+#
+# Table name: pages
+#
+#  id           :integer(11)     not null, primary key
+#  number       :integer(11)     not null
+#  background   :string(255)     
+#  document_id  :integer(11)     not null
+#  created_at   :datetime        
+#  updated_at   :datetime        
+#  parent_id    :integer(11)     
+#  content_type :string(255)     
+#  filename     :string(255)     
+#  thumbnail    :string(255)     
+#  size         :integer(11)     
+#  width        :integer(11)     
+#  height       :integer(11)     
+#
+
 class Page < ActiveRecord::Base
   has_many :elements, :dependent => :destroy
   belongs_to :document
