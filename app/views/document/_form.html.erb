@@ -1,30 +1,31 @@
-<% form_for :document, @doc, :url => {:action => @action }, :multipart => true do |f| %>
+<% form_for :document, @doc, :url => {:action => @action }, :html => {:class => "generic", :multipart => true}  do |f| %>
 	
-	<%= f.label :title %>		<%= f.text_field :title %>
-		<span>Insert a title for the document</span>
-	<%= f.label :description %>	<%= f.text_area :description %>	
-		<span>Insert a description for the document. You can use <%= link_to "textile", "http://hobix.com/textile/"%></span>
+	<%= f.label :title %><br />		<%= f.text_field :title %>
+		<span>Insert a title for the document</span><br />
+	<%= f.label :description %><br />	<%= f.text_area :description %>	
+		<span>Insert a description for the document. You can use <%= link_to "textile", "http://hobix.com/textile/"%></span><br />
 	
 	<fieldset>
 		<legend>Configure your board</legend>
 		<p>Your document will become a multi-page whiteboard, just like a notebook. You can have a blank board, or upload a file to use as background for your "pages". You can upload a <strong>PDF</strong>, or a <strong>zip</strong> file with images.</p>
 		
-		<%= radio_button_tag 'config_options','blank', :checked => true %><label for="config_options_blank">Blank Board</label>
-		
-		<%= radio_button_tag 'config_options','file' %>	<label for="config_options_file">Upload a File</label>
-			<%= f.file_field 'file' %>
-			
-		<ul>
-			<li><%= f.label :num_pages, "Number of pages" %>: 	<%= f.text_field :num_pages %></li>
-			<li><%= f.label :width, 'Board size' %>: 			<%= f.text_field :width %> x <%= f.text_field :height %></li>
-		</ul>
+		<%= radio_button_tag 'config_options','blank', :checked => true %><label for="config_options_blank">Blank Board</label><br />
+		<div id="board-options">
+			<ul>
+				<li class="board-pages"><%= f.label :num_pages, "Number of pages" %>: <%= f.text_field :num_pages %></li>
+				<li class="board-size"><%= f.label :width, 'Board size' %>: <%= f.text_field :width %> x <%= f.text_field :height %></li>
+			</ul>
+		</div>
+		<%= radio_button_tag 'config_options','file' %><label for="config_options_file">Upload a File</label>
+			<%= file_field_tag 'file' %>
+
 	</fieldset>
 	
 	<fieldset>
 		<legend>Permissions</legend>
-		<%= radio_button_tag 'permissions','everyone' %><label for="permissions_everyone">Everyone can access it</label>
-		<%= radio_button_tag 'permissions','restricted', :checked => true %><label for="permissions_restricted">Only the people I specify:</label>
-			<p>Once you create the document you can give access to other users and groups.</p>
+		<%= radio_button_tag 'document[public]','true' %><label for="permissions_everyone">Everyone can access it</label><br />
+		<%= radio_button_tag 'document[public]','false', :checked => true %><label for="permissions_restricted">Only the people I specify.</label>
+			<span>Once you create the document you can give access to other users and groups.</span>
 	</fieldset>
 	
 	<%= f.submit "Create" %>

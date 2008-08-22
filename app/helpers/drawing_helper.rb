@@ -1,2 +1,0 @@
-module DrawingHelper
-end

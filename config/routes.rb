@@ -10,6 +10,6 @@ ActionController::Routing::Routes.draw do |map|
   map.connect ':controller/:action/:id.:format'
   
   # If after everything there's nothing matching, it means we want to draw
-  map.connect ':id', :controller => "drawing", :action => "index"
+  map.connect ':id', :controller => "document", :action => "draw"
   
 end

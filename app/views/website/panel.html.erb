@@ -14,25 +14,26 @@
 <div id="documents" class="options">
 	<div class="section-head">
 		<h2>Documents</h2>
-		<%= link_to 'New', :controller => 'document',:action => 'create' %><div class="clear"></div>
+		<%= link_to 'New', :controller => 'document',:action => 'new' %><div class="clear"></div>
 	</div>
-	
+	<% if current_user.documents.size == 0 %>
+		<p><%= link_to "Create", :controller => 'document', :action => 'new'%> a new document to start using drawme.</p>
+	<% else %>
 	<ul>
 		<% for doc in current_user.documents %>
-			<li>
-				<a href="/<%=doc.id%>"> <%= doc.title %> </a>
+			<li <%= cycle("","class=\"odd\"")%>>
+				<h5><%= link_to doc.title, "/#{doc.id}"%></h5>
 				<p><%= doc.description %></p>
-				<span class="delete"><%= link_to "Delete", {:controller => "document", :action => "delete", :id => doc.id}, :confirm =>"Are you sure?" %></span>
+				<span class="options">
+					<%= link_to "Delete", {:controller => "document", :action => "delete", :id => doc.id}, :confirm =>"Are you sure?" %>, 
+					<%= link_to "Edit", :controller => "document", :action => "edit", :id => doc.id %>, 
+					<%= link_to "Permissions", :controller => "document", :action => "permissions", :id => doc.id %>
+				</span>
 			</li>
 		<% end %>
 	</ul>
-
-	<ul>
-		<li><%= link_to "New Document", {:controller => "document", :action => "new"} %></li>
-	</ul>
+	<% end %>
 </div>
-
-
 
 <div id="groups" class="options">
 	<div class="section-head">
@@ -41,15 +42,14 @@
 	</div>
 	<ul>
 		<% for group in current_user.groups do %>
-		<li>
-			<%= link_to group.name, {:controller => "groups", :action => "view", :id => group.id} %>
+		<li <%= cycle("class=\"odd\"","")%>>
+			<h5><%= link_to group.name, {:controller => "groups", :action => "view", :id => group.id} %></h5>
 			<p><%= group.description %></p>
-			<span class="delete"><%= link_to "Delete", {:controller => "groups", :action => "delete", :id => group.id}, :confirm =>"Are you sure?" %></span>
+			<span class="options">
+				<%= link_to "Delete", {:controller => "groups", :action => "delete", :id => group.id}, :confirm =>"Are you sure?" %>
+			</span>
 		</li>
 		<% end %>
-	</ul>
-	<ul>
-		<li><%= link_to "New Group", {:controller => "groups", :action => "new"} %></li>
 	</ul>
 </div>
 <div class="clear"/>

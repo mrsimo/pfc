@@ -51,7 +51,7 @@ div#errorExplanation ul li {list-style-image:url(/images/cross.png);}
 #groups {float:right; width:480px; text-align:right;}
 .options div.section-head {font-size:1.7em;margin:0;display:block;width:480px;border-bottom:1px solid #ddd;height:45px;line-height:45px;}
 .options h2 {padding:0 20px;}
-
+.options p { padding:10px;}
 #documents h2{text-align:right;font-size:1.2em;float:right;margin:0;}
 #documents div.section-head a {float:left;text-decoration:none;padding:0 10px;border-left:1px solid #ddd;}
 #documents div.section-head a:hover {background-color:#f2f2f2;border-right:1px solid #ddd;}
@@ -60,16 +60,45 @@ div#errorExplanation ul li {list-style-image:url(/images/cross.png);}
 #groups div.section-head a {float:right;text-decoration:none;padding:0 10px;border-right:1px solid #ddd;}
 #groups div.section-head a:hover {background-color:#f2f2f2;border-left:1px solid #ddd;}
 
-.options ul { list-style-type:none; margin:0;padding:0;width:100%;}
-.options ul li { width:80%;border:1px dashed orange; margin:10px auto; padding:10px; font-size:1.3em; background-color:#222;color:white;}
-.options ul li a { color:white; text-decoration:none; border-bottom: 1px dashed orange;}
-.options ul li a:hover { border-bottom: 1px solid orange;}
-.options ul li p { font-size: 0.7em;font-style: italic; }
-.options ul li span.delete {font-size:0.7em;}
+#groups ul {border-left:1px solid #ddd; text-align:left;}
 
-/* NEW DOCUMENT FORMS */
-#new-doc { width:60%; border: 1px solid #ddd; background-color: #fafafa; text-align:center; }
-#new-doc input { margin: 30px auto; width:80%; }
+.options ul {display:block;margin:0;padding:0;list-style-type:none;}
+.options ul li { border-right: 1px solid #444; text-align:right;}
+.options ul li.odd {border-right:0;border-left:1px solid #444;text-align:left;}
+.options ul li h5 { margin:0;background-color:#333;display:block;font-size:1.3em; text-align:center;}
+.options ul li h5 a { color:#ff6600;text-decoration:none; display:block;padding:5px;border-bottom:2px solid #ddd;}
+.options ul li h5 a:hover {border-bottom:2px dashed #f60;}
+.options ul li p {padding:20px;display:block;margin:0;font-size:0.9em;font-style: italic;} 
+.options ul li span {display:block; padding:10px;margin:0; }
+
+
+/* GENERAL FOR FORMS */
+h4 { display:block;width:948px;border-bottom:1px solid #ddd; margin:0;font-size:2em;text-align:center;padding:10px; }
+div.form { width:550px;border-left:1px solid #ddd; }
+div.form form {width:510px;display:block;padding:20px;}
+div.extra { width:417px;border-right:1px solid #ddd;text-align:right;}
+div.extra p {padding:20px;margin:0;}
+
+form.generic label {font-size:1.3em;}
+form.generic span {margin-bottom:20px;}
+form.generic input {display:block;width:510px;font-size:1.3em;}
+form.generic textarea {display:block;width:510px;}
+form.generic input[type="text"], form.generic textarea { margin:10px 0; }
+form.generic input[type="radio"], form.generic input[type="checkbox"] {display:inline;width:auto;height:auto;}
+form.generic input[type="file"] {width:auto;font-size:1em;display:inline;}
+
+form.generic fieldset {display:block;width:476px;margin:0;padding:0;padding:15px;margin:30px 0;}
+form.generic fieldset p {margin-top:0;}
+form.generic fieldset input {width:476px;}
+form.generic fieldset label {width:476px;}
+form.generic fieldset span {width:476px;}
+
+/* NEW DOCUMENT */
+#new-doc div#board-options {width:446px;padding:15px;}
+#new-doc div#board-options input {display:inline;width:100px;}
+
+
+
 
 #confirm { width:600px; border:1px solid #ddd; background-color: #fafafa; text-align:center;}
 #confirm label {width:400px; margin: 10px auto;text-align:left;}

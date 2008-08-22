@@ -27,12 +27,7 @@ class SessionsController < ApplicationController
     @user = User.new(params[:user])
     return unless request.post?
     @user.save!
-    self.current_user = @user
-    # CREATE HIS PERSONAL DIR
-    Dir.mkdir("/rails/" + current_user.id.to_s)
-    Dir.mkdir("/rails/" + current_user.id.to_s + "/temp")
-    Dir.mkdir("/rails/" + current_user.id.to_s + "/thumbnails")
-    Dir.mkdir("/rails/" + current_user.id.to_s + "/extract")
+    self.current_user = @user    
     redirect_to :controller => '/website', :action => 'panel'
     flash[:notice] = "Thanks for signing up!"
   rescue ActiveRecord::RecordInvalid

@@ -1,11 +1,10 @@
 # == Schema Information
-# Schema version: 13
+# Schema version: 14
 #
 # Table name: pages
 #
 #  id           :integer(11)     not null, primary key
 #  number       :integer(11)     not null
-#  background   :string(255)     
 #  document_id  :integer(11)     not null
 #  created_at   :datetime        
 #  updated_at   :datetime        
