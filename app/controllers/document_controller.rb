@@ -73,6 +73,10 @@ class DocumentController < ApplicationController
         Page.create  :uploaded_data => ActionController::TestUploadedFile.new("#{f}", MIME::Types.type_for(f)),
                   :number => i+1, :document_id => doc.id
       end
+      
+      # Now just remove the temporary files :)
+      FileUtils.rm_rf extract_dir
+      
     end
     redirect_to :controller => "website", :action => "panel"
   end
