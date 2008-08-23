@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(:version => 14) do
   add_index "documents", ["user_id"], :name => "index_documents_on_user_id"
 
   create_table "elements", :force => true do |t|
-    t.string   "attr",       :default => "", :null => false
+    t.text     "attr",       :default => "", :null => false
     t.integer  "page_id",                    :null => false
     t.datetime "created_at"
     t.datetime "updated_at"

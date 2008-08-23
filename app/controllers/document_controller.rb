@@ -87,19 +87,23 @@ class DocumentController < ApplicationController
     element = Element.create(:attr => params[:attr], :page_id => doc.get_current_page.id)
     render :text => "#{element.id}"
   end
+  
+  def remove_element
+    Element.find(params[:id]).destroy
+    render :text => "OK"
+  end
 
   def list_elements
     doc = Document.find(params[:id])
     @current_page = doc.get_current_page
     @elements = @current_page.elements
+    @object = Hash.new
+    @object["page_num"] = @current_page.number
+    @object["page_id"] = @current_page.id
+    @object["elements"] = @elements
     render :layout => false
   end
 
-  def remove_element
-    Element.find(params[:id]).destroy
-    render :text => "OK"
-  end
-  
   def change_page
     doc = Document.find(params[:id])
     doc.current_page = params[:page]
@@ -111,7 +115,7 @@ class DocumentController < ApplicationController
   # and they are read and transmited from that file directly.
   def image
     @p = Page.find(params[:page])
-    @f = File.open(@p.public_filename(params[:thumb]))
+    @f = File.open @p.public_filename(params[:thumb]) if !@p.filename.nil? and params[:page] != "undefined"
     render :layout => false
   end
   

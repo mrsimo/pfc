@@ -1,7 +1,7 @@
 class CreateElements < ActiveRecord::Migration
   def self.up
     create_table :elements do |t|
-      t.string :attr, :null => false 
+      t.text :attr, :null => false 
       t.integer :page_id, :null => false
 
       t.timestamps

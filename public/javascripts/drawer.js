@@ -4,6 +4,8 @@ var container; // Div that wraps the elements
 var svgns = "http://www.w3.org/2000/svg";
 var svg = true; // True if NOT Internet Explorer
 
+var reload = 0 // To force reloading :\
+
 if (navigator.appName == "Microsoft Internet Explorer") svg = false;
 
 /********************************/
@@ -520,7 +522,7 @@ function save(it){
 	var text = toJSON(it);
 	$.ajaxQueue({
 		type: "GET",
-		url: "/element/add/" + docId,
+		url: "/document/add_element/" + docId,
 		data: {attr: text},
 		success: function(ret){
 			it.element.id=ret;
@@ -537,7 +539,7 @@ function save(it){
 function consult(repeat){
 	$.ajaxQueue({
 		type: "GET",
-		url: "/element/list/" + docId,
+		url: "/document/list_elements/" + docId + "?reload=" + (reload++),
 		success: load,
 		complete: function(){
 			if(repeat) setTimeout("consult(true);",delay);
@@ -551,10 +553,10 @@ function consult(repeat){
  */
 function load(content){
 	var t = eval("(" + content + ")");	// Convert JSON compatible data into actual data.
-	
+	console.log(t);
 	// Load the good background
 	bg = t.background;
-	$(container).css("background","url(\"/get_image/" + ownerId + "/" + docId + "/" + bg + "\")");
+	$(container).css("background","url(\"/image/" + pageId + "\")");
 	$(container).css("background-repeat","no-repeat");
 	$(container).css("background-position","200px 100px");
 	
@@ -567,11 +569,13 @@ function load(content){
 		var i;
 		
 		// First loop. Check if the elements are already loaded.
-		for (i in t.elements){ 
+		for (i in t.elements){
 			var tmp = document.getElementById(t.elements[i].id);
 			if(tmp) tmp.id += " ok";
 			else {
-				var e = t.elements[i].attr;
+				console.log("Voy a cagar un algo: " + t.elements[i].id )
+				var e = eval("(" + t.elements[i].attr + ")");
+				console.log(e)
 				var tp;
 				switch (e.type) {
 			        case "line":   
@@ -636,7 +640,7 @@ function changePage(num){
 	$.ajaxQueue({
 		type: "GET",
 		data: {page: num},
-		url: "/element/change_page/" + docId,
+		url: "/document/change_page/" + docId,
 		success: function(ret){
 			pageId = ret;
 		}
