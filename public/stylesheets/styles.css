@@ -4,6 +4,7 @@ ul, li {margin:0;padding:0;}
 .left {float:left;}
 .center {margin:auto;}
 .clear { clear:both; }
+a img {border:0;}
 
 /* HEADER */
 #header { width:968px;height:100px;margin:auto; border:1px solid black;border-top:0;border-left:0;}
@@ -97,23 +98,16 @@ form.generic fieldset span {width:476px;}
 #new-doc div#board-options {width:446px;padding:15px;}
 #new-doc div#board-options input {display:inline;width:100px;}
 
+.extra div.option {width:357px;margin:10px 20px;padding:10px;border:1px solid #ddd;display:block;text-align:left;}
+.extra div.option h3 {width:337px;margin:0;}
+.extra div.option input[type="text"] {width:30px;text-align:center;}
+
+.extra span {font-size:0.8em;}
+.extra div.page-item {float:left;display:inline;margin:5px;text-align:center;}
+.extra a img { border:1px solid #ddd; }
 
 
 
-#confirm { width:600px; border:1px solid #ddd; background-color: #fafafa; text-align:center;}
-#confirm label {width:400px; margin: 10px auto;text-align:left;}
-#confirm input, #confirm textarea { width: 400px; margin: 10px auto;border:1px solid #ddd;padding:5px;}
-#confirm div#pages-list input {width:14px;}
-
-#confirm div {width:400px;border:1px solid #ddd; background-color:white;margin:5px auto; padding-top:20px; padding-bottom:20px;}
-#confirm div#size p {margin:20px;}
-#confirm div#size input {width:75px;display:inline;text-align:center;}
-
-#confirm div#pages-list div {padding:0;margin:0;border:0;}
-
-#pages-list label { margin:0;width:250px;float:right; height:90px;font-size:1em;}
-#pages-list input {margin:5px 30px 0 15px;float:left;}
-#pages-list img {border:1px solid #ddd;float:left;margin:0;margin-bottom:10px;}
 
 #permissions {width:600px; border: 1px solid #ddd;background-color:#fafafa;}
 #permissions h3 {margin:0;text-align:center;font-size:1.4em;margin:10px;}

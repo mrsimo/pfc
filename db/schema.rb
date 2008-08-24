@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 14) do
+ActiveRecord::Schema.define(:version => 19) do
 
   create_table "document_permissions", :force => true do |t|
     t.integer  "document_id",                :null => false
@@ -23,13 +23,13 @@ ActiveRecord::Schema.define(:version => 14) do
     t.string   "title"
     t.text     "description"
     t.integer  "current_page", :default => 1
-    t.integer  "user_id",                       :null => false
+    t.integer  "user_id",                         :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "height",       :default => 600
     t.integer  "width",        :default => 800
-    t.integer  "num_pages",    :default => 20
-    t.boolean  "public"
+    t.boolean  "has_file",     :default => false
+    t.boolean  "public",       :default => false
   end
 
   add_index "documents", ["user_id"], :name => "index_documents_on_user_id"
@@ -61,6 +61,19 @@ ActiveRecord::Schema.define(:version => 14) do
 
   add_index "groups", ["owner_id"], :name => "index_groups_on_owner_id"
 
+  create_table "images", :force => true do |t|
+    t.integer  "parent_id"
+    t.string   "content_type"
+    t.string   "filename"
+    t.string   "thumbnail"
+    t.integer  "size"
+    t.integer  "width"
+    t.integer  "height"
+    t.integer  "page_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "invitations", :force => true do |t|
     t.integer  "target_id"
     t.integer  "source_id"
@@ -78,17 +91,10 @@ ActiveRecord::Schema.define(:version => 14) do
   end
 
   create_table "pages", :force => true do |t|
-    t.integer  "number",       :null => false
-    t.integer  "document_id",  :null => false
+    t.integer  "number",      :null => false
+    t.integer  "document_id", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "parent_id"
-    t.string   "content_type"
-    t.string   "filename"
-    t.string   "thumbnail"
-    t.integer  "size"
-    t.integer  "width"
-    t.integer  "height"
   end
 
   add_index "pages", ["document_id"], :name => "index_pages_on_document_id"
