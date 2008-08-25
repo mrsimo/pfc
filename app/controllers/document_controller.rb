@@ -31,6 +31,41 @@ class DocumentController < ApplicationController
     end
   end
   
+  def delete
+    Document.find(params[:id]).destroy
+    redirect_to :controller => 'website', :action => "panel", :reload => (rand*1000).to_i
+  end
+  
+  def invite_user
+    @doc = Document.find params[:id]
+    @user = User.find :first, :conditions => ["login = upper(?)",params[:user].upcase]
+    if @user
+      DocumentPermission.create :user_id => @user.id, :document_id => params[:id], :permission => 0
+    else
+      @error =  "User not found :("
+    end
+    render :partial => "users"
+  end
+  
+  def invite_group
+    @doc = Document.find params[:id]
+    GroupPermission.create :group_id => params[:group], :document_id => params[:id], :permission => 0
+    render :partial => "groups"
+  end
+  
+  def unintive_user
+    DocumentPermission.find(params[:id]).destroy
+    render :partial => "users"
+  end
+  
+  def uninvite_group
+    GroupPermission.find(params[:id]).destroy
+    render :partial => "groups"
+  end  
+  
+  
+  
+  
   def draw
     @document = Document.find(params[:id])
     render :layout => false
@@ -69,15 +104,25 @@ class DocumentController < ApplicationController
   # and they are read and transmited from that file directly.
   def image
     @p = Page.find(params[:page])
-    @f = File.open @p.image.public_filename(params[:thumb]) if !@p.image.filename.nil? and params[:page] != "undefined"
+    @f = File.open @p.image.public_filename(params[:thumb]) if !@p.image.nil?  and !@p.image.filename.nil? and params[:page] != "undefined"
     render :layout => false
   end
+
+
+
+
 
   def remove_all_pages
     @doc = Document.find(params[:doc])
     @doc.pages.each {|p| p.destroy}
     flash[:notice] = "Pages removed."
     redirect_to :action => 'edit', :id => @doc.id
+  end
+  
+  def add_1_page
+    @doc = Document.find(params[:doc])
+    Page.create :number => @doc.pages.size + 1, :document_id => @doc.id
+    render :partial => 'pages'
   end
   
   def add_blank_pages

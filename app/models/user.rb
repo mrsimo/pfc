@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 14
+# Schema version: 19
 #
 # Table name: users
 #
@@ -22,8 +22,7 @@ class User < ActiveRecord::Base
   has_many :groups, :through => :memberships
   
   has_many :document_permissions, :dependent => :destroy
-  has_many :direct_documents, :through => :document_permissions, :class_name => "Document"
-  has_many :group_permissions, :through => :groups
+  has_many :accessible_documents, :through => :document_permissions, :class_name => "Document"
   
   has_many :invitations, :foreign_key => "target_id"
   

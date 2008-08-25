@@ -21,6 +21,12 @@ class Document < ActiveRecord::Base
   has_many :elements, :through => :pages
   belongs_to :owner, :class_name => "User", :foreign_key => "user_id"
   
+  has_many :document_permissions, :dependent => :destroy
+  has_many :users_with_access, :through => :document_permissions, :class_name => "User", :source => "user"
+  
+  has_many :group_permissions, :dependent => :destroy
+  has_many :groups_with_access, :through => :group_permissions, :class_name => "Group", :source => "group"
+  
   def get_current_page
     Page.find_by_number_and_document_id self.current_page, self.id
   end

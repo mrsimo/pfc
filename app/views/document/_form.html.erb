@@ -5,29 +5,32 @@
 	<%= f.label :description %><br />	<%= f.text_area :description %>	
 		<span>Insert a description for the document. You can use <%= link_to "textile", "http://hobix.com/textile/"%></span><br />
 	
-	<!--fieldset>
-		<legend>Configure your board</legend>
-		<p>Your document will become a multi-page whiteboard, just like a notebook. You can have a blank board, or upload a file to use as background for your "pages". You can upload a <strong>PDF</strong>, or a <strong>zip</strong> file with images.</p>
-		
-		<%= f.radio_button :has_file, "false" %><label for="document_has_file_false">Blank Board</label><br />
-		<div id="board-options">
+	<% if controller.action_name == "edit" %>
+		<h3>Permissions</h3>
+		<div id="permissions">
 			<ul>
-				<li class="board-pages"><label for="num_pages">Number of pages</label>: <%= text_field_tag 'num_pages', @doc.pages.size == 0 ? 20 : @doc.pages.size %></li>
-				<li class="board-size"><%= f.label :width, 'Board size' %>: <%= f.text_field :width %> x <%= f.text_field :height %></li>
+				<li><%= f.radio_button :public,'true'  %><label for="document_public_true">Everyone can access it</label></li>
+				<li><%= f.radio_button :public,'false' %><label for="document_public_false">Only the people I specify.</label></li>
+				<li>
+				<ul>
+					<li>
+						<%= text_field_tag 'user' %>
+						<%= submit_to_remote 'Invite User', 'Invite User',
+						:url => {:action => 'invite_user', :id => @doc.id},
+						:update => "users_list" %>
+					</li>
+					<li><div id="users_list"><%= render :partial => 'users'%></div></li>
+					<li>
+						<%= select_tag 'group', options_for_select(current_user.groups.collect{|g| [g.name, g.id]}) %>
+						<%= submit_to_remote 'Invite Group', 'Invite Group',
+						:url => {:action => 'invite_group', :id => @doc.id},
+						:update => "groups_list" %>
+					</li>
+					<li><div id="groups_list"><%= render :partial => 'groups'%></div></li>
+				</ul>
+				</li>
 			</ul>
 		</div>
-		<%= f.radio_button :has_file,"true" %><label for="document_has_file_true">Upload a File</label>
-			<%= file_field_tag 'file' %>
-
-	</fieldset-->
-	
-	<% if controller.action_name == "edit" %>
-	<fieldset>
-		<legend>Permissions</legend>
-		<%= f.radio_button :public,'true'  %><label for="document_public_true">Everyone can access it</label><br />
-		<%= f.radio_button :public,'false' %><label for="document_public_false">Only the people I specify.</label>
-			<span>Once you create the document you can give access to other users and groups.</span>
-	</fieldset>
 	<% end %>
 	
 	<%= f.submit "Submit" %>

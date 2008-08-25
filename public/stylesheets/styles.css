@@ -78,7 +78,7 @@ h4 { display:block;width:948px;border-bottom:1px solid #ddd; margin:0;font-size:
 div.form { width:550px;border-left:1px solid #ddd; }
 div.form form {width:510px;display:block;padding:20px;}
 div.extra { width:417px;border-right:1px solid #ddd;text-align:right;}
-div.extra p {padding:20px;margin:0;}
+div.extra p, div.extra ul {padding:20px;margin:0;}
 
 form.generic label {font-size:1.3em;}
 form.generic span {margin-bottom:20px;}
@@ -93,10 +93,19 @@ form.generic fieldset p {margin-top:0;}
 form.generic fieldset input {width:476px;}
 form.generic fieldset label {width:476px;}
 form.generic fieldset span {width:476px;}
+form.generic p {margin:10px;}
+form.generic input[type="submit"] {width:60%;margin:auto;}
 
 /* NEW DOCUMENT */
 #new-doc div#board-options {width:446px;padding:15px;}
 #new-doc div#board-options input {display:inline;width:100px;}
+
+#permissions input {font-size:inherit;display:inline;}
+#permissions input[type="button"] {width:120px;}
+#permissions input[type="text"], #permissions select {width:300px;}
+#permissions ul {list-style-type:none;padding-left:20px;}
+
+#permissions div#users_list, #permissions div#groups_list {width:400px;border:1px solid #ddd; padding:15px;margin-bottom:30px;}
 
 .extra div.option {width:357px;margin:10px 20px;padding:10px;border:1px solid #ddd;display:block;text-align:left;}
 .extra div.option h3 {width:337px;margin:0;}
@@ -105,32 +114,8 @@ form.generic fieldset span {width:476px;}
 .extra span {font-size:0.8em;}
 .extra div.page-item {float:left;display:inline;margin:5px;text-align:center;}
 .extra a img { border:1px solid #ddd; }
-
-
-
-
-#permissions {width:600px; border: 1px solid #ddd;background-color:#fafafa;}
-#permissions h3 {margin:0;text-align:center;font-size:1.4em;margin:10px;}
-#permissions ul {padding:0;list-style-type:none;width:580px;font-size:1.2em;margin:10px;}
-#permissions ul li {margin:15px;padding:10px;border:1px solid #ddd;background-color:white;}
-#permissions ul li:hover {border:1px solid #999;}
-#permissions span {margin-left:50px;margin-top:10px;width:530px;font-size:1em;}
-#permissions input {width:auto;}
-#permissions div#select_people {margin-left: 50px;}
-#permissions table#select_people_list {width: 460px;margin:10px;font-size:1.1em;border:0;}
-#permissions table#select_people_list thead {text-align:left;}
-#permissions table#select_people_list thead th#user {width:75%;}
-#permissions table#select_people_list td {border-bottom:1px solid #ddd;}
-
-
-#permissions label {width:300px;margin:10px;display:inline;font-size:1em;}
-#permissions input#submit {width:300px; margin:0 150px;}
-
-#permissions input#user_finder_text {width:170px;font-size:0.9em;margin:10px;}
-#permissions a#user_finder_submit {width:70px;margin:10px;text-decoration:none;background-color:#222;color:white;padding:2px;border:1px solid #000;}
-#permissions div#user_finder_messages {width:460px;}
-#permissions div#user_finder_messages.good {border: 2px solid #0f0; background-color: #caffc7;}
-#permissions div#user_finder_messages.bad {border: 2px solid red; background-color: #ffafaf;}
+.extra div#doc-stats {border:1px solid #aaa;margin:20px;background-color:#ddd;}
+.extra div#doc-stats ul {list-style-type:none;text-align:left;}
 
 /* NEW GROUPS */
 #new-group {width:600px; border: 1px solid #ddd; background-color: #fafafa; padding:0; float:right;}

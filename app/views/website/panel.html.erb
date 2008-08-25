@@ -26,8 +26,7 @@
 				<p><%= doc.description %></p>
 				<span class="options">
 					<%= link_to "Delete", {:controller => "document", :action => "delete", :id => doc.id}, :confirm =>"Are you sure?" %>, 
-					<%= link_to "Edit", :controller => "document", :action => "edit", :id => doc.id %>, 
-					<%= link_to "Permissions", :controller => "document", :action => "permissions", :id => doc.id %>
+					<%= link_to "Edit", :controller => "document", :action => "edit", :id => doc.id %>
 				</span>
 			</li>
 		<% end %>

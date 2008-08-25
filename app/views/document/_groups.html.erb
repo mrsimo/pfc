@@ -1,0 +1,2 @@
+<p><% @doc.groups_with_access.each_with_index do |group,i| %><%= ", " if i != 0 %><%= group.name %><% end -%></p>
+<%= content_tag "p" , @error if @error %>

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 14
+# Schema version: 19
 #
 # Table name: documents
 #
@@ -12,7 +12,7 @@
 #  updated_at   :datetime        
 #  height       :integer(11)     default(600)
 #  width        :integer(11)     default(800)
-#  num_pages    :integer(11)     default(20)
+#  has_file     :boolean(1)      
 #  public       :boolean(1)      
 #
 

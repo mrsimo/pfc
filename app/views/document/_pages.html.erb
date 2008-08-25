@@ -25,12 +25,21 @@
 	</div>
 	
 <% else %>
-	<p>These are the current images that will appear on every page of your document.<br /><span>Click on them to see them in big</span></p>
-	<% for page in @doc.pages %>
-		<div class="page-item"><%= page.number %><br />
-			<a href="<%= "/image/#{page.id}/big" %>" rel="lightbox"><%= image_tag "/image/#{page.id}/small" %></a>
-		</div>
+	<div id="doc-stats">
+		<ul>
+			<li>Number of pages: <%= @doc.pages.size %> [<%= link_to_remote '+',
+				:url => {:action => 'add_1_page',:doc =>@doc.id},:update => 'extra-stuff' %>]</li>
+			<li>Page size: <%= "#{@doc.width}x#{@doc.height}px"%></li>
+		</ul>
+	</div>
+	<% if !@doc.pages.first.image.nil? %>
+		<p>These are the current images that will appear on every page of your document.<br /><span>Click on them to see them in big</span></p>
+		<% for page in @doc.pages %>
+			<div class="page-item"><%= page.number %><br />
+				<a href="<%= "/image/#{page.id}/big" %>" rel="lightbox"><%= image_tag "/image/#{page.id}/small" %></a>
+			</div>
+		<% end %>
+		<div class="clear"></div>
 	<% end %>
-	<div class="clear"></div>
-	<p>If you want to upload a document to have as background, <%= link_to "remove all", :action => 'remove_all_pages', :doc => @doc.id %> these pages and select that option.</p>
+	<p>If you want to upload a (new) document to have as background, <%= link_to "remove all", :action => 'remove_all_pages', :doc => @doc.id %> these pages and select that option.</p>
 <% end %>
