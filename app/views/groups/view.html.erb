@@ -1,31 +1,15 @@
 <% @membership = @group.membership(current_user) %>
-<div class="clear"></div>
-<div id="group-view-left">
-	<h4>Group <%= @group.name %></h4>
-	<p><%= @group.description %></p>
+
+<div class="view-group left">
+	<h3><%= @group.name %></h3>
+	<%= @group.get_description %>
 	<% if @membership.admin %>
 		<p><%= link_to "Edit", :action => "edit", :id => @group.id %></p>
 	<% end %>
 </div>
 
-<div id="group-view-right">
-	<h4>Current members</h4>
-	<ul>
-		<% for member in @group.members do %>
-			<li>
-				<% mms = @group.membership(member) %>
-				<% if !mms.admin %>
-					<%= link_to_remote image_tag("admin_not.png"), 
-						:url => {:action => "make_admin", :user_id => member.id, :group_id => @group.id} %>
-				<% else %>
-					<%= image_tag("admin.png")%>
-				<% end %>
-				<%= member.login %>
-				
-			</li>
-		<% end %>
-	</ul>
-	
+<div class="view-group right">
+	<h3>Current members</h3>
 	<% if @membership.admin %>
 		<p>You can invite new people, write his/her username:</p>
 		
@@ -34,4 +18,22 @@
 		<%= submit_tag "Invite!" %>
 		<% end %>
 	<% end %>
+	<ul>
+	<% for member in @group.members do %>
+	<li>
+		<% mms = @group.membership(member) %>
+		<%= member.login %>
+		<% if !mms.admin %>
+			<span>[member]</span>
+			<%= link_to_remote "Promote", 
+				:url => {:action => "make_admin", :user_id => member.id, :group_id => @group.id} %>
+		<% else %>
+			<span>[admin]</span>
+		<% end %>
+		
+	</li>
+	<% end %>
+	</ul>
+	
+
 </div>

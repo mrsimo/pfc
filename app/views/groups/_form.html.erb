@@ -1,14 +1,13 @@
-<div id="new-group" class="form">
-	<% 	if controller.action_name == "new"
-			submit_text = "Create"
-			url = {:action => "create"}
-		else
-			submit_text = "Update"
-			url = {:action => "update", :id => @group.id}
-		end %>
-	<% form_for :group, @group, :url => url do |f| %>
-		<%= f.label :name, "Name" %><%= f.text_field :name %>
-		<%= f.label :description, "Description" %><%= f.text_area :description %>
-		<%= f.submit submit_text %>
-	<% end %>
-</div>
+<% 	if controller.action_name == "new"
+		submit_text = "Create"
+		url = {:action => "create"}
+	else
+		submit_text = "Update"
+		url = {:action => "update", :id => @group.id}
+	end %>
+
+<% form_for :group, @group, :url => url, :html => {:class => "generic", :multipart => true}  do |f| %>
+	<%= f.label :name, "Name" %><%= f.text_field :name %>
+	<%= f.label :description, "Description" %><%= f.text_area :description %>
+	<%= f.submit submit_text %>
+<% end %>

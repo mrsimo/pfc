@@ -96,6 +96,16 @@ form.generic fieldset span {width:476px;}
 form.generic p {margin:10px;}
 form.generic input[type="submit"] {width:60%;margin:auto;}
 
+.extra span {font-size:0.8em;}
+.extra div.page-item {float:left;display:inline;margin:5px;text-align:center;}
+.extra a img { border:1px solid #ddd; }
+.extra div#doc-stats {border:1px solid #aaa;margin:20px;background-color:#ddd;}
+.extra div#doc-stats ul {list-style-type:none;text-align:left;}
+.extra div.option {width:357px;margin:10px 20px;padding:10px;border:1px solid #ddd;display:block;text-align:left;}
+.extra div.option h3 {width:337px;margin:0;}
+.extra div.option input[type="text"] {width:30px;text-align:center;}
+
+
 /* NEW DOCUMENT */
 #new-doc div#board-options {width:446px;padding:15px;}
 #new-doc div#board-options input {display:inline;width:100px;}
@@ -107,37 +117,29 @@ form.generic input[type="submit"] {width:60%;margin:auto;}
 
 #permissions div#users_list, #permissions div#groups_list {width:400px;border:1px solid #ddd; padding:15px;margin-bottom:30px;}
 
-.extra div.option {width:357px;margin:10px 20px;padding:10px;border:1px solid #ddd;display:block;text-align:left;}
-.extra div.option h3 {width:337px;margin:0;}
-.extra div.option input[type="text"] {width:30px;text-align:center;}
-
-.extra span {font-size:0.8em;}
-.extra div.page-item {float:left;display:inline;margin:5px;text-align:center;}
-.extra a img { border:1px solid #ddd; }
-.extra div#doc-stats {border:1px solid #aaa;margin:20px;background-color:#ddd;}
-.extra div#doc-stats ul {list-style-type:none;text-align:left;}
-
 /* NEW GROUPS */
-#new-group {width:600px; border: 1px solid #ddd; background-color: #fafafa; padding:0; float:right;}
-#new-group form {width: 100%; marign:auto;padding:30px;}
-#new-group form input, #new-group form textarea {width:90%;text-align:left;margin:5px auto;}
-#new-group form input#create-group-button {text-align:center;}
 
-#new-group-explanation {width:250px;float:right;text-align:right;border: 1px solid #ddd; background-color: #fafafa;margin-right:20px;}
-#new-group-explanation p {padding:10px;margin:0;}
 
 /* GROUP VIEW */
+div.view-group {width:452px;border:1px solid #ddd; background-color: #fafafa;margin:20px 0;}
+div.view-group h3 {display:block;padding:15px; margin:0;border-bottom:1px solid #aaa;text-align:center;font-size:1.5em;}
+div.view-group p {padding:15px;margin:0;}
+div.view-group form {padding:15px;padding-top:0;}
+div.view-group ul {list-style:none;padding:15px;}
+
+
 #group-view-left {width:440px; float:left;border: 1px solid #ddd; background-color: #fafafa;margin-right:20px;margin:20px;}
 #group-view-left * {margin:10px;}
 #group-view-right {width:440px; float:right;border: 1px solid #ddd; background-color: #fafafa;margin-right:20px;margin:20px;}
 #group-view-right * {margin:10px;}
-#group-view-right ul {list-style-type:none;margin:0; adding:0;}
+#group-view-right ul {list-style-type:none;margin:0; padding:0;}
 #group-view-right ul li {font-size:1.3em;width: 60%;border-bottom: 1px solid #222;border-left:1px solid #222;padding:5px;}
 #group-view-right img {margin:0;border:none;}
 
 /* INVITATIONS */
-#invitations {border: 2px solid #06f; background-color:#c6deff; margin-bottom:20px;}
-#invitations * {padding:10px;margin:0;}
+#invitations {border: 1px solid #06f; border-left:0;border-right:0;background-color:#e0edff;padding:10px;margin:0;}
+#invitations * {margin:0;padding:5px;}
+
 
 /* FOOTER */
 #footer { width:100%;background-color: #222; color:#fff; text-align:center; font-size:0.9em; margin-top:10px;}

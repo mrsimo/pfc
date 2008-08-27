@@ -23,7 +23,7 @@
 		<% for doc in current_user.documents %>
 			<li <%= cycle("","class=\"odd\"")%>>
 				<h5><%= link_to doc.title, "/#{doc.id}"%></h5>
-				<p><%= doc.description %></p>
+				<%= doc.get_description %>
 				<span class="options">
 					<%= link_to "Delete", {:controller => "document", :action => "delete", :id => doc.id}, :confirm =>"Are you sure?" %>, 
 					<%= link_to "Edit", :controller => "document", :action => "edit", :id => doc.id %>
@@ -43,10 +43,13 @@
 		<% for group in current_user.groups do %>
 		<li <%= cycle("class=\"odd\"","")%>>
 			<h5><%= link_to group.name, {:controller => "groups", :action => "view", :id => group.id} %></h5>
-			<p><%= group.description %></p>
-			<span class="options">
-				<%= link_to "Delete", {:controller => "groups", :action => "delete", :id => group.id}, :confirm =>"Are you sure?" %>
-			</span>
+			<%= group.get_description %>
+			<% if current_user.admin? group %>
+				<span class="options">
+					<%= link_to "Delete", {:controller => "groups", :action => "delete", :id => group.id}, :confirm =>"Are you sure?" %>
+					<%= link_to "Edit", {:controller => "groups", :action => "edit", :id => group.id} %>
+				</span>
+			<% end %>
 		</li>
 		<% end %>
 	</ul>

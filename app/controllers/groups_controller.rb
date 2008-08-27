@@ -29,6 +29,11 @@ class GroupsController < ApplicationController
     redirect_to :action => 'view', :id => @group.id
   end
   
+  def delete
+    Group.find(params[:id]).destroy
+    @groups = Group.find :all
+    redirect_to :controller => "website"
+  end
   
   def invite
     user = User.find(:first, :conditions => ["upper(login) LIKE ?", params[:user]])
