@@ -1,7 +1,7 @@
 <h4>Edit Document</h4>
 
 <div id="new-doc" class="form left">
-   	<% @action = 'update' %>
+   	<% @url = {:action => 'update', :id => @doc.id} %>
    	<%= render :partial => 'form' %>
 </div>
 

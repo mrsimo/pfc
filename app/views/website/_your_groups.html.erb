@@ -1,0 +1,18 @@
+<div class="section-head">
+	<h2>Your groups</h2>
+	<%= link_to 'New', :controller => 'groups', :action => 'new' %>
+</div>
+<ul>
+	<% for group in current_user.groups do %>
+	<li <%= cycle("class=\"odd\"","")%>>
+		<h5><%= link_to group.name, {:controller => "groups", :action => "view", :id => group.id} %></h5>
+		<%= group.get_description %>
+		<% if current_user.admin? group %>
+			<span>
+				<%= link_to "Delete", {:controller => "groups", :action => "delete", :id => group.id}, :confirm =>"Are you sure?" %>
+				<%= link_to "Edit", {:controller => "groups", :action => "edit", :id => group.id} %>
+			</span>
+		<% end %>
+	</li>
+	<% end %>
+</ul>

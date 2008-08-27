@@ -1,4 +1,4 @@
-body { font-family:"Lucida Grande", "Georgia","Lucida Sans Unicode", Verdana, Arial, Helvetica, sans-serif;	margin:0;padding:0; }
+body { font-family:"Lucida Sans Unicode","Georgia", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;	margin:0;padding:0; }
 ul, li {margin:0;padding:0;}
 .right { float:right; }
 .left {float:left;}
@@ -48,30 +48,18 @@ div#errorExplanation ul li {list-style-image:url(/images/cross.png);}
 /**************************************/
 
 /* CONTROL PANEL */
-#documents { float:left; width:480px;}
-#groups {float:right; width:480px; text-align:right;}
-.options div.section-head {font-size:1.7em;margin:0;display:block;width:480px;border-bottom:1px solid #ddd;height:45px;line-height:45px;}
-.options h2 {padding:0 20px;}
-.options p { padding:10px;}
-#documents h2{text-align:right;font-size:1.2em;float:right;margin:0;}
-#documents div.section-head a {float:left;text-decoration:none;padding:0 10px;border-left:1px solid #ddd;}
-#documents div.section-head a:hover {background-color:#f2f2f2;border-right:1px solid #ddd;}
+.options {width:310px;background-color:#fafafa;border-right:1px solid #ddd;border-left:1px solid #ddd;margin-right:16px;}
+.options div.section-head {margin:0;display:block;border-bottom:1px solid #ddd;padding:10px;}
+.options div.section-head * {display:inline;font-size:1.3em;}
 
-#groups h2{text-align:left;font-size:1.2em;float:left;margin:0;}
-#groups div.section-head a {float:right;text-decoration:none;padding:0 10px;border-right:1px solid #ddd;}
-#groups div.section-head a:hover {background-color:#f2f2f2;border-left:1px solid #ddd;}
+.options ul {list-style:none;}
+.options ul li {display:block;border-bottom:1px solid #ddd; padding:10px;}
+.options h5 {margin:0;font-size:1em;}
 
-#groups ul {border-left:1px solid #ddd; text-align:left;}
+.options p {font-size:0.9em; font-style:italic; font-family:"Georgia";}
+.options div.independent { margin:0;padding:10px;display:block;border-bottom:1px solid #ddd;}
 
-.options ul {display:block;margin:0;padding:0;list-style-type:none;}
-.options ul li { border-right: 1px solid #444; text-align:right;}
-.options ul li.odd {border-right:0;border-left:1px solid #444;text-align:left;}
-.options ul li h5 { margin:0;background-color:#333;display:block;font-size:1.3em; text-align:center;}
-.options ul li h5 a { color:#ff6600;text-decoration:none; display:block;padding:5px;border-bottom:2px solid #ddd;}
-.options ul li h5 a:hover {border-bottom:2px dashed #f60;}
-.options ul li p {padding:20px;display:block;margin:0;font-size:0.9em;font-style: italic;} 
-.options ul li span {display:block; padding:10px;margin:0; }
-
+#others {margin-right:0;}
 
 /* GENERAL FOR FORMS */
 h4 { display:block;width:948px;border-bottom:1px solid #ddd; margin:0;font-size:2em;text-align:center;padding:10px; }

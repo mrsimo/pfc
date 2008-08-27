@@ -1,0 +1,20 @@
+<div class="section-head">
+	<h2>Your documents</h2>
+	<%= link_to 'New', :controller => 'document',:action => 'new' %>
+</div>
+<% if current_user.documents.size == 0 %>
+	<p><%= link_to "Create", :controller => 'document', :action => 'new'%> a new document to start using drawme.</p>
+<% else %>
+<ul>
+	<% for doc in current_user.documents %>
+		<li <%= cycle("","class=\"odd\"")%>>
+			<h5><%= link_to doc.title, "/#{doc.id}"%></h5>
+			<%= doc.get_description %>
+			<span>
+				<%= link_to "Delete", {:controller => "document", :action => "delete", :id => doc.id}, :confirm =>"Are you sure?" %>, 
+				<%= link_to "Edit", :controller => "document", :action => "edit", :id => doc.id %>
+			</span>
+		</li>
+	<% end %>
+</ul>
+<% end %>

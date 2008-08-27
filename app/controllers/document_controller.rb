@@ -20,15 +20,9 @@ class DocumentController < ApplicationController
   end
   
   def update
-    doc = Document.find(params[:id])
-    doc.update_attributes params[:document]
-    
-    # We have to check if the whole pages stuff needs changing
-    if !doc.has_file and !doc.pages.first.filename.nil?
-      create_blank_pages doc
-    elsif doc.has_file and doc.pages.first.filename.nil?
-      create_pages_from_file doc, params[:file]
-    end
+    @doc = Document.find(params[:id])
+    @doc.update_attributes params[:document]
+    redirect_to :action => "edit", :id => @doc.id
   end
   
   def delete

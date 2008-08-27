@@ -1,0 +1,8 @@
+<ul>
+<% for doc in @documents %>
+	<li <%= cycle("","class=\"odd\"")%>>
+		<h5><%= link_to doc.title, "/#{doc.id}"%></h5>
+		<%= doc.get_description %>
+	</li>
+<% end %>
+</ul>

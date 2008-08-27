@@ -8,6 +8,10 @@ class WebsiteController < ApplicationController
   def panel
   end
   
+  def list_public
+    @documents = Document.find_all_by_public true
+  end
+  
   # For ajax checking
   def user_exist
     @u = User.find_by_sql ["SELECT * FROM users WHERE upper(login) LIKE ?", params[:user]]

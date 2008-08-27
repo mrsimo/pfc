@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
   has_many :groups, :through => :memberships
   
   has_many :document_permissions, :dependent => :destroy
-  has_many :accessible_documents, :through => :document_permissions, :class_name => "Document"
+  has_many :accessible_documents, :through => :document_permissions, :source => :document
   
   has_many :invitations, :foreign_key => "target_id"
   
