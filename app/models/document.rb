@@ -30,8 +30,4 @@ class Document < ActiveRecord::Base
   def get_current_page
     Page.find_by_number_and_document_id self.current_page, self.id
   end
-  
-  def get_description
-    RedCloth.new(self.description).to_html
-  end
 end

@@ -23,8 +23,4 @@ class Group < ActiveRecord::Base
   def membership(user)
     Membership.find_by_user_id_and_group_id(user.id,self.id)
   end
-  
-  def get_description
-    RedCloth.new(self.description).to_html
-  end
 end

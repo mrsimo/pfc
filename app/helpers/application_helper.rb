@@ -8,4 +8,9 @@ module ApplicationHelper
     flash[:notice] = text
     flash[:type] = "bad"
   end
+  
+  def textile(text)    
+    RedCloth.new(text).to_html
+  end
+  
 end

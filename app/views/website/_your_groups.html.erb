@@ -6,7 +6,7 @@
 	<% for group in current_user.groups do %>
 	<li <%= cycle("class=\"odd\"","")%>>
 		<h5><%= link_to group.name, {:controller => "groups", :action => "view", :id => group.id} %></h5>
-		<%= group.get_description %>
+		<%= textile group.description %>
 		<% if current_user.admin? group %>
 			<span>
 				<%= link_to "Delete", {:controller => "groups", :action => "delete", :id => group.id}, :confirm =>"Are you sure?" %>

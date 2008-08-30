@@ -2,7 +2,7 @@
 
 <div class="view-group left">
 	<h3><%= @group.name %></h3>
-	<%= @group.get_description %>
+	<%= textile @group.description %>
 	<% if @membership.admin %>
 		<p><%= link_to "Edit", :action => "edit", :id => @group.id %></p>
 	<% end %>
