@@ -1,6 +1,10 @@
 %ul#results
   - for doc in @docs do
     %li
-      %h6= link_to doc.title, "/#{doc.id}"
-      %p= textile doc.description
-      %span= "by #{doc.owner.login}"
+      .stats
+        == #{doc.owner.login}<br />
+        == #{doc.pages.size} pages<br />
+        == the #{doc.created_at.to_formatted_s(:short)}<br />
+      .description
+        %h6= link_to doc.title, "/#{doc.id}"
+        = textile doc.description

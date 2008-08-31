@@ -107,9 +107,6 @@ form.generic input[type="submit"] {width:60%;margin:auto;}
 
 #permissions div#users_list, #permissions div#groups_list {width:400px;border:1px solid #ddd; padding:15px;margin-bottom:30px;}
 
-/* NEW GROUPS */
-
-
 /* GROUP VIEW */
 div.view-group {width:452px;border:1px solid #ddd; background-color: #fafafa;margin:20px 0;}
 div.view-group h3 {display:block;padding:15px; margin:0;border-bottom:1px solid #aaa;text-align:center;font-size:1.5em;}
@@ -132,7 +129,10 @@ div.view-group ul {list-style:none;padding:15px;}
 
 
 /* SEARCH RESULTS */
-#results li { display:inline;float:left;width:250px; border:1px solid #ddd;background-color:#f2f2f2;padding:10px;}
+#results {margin-top:30px;}
+#results li { display:block; overflow:hidden;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid #ddd;}
+#results div.stats {width: 200px;float:left;text-align:right;padding-top:36px;font-size:0.8em;}
+#results div.description {width:750px;float:right;}
 #results h6 {margin:0;font-size:1.2em;}
 #results p {margin:5px;}
 

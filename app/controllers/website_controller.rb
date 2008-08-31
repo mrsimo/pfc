@@ -9,7 +9,11 @@ class WebsiteController < ApplicationController
   end
   
   def list_public
-    @documents = Document.find_all_by_public true
+    @docs = Document.find_all_by_public true
+  end
+  
+  def find_public
+    @docs = Document.find_with_ferret(params[:s])
   end
   
   # For ajax checking
@@ -18,8 +22,6 @@ class WebsiteController < ApplicationController
     render :text => @u ? @u.id.to_s : "0"
   end
   
-  def find_public
-    @docs = Document.find_with_ferret(params[:s])
-  end
+
   
 end
