@@ -8,7 +8,6 @@ a img {border:0;}
 a {text-decoration:none;color:#CB7400;}
 a:hover {color:#FF8700;}
 
-
 /* HEADER */
 #header { width:968px;height:100px;margin:auto; border:1px solid black;border-top:0;border-left:0;}
 #header h1 {margin:0;background: transparent url(/images/layout/header.jpg) no-repeat scroll 0 0;}
@@ -131,6 +130,11 @@ div.view-group ul {list-style:none;padding:15px;}
 #invitations {border: 1px solid #06f; border-left:0;border-right:0;background-color:#e0edff;padding:10px;margin:0;}
 #invitations * {margin:0;padding:5px;}
 
+
+/* SEARCH RESULTS */
+#results li { display:inline;float:left;width:250px; border:1px solid #ddd;background-color:#f2f2f2;padding:10px;}
+#results h6 {margin:0;font-size:1.2em;}
+#results p {margin:5px;}
 
 /* FOOTER */
 #footer { width:100%;background-color: #222; color:#fff; text-align:center; font-size:0.9em; margin-top:10px;}

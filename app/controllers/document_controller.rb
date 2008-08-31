@@ -56,10 +56,7 @@ class DocumentController < ApplicationController
     GroupPermission.find(params[:id]).destroy
     render :partial => "groups"
   end  
-  
-  
-  
-  
+
   def draw
     @document = Document.find(params[:id])
     render :layout => false
@@ -102,10 +99,6 @@ class DocumentController < ApplicationController
     render :layout => false
   end
 
-
-
-
-
   def remove_all_pages
     @doc = Document.find(params[:doc])
     @doc.pages.each {|p| p.destroy}
@@ -142,7 +135,6 @@ class DocumentController < ApplicationController
     file = params[:file]
     puts params[:file]
     ext = File.extname(file.original_filename)
-    
     # but we have to do it differently depending on the format :)
     case ext
       when ".zip"
@@ -159,7 +151,6 @@ class DocumentController < ApplicationController
         redirect_to :action => "new"
         return
     end
-    
     # Now we have to create the Page's with them. For that, we
     # explore the directory recursivelly.      
     files = Array.new
@@ -174,7 +165,6 @@ class DocumentController < ApplicationController
         files << path
       end
     end
-    
     # This is a smart piece of code to sort files even when we have a full path, and not 
     if ext == ".pdf"
       files.sort! {|aa,bb| a = File.basename(aa); b = File.basename(bb); (a[3..(a.size-5)].to_i) <=> (b[3..(b.size-5)].to_i); }
@@ -183,7 +173,6 @@ class DocumentController < ApplicationController
     end
     
     @doc = Document.find params[:id]
-    
     files.each_with_index do |f,i|
       p = Page.create :number => i+1, :document_id => @doc.id
       Image.create  :uploaded_data => ActionController::TestUploadedFile.new("#{f}", MIME::Types.type_for(f)),
@@ -192,7 +181,6 @@ class DocumentController < ApplicationController
     
     # Now just remove the temporary files :)
     FileUtils.rm_rf extract_dir   
-    
     redirect_to :action => 'edit', :id => @doc.id
   end
 end

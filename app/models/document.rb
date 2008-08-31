@@ -27,6 +27,8 @@ class Document < ActiveRecord::Base
   has_many :group_permissions, :dependent => :destroy
   has_many :groups_with_access, :through => :group_permissions, :class_name => "Group", :source => "group"
   
+  acts_as_ferret :fields => [ :title, :description ]
+  
   def get_current_page
     Page.find_by_number_and_document_id self.current_page, self.id
   end

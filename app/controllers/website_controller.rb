@@ -18,4 +18,8 @@ class WebsiteController < ApplicationController
     render :text => @u ? @u.id.to_s : "0"
   end
   
+  def find_public
+    @docs = Document.find_with_ferret(params[:s])
+  end
+  
 end
