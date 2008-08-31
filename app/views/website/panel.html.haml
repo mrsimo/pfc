@@ -1,0 +1,18 @@
+- if current_user.invitations.length > 0
+  #invitations
+    %h3 You have been invited to some groups!
+    - for invitation in current_user.invitations do
+      %p
+        %strong== #{invitation.source.login}
+        has invited you to the group:
+        %strong== #{invitation.group.name}.
+
+        ==Do you #{link_to 'accept', :controller => 'groups', :action => 'accept', :id => invitation.id}, 
+        ==#{link_to 'reject', :controller => 'groups', :action => 'reject', :id => invitation.id}?
+.clear
+
+#documents.options.left= render :partial => "your_documents"
+#groups.options.left= render :partial => "your_groups"
+#others.options.left= render :partial => "all_documents"
+
+.clear
