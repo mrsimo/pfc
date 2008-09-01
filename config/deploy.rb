@@ -32,10 +32,10 @@ namespace :deploy do
   
   desc "After updating code we need to link the stuff that shouldn't update with updates..."
   task :after_update_code, :roles => :app do
-    run "ln -sf /home/simo/resources/drawme/database.yml #{release_path}/config/database.yml"
-    run "ln -sf /home/simo/resources/drawme/document_images #{release_path}/document_images"
-    run "ln -sf /home/simo/resources/drawme/document_temp #{release_path}/document_temp"
-    run "ln -sf /home/simo/resources/drawme/document_thumbnails #{release_path}/document_thumbnails"
+    run "ln -s /home/simo/resources/drawme/database.yml #{release_path}/config/database.yml"
+    run "ln -s /home/simo/resources/drawme/document_images #{release_path}/document_images"
+    run "ln -s /home/simo/resources/drawme/document_temp #{release_path}/document_temp"
+    run "ln -s /home/simo/resources/drawme/document_thumbnails #{release_path}/document_thumbnails"
   end
   
   
