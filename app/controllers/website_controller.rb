@@ -6,6 +6,7 @@ class WebsiteController < ApplicationController
   end
   
   def panel
+    
   end
   
   def list_public
@@ -21,7 +22,5 @@ class WebsiteController < ApplicationController
     @u = User.find_by_sql ["SELECT * FROM users WHERE upper(login) LIKE ?", params[:user]]
     render :text => @u ? @u.id.to_s : "0"
   end
-  
-
   
 end
