@@ -26,11 +26,23 @@
 	
 <% else %>
 	<div id="doc-stats">
+	  <% form_for :document, @doc, :url => {:action => "update", :id => @doc.id} do |f| %>
 		<ul>
-			<li>Number of pages: <%= @doc.pages.size %> [<%= link_to_remote '+',
-				:url => {:action => 'add_1_page',:doc =>@doc.id},:update => 'extra-stuff' %>]</li>
-			<li>Page size: <%= "#{@doc.width}x#{@doc.height}px"%></li>
+			<li>Number of pages: <%= @doc.pages.size %> <span>[<%= link_to_remote 'Add blank',
+				:url => {:action => 'add_1_page',:doc =>@doc.id},:update => 'extra-stuff' %>]</span></li>
+			<li>
+			  Page size (pixels): <%= f.text_field :width, :class => "size" %> x <%= f.text_field :height,:class => "size" %>
+			</li>
+			<% if !@doc.pages.first.image.nil? %>
+			<li>
+			  <% needed_area = @doc.needed_area %>
+			  <span>In order to view every image of your document properly you will need a minimum size of <%= "#{needed_area[:width]} x #{needed_area[:height]}" %>.<br />
+			    We suggest you set your board to have a 200px margin so that you can annotate properly. Would you like to do so?</span>
+		  </li>
+		  <% end %>
+		  <li><%= f.submit "Save"%></li>
 		</ul>
+		<% end %>
 	</div>
 	<% if !@doc.pages.first.image.nil? %>
 		<p>These are the current images that will appear on every page of your document.<br /><span>Click on them to see them in big</span></p>

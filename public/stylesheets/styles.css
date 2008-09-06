@@ -91,6 +91,7 @@ form.generic input[type="submit"] {width:60%;margin:auto;}
 .extra a img { border:1px solid #ddd; }
 .extra div#doc-stats {border:1px solid #aaa;margin:20px;background-color:#ddd;}
 .extra div#doc-stats ul {list-style-type:none;text-align:left;}
+.extra div#doc-stats input.size {width:40px;text-align:center;}
 .extra div.option {width:357px;margin:10px 20px;padding:10px;border:1px solid #ddd;display:block;text-align:left;}
 .extra div.option h3 {width:337px;margin:0;}
 .extra div.option input[type="text"] {width:30px;text-align:center;}
@@ -108,8 +109,8 @@ form.generic input[type="submit"] {width:60%;margin:auto;}
 #permissions div#users_list, #permissions div#groups_list {width:400px;border:1px solid #ddd; padding:15px;margin-bottom:30px;}
 
 /* GROUP VIEW */
-div.view-group {width:452px;border:1px solid #ddd; background-color: #fafafa;margin:20px 0;}
-div.view-group h3 {display:block;padding:15px; margin:0;border-bottom:1px solid #aaa;text-align:center;font-size:1.5em;}
+div.view-group {width:452px;border:1px solid #ddd; background-color: #f2f2f2;margin:20px 0;}
+div.view-group h3 {display:block;padding:10px; margin:0;border-bottom:1px solid #aaa;text-align:center;font-size:1.5em;}
 div.view-group p {padding:15px;margin:0;}
 div.view-group form {padding:15px;padding-top:0;}
 div.view-group ul {list-style:none;padding:15px;}

@@ -29,7 +29,19 @@ class Document < ActiveRecord::Base
   
   acts_as_ferret :fields => [ :title, :description ]
   
+  # Validations
+  validates_presence_of :title, :description
+  
   def get_current_page
     Page.find_by_number_and_document_id self.current_page, self.id
+  end
+  def needed_area
+    width  = 99999999
+    height = 99999999
+    self.pages.each do |p|
+      width  = width  > p.image.width ? width : p.image.width
+      height = height > p.image.height ? height : p.image.height
+    end
+    {:width => width,:height => height}
   end
 end

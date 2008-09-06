@@ -1,5 +1,5 @@
 # This file is auto-generated from the current state of the database. Instead of editing this file, 
-# please use the migrations feature of ActiveRecord to incrementally modify your database, and
+# please use the migrations feature of Active Record to incrementally modify your database, and
 # then regenerate this schema definition.
 #
 # Note that this schema.rb definition is the authoritative source for your database schema. If you need
@@ -9,12 +9,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 19) do
+ActiveRecord::Schema.define(:version => 20) do
+
+  create_table "configurations", :force => true do |t|
+    t.string "images_path"
+    t.string "thumbnails_path"
+    t.string "temp_path"
+  end
 
   create_table "document_permissions", :force => true do |t|
-    t.integer  "document_id",                :null => false
-    t.integer  "user_id",                    :null => false
-    t.integer  "permission",  :default => 0
+    t.integer  "document_id", :limit => 11,                :null => false
+    t.integer  "user_id",     :limit => 11,                :null => false
+    t.integer  "permission",  :limit => 11, :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -22,21 +28,21 @@ ActiveRecord::Schema.define(:version => 19) do
   create_table "documents", :force => true do |t|
     t.string   "title"
     t.text     "description"
-    t.integer  "current_page", :default => 1
-    t.integer  "user_id",                         :null => false
+    t.integer  "current_page", :limit => 11, :default => 1
+    t.integer  "user_id",      :limit => 11,                    :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "height",       :default => 600
-    t.integer  "width",        :default => 800
-    t.boolean  "has_file",     :default => false
-    t.boolean  "public",       :default => false
+    t.integer  "height",       :limit => 11, :default => 600
+    t.integer  "width",        :limit => 11, :default => 800
+    t.boolean  "has_file",                   :default => false
+    t.boolean  "public",                     :default => false
   end
 
   add_index "documents", ["user_id"], :name => "index_documents_on_user_id"
 
   create_table "elements", :force => true do |t|
-    t.text     "attr",       :default => "", :null => false
-    t.integer  "page_id",                    :null => false
+    t.text     "attr",                     :null => false
+    t.integer  "page_id",    :limit => 11, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -44,17 +50,17 @@ ActiveRecord::Schema.define(:version => 19) do
   add_index "elements", ["page_id"], :name => "index_elements_on_page_id"
 
   create_table "group_permissions", :force => true do |t|
-    t.integer  "document_id",                :null => false
-    t.integer  "group_id",                   :null => false
-    t.integer  "permission",  :default => 0
+    t.integer  "document_id", :limit => 11,                :null => false
+    t.integer  "group_id",    :limit => 11,                :null => false
+    t.integer  "permission",  :limit => 11, :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "groups", :force => true do |t|
-    t.string   "name",        :default => "", :null => false
+    t.string   "name",                      :default => "", :null => false
     t.text     "description"
-    t.integer  "owner_id",                    :null => false
+    t.integer  "owner_id",    :limit => 11,                 :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -62,37 +68,37 @@ ActiveRecord::Schema.define(:version => 19) do
   add_index "groups", ["owner_id"], :name => "index_groups_on_owner_id"
 
   create_table "images", :force => true do |t|
-    t.integer  "parent_id"
+    t.integer  "parent_id",    :limit => 11
     t.string   "content_type"
     t.string   "filename"
     t.string   "thumbnail"
-    t.integer  "size"
-    t.integer  "width"
-    t.integer  "height"
-    t.integer  "page_id"
+    t.integer  "size",         :limit => 11
+    t.integer  "width",        :limit => 11
+    t.integer  "height",       :limit => 11
+    t.integer  "page_id",      :limit => 11
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "invitations", :force => true do |t|
-    t.integer  "target_id"
-    t.integer  "source_id"
-    t.integer  "group_id"
+    t.integer  "target_id",  :limit => 11
+    t.integer  "source_id",  :limit => 11
+    t.integer  "group_id",   :limit => 11
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "memberships", :force => true do |t|
-    t.integer  "group_id",                      :null => false
-    t.integer  "user_id",                       :null => false
-    t.boolean  "admin",      :default => false
+    t.integer  "group_id",   :limit => 11,                    :null => false
+    t.integer  "user_id",    :limit => 11,                    :null => false
+    t.boolean  "admin",                    :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "pages", :force => true do |t|
-    t.integer  "number",      :null => false
-    t.integer  "document_id", :null => false
+    t.integer  "number",      :limit => 11, :null => false
+    t.integer  "document_id", :limit => 11, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -100,13 +106,13 @@ ActiveRecord::Schema.define(:version => 19) do
   add_index "pages", ["document_id"], :name => "index_pages_on_document_id"
 
   create_table "thumbnails", :force => true do |t|
-    t.integer  "parent_id"
+    t.integer  "parent_id",    :limit => 11
     t.string   "content_type"
     t.string   "filename"
     t.string   "thumbnail"
-    t.integer  "size"
-    t.integer  "width"
-    t.integer  "height"
+    t.integer  "size",         :limit => 11
+    t.integer  "width",        :limit => 11
+    t.integer  "height",       :limit => 11
     t.datetime "created_at"
     t.datetime "updated_at"
   end

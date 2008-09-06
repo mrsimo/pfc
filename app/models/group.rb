@@ -20,6 +20,10 @@ class Group < ActiveRecord::Base
   has_many :group_permissions
   has_many :accessible_documents, :class_name => "Document", :through => :group_permissions
   
+  # Validations
+  validates_presence_of :name
+  validates_presence_of :description  
+  
   def membership(user)
     Membership.find_by_user_id_and_group_id(user.id,self.id)
   end
