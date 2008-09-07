@@ -48,7 +48,7 @@
 		<p>These are the current images that will appear on every page of your document.<br /><span>Click on them to see them in big</span></p>
 		<% for page in @doc.pages %>
 			<div class="page-item"><%= page.number %><br />
-				<a href="<%= "/image/#{page.id}/big" %>" rel="lightbox"><%= image_tag "/image/#{page.id}/small" %></a>
+			  <%= lightbox_image_tag "/image/#{page.id}/small", "/image/#{page.id}/big" %>
 			</div>
 		<% end %>
 		<div class="clear"></div>
