@@ -39,8 +39,8 @@ class Document < ActiveRecord::Base
     width  = 99999999
     height = 99999999
     self.pages.each do |p|
-      width  = width  > p.image.width ? width : p.image.width
-      height = height > p.image.height ? height : p.image.height
+      width  = width  < p.image.width ? width : p.image.width
+      height = height < p.image.height ? height : p.image.height
     end
     {:width => width,:height => height}
   end
