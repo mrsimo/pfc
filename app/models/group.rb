@@ -13,12 +13,18 @@
 
 class Group < ActiveRecord::Base
   has_many :memberships
-  has_many :members, :through => :memberships, :source => "user"
+  has_many :members, :through => :memberships, :source => "user"  
+  
+  has_many :admin_memberships, :class_name => "Membership", :conditions => {:admin => true}
+  has_many :user_memberships,  :class_name => "Membership", :conditions => {:admin => false}
+  
+  has_many :admins, :through => :admin_memberships, :source => "user"
+  has_many :users, :through => :user_memberships, :source => "user"
   
   belongs_to :owner, :class_name => "User"  
   
   has_many :group_permissions
-  has_many :accessible_documents, :class_name => "Document", :through => :group_permissions
+  has_many :documents, :through => :group_permissions, :class_name => "Document"
   
   # Validations
   validates_presence_of :name
@@ -26,5 +32,12 @@ class Group < ActiveRecord::Base
   
   def membership(user)
     Membership.find_by_user_id_and_group_id(user.id,self.id)
+  end
+  
+  #def admins
+  #  Membership.find_all_by_group_id_and_admin self.id, true
+  #end
+  
+  def users
   end
 end

@@ -3,14 +3,14 @@
 <div class="view-group left">
 	<h3><%= @group.name %></h3>
 	<%= textile @group.description %>
-	<% if @membership.admin %>
+	<% if @membership and @membership.admin %>
 		<p><%= link_to "Edit", :action => "edit", :id => @group.id %></p>
 	<% end %>
 </div>
 
 <div class="view-group right">
 	<h3>Current members</h3>
-	<% if @membership.admin %>
+	<% if @membership and @membership.admin %>
 		<p>You can invite new people, write his/her username:</p>
 		
 		<% form_tag :action => "invite", :id => @group.id do %>
@@ -18,22 +18,27 @@
 		<%= submit_tag "Invite!" %>
 		<% end %>
 	<% end %>
-	<ul>
-	<% for member in @group.members do %>
-	<li>
-		<% mms = @group.membership(member) %>
-		<%= member.login %>
-		<% if !mms.admin %>
-			<span>[member]</span>
-			<%= link_to_remote "Promote", 
-				:url => {:action => "make_admin", :user_id => member.id, :group_id => @group.id} %>
-		<% else %>
-			<span>[admin]</span>
-		<% end %>
-		
-	</li>
-	<% end %>
-	</ul>
+	<h5>Admins</h5>
+	<p>
+	   <% for user in @group.admins %>
+	      <%= user.login %> 
+	   <% end if @group.admins%>
+	</p>
 	
+	<h5>Users</h5>
+	<p>
+	  <% if @group.users %>
+	    <% for user in @group.users %>
+	    <%= user.login %> 
+	    <% end %>
+    <% else %>
+    No users yet
+    <% end %>
+</div>
 
+<div class="clear"></div>
+<% @docs = @group.documents %>
+<div id="group-documents">
+  <h4>Documents</h4>
+  <%= render :partial => "/website/documents_list" %>
 </div>

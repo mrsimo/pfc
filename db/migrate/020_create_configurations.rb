@@ -3,7 +3,7 @@ class CreateConfigurations < ActiveRecord::Migration
     create_table :configurations do |t|
       t.column :images_path, :string
       t.column :thumbnails_path, :string
-      t.column :temp_path, :string
+      t.column :teamp_path, :string
     end
   end
 

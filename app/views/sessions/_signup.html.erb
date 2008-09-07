@@ -1,20 +1,20 @@
 <% return if logged_in? %>	
 		<h6>Sign Up</h6>
 		<% form_for :user, :url => {:action => "signup", :controller => "sessions"} do |f| -%>
-		<label for="login">Username</label>
+		<label for="login">Username</label><br />
 		<%= f.text_field :login %>
-		<span>Min 3 chars</span>
+		<span>Min 3 chars</span><br />
 		
-		<label for="email">Email</label>
+		<label for="email">Email</label><br />
 		<%= f.text_field :email %>
-		<span>To recover your password</span>
+		<span>To recover your password</span><br />
 		
-		<label for="password">Password</label>
+		<label for="password">Password</label><br />
 		<%= f.password_field :password %>
-		<span>Min 4 chars</span>
+		<span>Min 4 chars</span><br />
 		
-		<label for="password_confirmation">Confirm Password</label>
-		<%= f.password_field :password_confirmation %>
+		<label for="password_confirmation">Confirm Password</label><br />
+		<%= f.password_field :password_confirmation %><br />
 		
 		<%= submit_tag 'Sign up', :class => "submit" %>
 		<div class="clear"></div>
