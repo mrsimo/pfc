@@ -19,7 +19,7 @@ class Group < ActiveRecord::Base
   has_many :user_memberships,  :class_name => "Membership", :conditions => {:admin => false}
   
   has_many :admins, :through => :admin_memberships, :source => "user"
-  has_many :users, :through => :user_memberships, :source => "user"
+  has_many :users,  :through => :user_memberships,  :source => "user"
   
   belongs_to :owner, :class_name => "User"  
   
@@ -31,13 +31,19 @@ class Group < ActiveRecord::Base
   validates_presence_of :description  
   
   def membership(user)
-    Membership.find_by_user_id_and_group_id(user.id,self.id)
+    Membership.find_by_user_id_and_group_id(user,self)
   end
   
-  #def admins
-  #  Membership.find_all_by_group_id_and_admin self.id, true
-  #end
-  
-  def users
+  def is_member?(user)
+    self.members.include? user
   end
+  
+  def is_admin?(user)
+    self.admins.include? user
+  end
+  
+  def is_owner?(user)
+    self.owner == user
+  end
+  
 end

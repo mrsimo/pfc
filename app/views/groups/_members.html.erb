@@ -1,35 +1,36 @@
 <% form_tag 'promotions', {:class => "members"} do |f| %>
-<div class="members left">
-  <ul>
-	   <% for user in @group.admins %>
-	      <li><%= check_box_tag 'test', 'val' %><span id="<%= "u#{user.id}" %>"><%= user.login %></span></li>
-	   <% end if @group.admins%>
-	</ul>
-</div>
-
-<div class="members-arrows left">
-  <ul>
-  <li>
-      <%= link_to_remote image_tag("icons/arrow_right.png"), :update => 'members_list',
-             :url => {:action => 'unpromote', :id => @group.id } %>
-  </li>
-  <li>
-      <%= link_to_remote image_tag("icons/arrow_left.png") , :update => 'members_list',
-            :url => {:action => 'promote',   :id => @group.id } %>
-  </li> 
-  </ul>
-</div>
-
-<div class="members right">
-  <ul>
-	   <% if @group.users %>
- 	    <% for user in @group.users %>
- 	    <span id="<%= user.id %>"><%= user.login %> </span>
- 	    <%= draggable_element(user.id) %>
- 	    <% end %>
-     <% else %>
-     No users yet
-     <% end %>
-	</ul>
-</div>
+  <div class="members left">
+    <ul>
+  	   <% for user in @group.admins %>
+  	      <li><%= check_box_tag "admins[#{user.id}]" %>
+  	          <span id="<%= "u#{user.id}" %>"><%= @group.is_owner?(user) ? content_tag("strong",user.login) : user.login %></span>
+  	      </li>
+  	   <% end if @group.admins%>
+  	</ul>
+  </div>
+  
+  <div class="members-arrows left">
+    <ul>
+    <li>
+        <%= submit_to_remote "unpromote", ">", :update => 'members-list',
+               :url => {:action => 'unpromote', :id => @group.id } %>
+    </li>
+    <li>
+        <%= submit_to_remote "promote", "<" , :update => 'members-list',
+              :url => {:action => 'promote',   :id => @group.id } %>
+    </li> 
+    </ul>
+  </div>
+  
+  <div class="members right">
+    <ul>
+  	   <% if @group.users %>
+   	    <% for user in @group.users %>
+   	      <li><span id="<%= "u#{user.id}" %>"><%= user.login %></span><%= check_box_tag "users[#{user.id}]" %></li>
+   	    <% end %>
+       <% else %>
+        No users yet
+       <% end %>
+  	</ul>
+  </div>
 <% end %>

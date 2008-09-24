@@ -1,0 +1,26 @@
+- title "Groups >> \'#{@group.name}\'"
+- @membership = @group.membership(current_user)
+.view-group.left
+  %h3= @group.name
+  = textile @group.description
+  - if @membership and @membership.admin
+    %p= link_to "Edit", :action => "edit", :id => @group.id
+.view-group.right
+  %h3 Current members
+  - if @membership and @membership.admin
+    %p You can invite new people, write his/her username:
+    - form_tag :action => "invite", :id => @group.id do
+      = text_field_tag :user
+      = submit_tag "Invite!"
+  %h5
+    %span.left Admins
+    %span.right Users
+  #members-list
+    = render :partial => "members"
+
+.clear
+
+- @docs = @group.documents
+#group-documents
+  %h4 Documents
+  = render :partial => "website/documents_list"

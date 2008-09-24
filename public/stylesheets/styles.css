@@ -113,6 +113,7 @@ form.generic input[type="submit"] {width:60%;margin:auto;}
 #permissions input[type="button"] {width:120px;}
 #permissions input[type="text"], #permissions select {width:300px;}
 #permissions ul {list-style-type:none;padding-left:20px;}
+#permissions select{font-size:1.1em;}
 
 #permissions div#users_list, #permissions div#groups_list {width:400px;border:1px solid #ddd; padding:15px;margin-bottom:30px;}
 
@@ -122,10 +123,10 @@ div.view-group h3 {display:block;padding:10px; margin:0;border-bottom:1px solid 
 div.view-group p {padding:15px;margin:0;}
 div.view-group form {padding:15px;padding-top:0;}
 div.view-group ul {list-style:none;padding:15px;}
-div.view-group h5 {border-bottom:1px solid #aaa;display:block;padding:0 20px;overflow:hidden;}
+div.view-group h5 {border-bottom:1px solid #aaa;display:block;padding:0 20px;overflow:hidden;margin-top:20px;}
 div.view-group form.members {overflow:hidden;padding:0;}
 div.view-group div.members {width:200px;}
-div.view-group div.members-arrows {text-align:center;width:50px;}
+div.view-group div.members-arrows {text-align:center;width:50px;f}
 div.view-group div.right {text-align:right;}
 
 
@@ -138,6 +139,7 @@ div.view-group div.right {text-align:right;}
 #group-view-right img {margin:0;border:none;}
 
 #group-documents {background-color:#f2f2f2;border:1px solid #ddd;}
+#group
 
 /* INVITATIONS */
 #invitations {border: 1px solid #06f; border-left:0;border-right:0;background-color:#e0edff;padding:10px;margin:0;}

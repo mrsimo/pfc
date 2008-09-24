@@ -1,2 +1,7 @@
-<p><% @doc.users_with_access.each_with_index do |user,i| %><%= ", " if i != 0 %><%= user.login %><% end -%></p>
+<p>
+  <% @doc.users_with_access.each_with_index do |user,i| -%>
+  <%= ", " unless i == 0 %><%= user.login %>
+  <%= link_to_remote image_tag('icons/bullet_delete.png'), :update => 'users_list', :url => {:action => 'uninvite_user', :id => @doc, :user => user.id} %><%= link_to_remote image_tag("icons/bullet_#{@doc.is_user_admin?(user) ? 'green' : 'black'}.png"), :update => 'users_list', :url => {:action => 'toggle_user_perms', :id => @doc, :user => user.id} %>
+  <% end -%>
+</p>
 <%= content_tag "p" , @error if @error %>

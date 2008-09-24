@@ -44,4 +44,52 @@ class Document < ActiveRecord::Base
     end
     {:width => width,:height => height}
   end
+  
+  def is_user_admin?(user)
+    dp = DocumentPermission.find_by_user_id_and_document_id user, self
+    dp.permission != 0 unless dp.nil?
+  end
+  
+  def is_group_admin?(group)
+    gp = GroupPermission.find_by_group_id_and_document_id group,self
+    gp.permission != 0
+  end
+  
+  def toggle_user_perms(user)
+    dp = DocumentPermission.find_by_user_id_and_document_id user, self
+    dp.permission = (dp.permission == 0 ? 1 : 0)
+    dp.save
+  end
+  
+  def toggle_group_perms(group)
+    gp = GroupPermission.find_by_group_id_and_document_id group, self
+    gp.permission = (gp.permission == 0 ? 1 : 0)
+    gp.save
+  end
+  
+  def can_be_seen_by(user)
+    true if self.owner == user
+    true if (self.groups_with_access & user.groups).size > 0
+    true if user.accessible_documents.include? self
+  end
+  
+  def can_be_editet_by(user)
+    can_he = false
+    # To be able to edit he must either be the owner, have a group permission, or have direct permission
+    can_he = true if self.owner == user #owner
+
+    # group permission
+    groups =  (self.groups_with_access & user.groups)
+    for group in groups
+      can_he = true if self.is_group_admin? group
+    end
+    
+    # user permission
+    can_he = true if self.is_user_admin? user
+    can_he
+  end
+  
+  def can_be_deleted_by(user)
+    self.owner == user
+  end
 end

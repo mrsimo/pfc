@@ -38,7 +38,7 @@ class DocumentController < ApplicationController
     @doc = Document.find params[:id]
     @user = User.find :first, :conditions => ["login = upper(?)",params[:user].upcase]
     if @user
-      DocumentPermission.create :user_id => @user.id, :document_id => params[:id], :permission => 0
+      @doc.users_with_access << @user unless @doc.users_with_access.include? @user
     else
       @error =  "User not found :("
     end
@@ -47,19 +47,36 @@ class DocumentController < ApplicationController
   
   def invite_group
     @doc = Document.find params[:id]
-    GroupPermission.create :group_id => params[:group], :document_id => params[:id], :permission => 0
+    @group = Group.find params[:group]
+    @doc.groups_with_access << @group unless @doc.groups_with_access.include? @group
     render :partial => "groups"
   end
   
-  def unintive_user
-    DocumentPermission.find(params[:id]).destroy
+  def uninvite_user
+    @doc = Document.find(params[:id])
+    @doc.users_with_access.delete User.find(params[:user])
+    #DocumentPermission.find(params[:id]).destroy
+    
     render :partial => "users"
   end
   
   def uninvite_group
-    GroupPermission.find(params[:id]).destroy
+    @doc = Document.find(params[:id])
+    @doc.groups_with_access.delete Group.find(params[:group])
     render :partial => "groups"
-  end  
+  end
+  
+  def toggle_user_perms
+    @doc = Document.find(params[:id])
+    @doc.toggle_user_perms(params[:user])
+    render :partial => "users"
+  end
+
+  def toggle_group_perms
+    @doc = Document.find(params[:id])
+    @doc.toggle_group_perms(params[:group])
+    render :partial => "groups"
+  end
 
   def draw
     @document = Document.find(params[:id])

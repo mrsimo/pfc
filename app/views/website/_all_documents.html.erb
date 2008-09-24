@@ -20,8 +20,8 @@
 		<h5><%= link_to doc.title, "/#{doc.id}"%></h5>
 		<%= textile doc.description %>
 		<span>
-			<%= link_to "Delete", {:controller => "document", :action => "delete", :id => doc.id}, :confirm =>"Are you sure?" %>, 
-			<%= link_to "Edit", :controller => "document", :action => "edit", :id => doc.id %>
+			<%= link_to "Delete", {:controller => "document", :action => "delete", :id => doc.id}, :confirm =>"Are you sure?" %> 
+			<%= ", " + link_to("Edit", :controller => "document", :action => "edit", :id => doc.id) if doc.is_user_admin? current_user %>
 		</span>
 	</li>
 	<% end %>

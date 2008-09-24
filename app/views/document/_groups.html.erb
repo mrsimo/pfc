@@ -1,2 +1,7 @@
-<p><% @doc.groups_with_access.each_with_index do |group,i| %><%= ", " if i != 0 %><%= group.name %><% end -%></p>
+<p>
+  <% @doc.groups_with_access.each_with_index do |group,i| -%>
+    <%= ", " if i != 0 %><%= group.name %>
+    <%= link_to_remote image_tag('icons/bullet_delete.png'), :update => 'groups_list', :url => {:action => 'uninvite_group', :id => @doc.id, :group => group.id} %><%= link_to_remote image_tag("icons/bullet_#{@doc.is_group_admin?(group) ? 'green' : 'black'}.png"), :update => 'groups_list', :url => {:action => 'toggle_group_perms', :id => @doc, :group => group.id} %>
+  <% end -%>
+</p>
 <%= content_tag "p" , @error if @error %>

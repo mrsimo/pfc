@@ -69,10 +69,18 @@ class GroupsController < ApplicationController
   end
   
   def promote
-    render :text => params.to_yaml
+    @group = Group.find(params[:id])
+    params[:users].each do |key,val|
+      membership = @group.membership(key).update_attribute(:admin, true)
+    end if @group.is_admin? current_user
+    render :partial => "members"
   end
   
   def unpromote
-    render :text => params.to_yaml
+    @group = Group.find(params[:id])
+    params[:admins].each do |key,val|
+      membership = @group.membership(key).update_attribute(:admin, false) unless @group.is_owner? User.find(key)
+    end if @group.is_owner? current_user
+    render :partial => "members"
   end
 end
