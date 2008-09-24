@@ -67,4 +67,12 @@ class GroupsController < ApplicationController
     flash[:notice] = "Invitation rejected"
     redirect_to :action => "panel", :controller => "website"
   end
+  
+  def promote
+    render :text => params.to_yaml
+  end
+  
+  def unpromote
+    render :text => params.to_yaml
+  end
 end

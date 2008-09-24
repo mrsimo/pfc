@@ -4,6 +4,7 @@
 	<%= stylesheet_link_tag "styles" %>
 	<%= javascript_include_tag :defaults %>
 	<%= stylesheet_link_tag 'lightbox' if controller.action_name == "edit" and controller.controller_name == "document" %>
+	<title><%= SITENAME %> >> <%= yield(:title) || controller.controller_name.capitalize %></title>
 </head>
 <body>
 	<div id="header">

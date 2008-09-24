@@ -13,4 +13,8 @@ module ApplicationHelper
     RedCloth.new(text).to_html
   end
   
+  def title(text)
+    content_for(:title) {text}
+  end
+  
 end

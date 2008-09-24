@@ -1,3 +1,4 @@
+<% title "Groups >> \'#{@group.name}\'"%>
 <% @membership = @group.membership(current_user) %>
 
 <div class="view-group left">
@@ -9,6 +10,7 @@
 </div>
 
 <div class="view-group right">
+  
 	<h3>Current members</h3>
 	<% if @membership and @membership.admin %>
 		<p>You can invite new people, write his/her username:</p>
@@ -18,23 +20,17 @@
 		<%= submit_tag "Invite!" %>
 		<% end %>
 	<% end %>
-	<h5>Admins</h5>
-	<p>
-	   <% for user in @group.admins %>
-	      <%= user.login %> 
-	   <% end if @group.admins%>
-	</p>
 	
-	<h5>Users</h5>
-	<p>
-	  <% if @group.users %>
-	    <% for user in @group.users %>
-	    <%= user.login %> 
-	    <% end %>
-    <% else %>
-    No users yet
-    <% end %>
+	<h5>
+	  <span class="left">Admins</span><span class="right">Users</span>
+	</h5>
+	
+	<div id="members-list">
+	  <%= render :partial => "members"%>
+  </div>
+	
 </div>
+
 
 <div class="clear"></div>
 <% @docs = @group.documents %>

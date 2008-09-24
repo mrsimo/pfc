@@ -122,7 +122,11 @@ div.view-group h3 {display:block;padding:10px; margin:0;border-bottom:1px solid 
 div.view-group p {padding:15px;margin:0;}
 div.view-group form {padding:15px;padding-top:0;}
 div.view-group ul {list-style:none;padding:15px;}
-div.view-group h5 {border-bottom:1px solid #aaa;display:block;padding:0 20px;}
+div.view-group h5 {border-bottom:1px solid #aaa;display:block;padding:0 20px;overflow:hidden;}
+div.view-group form.members {overflow:hidden;padding:0;}
+div.view-group div.members {width:200px;}
+div.view-group div.members-arrows {text-align:center;width:50px;}
+div.view-group div.right {text-align:right;}
 
 
 #group-view-left {width:440px; float:left;border: 1px solid #ddd; background-color: #fafafa;margin-right:20px;margin:20px;}

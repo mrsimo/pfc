@@ -3,6 +3,10 @@ class DocumentController < ApplicationController
   before_filter :login_required, :except => [ :image, :export ]
   before_filter :authorized?, :only => [ :image, :export ]
   
+  def cute_name
+    "test"
+  end
+  
   def new
     @doc = Document.new
   end
