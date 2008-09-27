@@ -1,46 +1,50 @@
-#top { width:100%;height:50px;padding:0px;background-color:#222;color:#eee;text-align:center;font-size:1.8em;font-family: "Georgia";position:absolute; z-index:3;}
-#top p { padding:5px;margin:0px; }
+body {background-color:#fafafa;}
 
-#pages { margin:10px; text-align:center; font-family:"Georgia"; background-color: #222; border: 2px solid #aaa;width:170px; color:white;
-		 position:absolute;left:70px; top:50px; z-index:3; }
-#pages p {padding:7px; margin:0px;}
-#pages p a { color: white;}
-#pages p a:hover{text-decoration:none;}
-#pages p input { display:inline; width:20px;text-align:center;}
+#corner {width:72px;height:35px;position:absolute;}
+#top { height:35px;left:70px;padding:0px; position:absolute;z-index:3;}
+#top p {padding:0 10px;display:inline;line-height:35px;font-size:1.4em;font-family:"Lucida Sans Unicode","Georgia", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;}
 
-#tools { position: absolute;top:50px;background-color:#222;color: #eee;padding:10px;z-index:3;}
 
-#tools div { width:40px;height:40px;margin:5px;text-align:center;line-height:40px;border:1px dashed black;color: black;
-	font-size:1.5em;font-family: "Courier New";font-weight:bold;background-color: #fff; background-repeat: no-repeat; background-position: center center; }
-#tools div:hover { background-color: #ccc; }
+
+#tools { position: absolute;top:35px;z-index:3;background-image:none;}
+
+p#pages {width:62px;text-align:center; padding:0 5px;}
+p#pages a {text-decoration:none;}
+p#pages img {display:block;float:left;cursor:pointer;}
+p#pages input {height:12px;width:20px;float:left;display:block;text-align:center;}
+
+#tools {-moz-user-select:none;}
+#tools div { width:40px;height:40px;margin:5px 12px;text-align:center;line-height:40px;border:1px solid #ddd;color: black;
+	font-size:25px;font-family: "Courier New";font-weight:bold;background-color: #fff; background-repeat: no-repeat; background-position: center center; }
+#tools div:hover { border:1px solid black; cursor:pointer;}
 #tools div#color { margin-top:20px; }
 
-#tools div#pencil 	{background-image: url(/images/pencil_32x32.png);}
-#tools div#line 	{background-image: url(/images/stock_draw-line_24x24.png);}
-#tools div#square 	{background-image: url(/images/stock_draw-rounded-square_24x24.png);}
-#tools div#circle 	{background-image: url(/images/stock_draw-circle_24x24.png);}
-#tools div#text 	{background-image: url(/images/text_32x32.png);}
-#tools div#eraser 	{background-image: url(/images/deletecell_16x16.png);}
+#tools div#pencil 	{background-image: url(/images/pencil.png);}
+#tools div#line 	{background-image: url(/images/line.png);}
+#tools div#square 	{background-image: url(/images/square.png);}
+#tools div#circle 	{background-image: url(/images/circle.png);}
+#tools div#text 	{background-image: url(/images/text.png);}
+#tools div#eraser 	{background-image: url(/images/delete.png);}
 
-#tools div#color 	{background-image: url(/images/colorscm_32x32.png);}
-#tools div#fill 	{background-image: url(/images/fill_32x32.png);}
-#tools div#thick 	{background-image: url(/images/fill_32x32.png);}
+#tools div#color 	{background-image: url(/images/color.png);}
+#tools div#fill 	{background-image: url(/images/transparency.png);}
+#tools div#thick 	{background-image: url(/images/thickness.png);}
 
-#fill-dialog  { top: 418px; }
-#thick-dialog { top: 465px; }
+#fill-dialog  { top: 390px; }
+#thick-dialog { top: 440px; }
 
 .tooltip { z-index:4;background-color:white;border:1px solid #ddd;color:#444; }
 .tooltip span { font-size:0.8em; }
 .tooltip .text { padding:.4ex .7ex .2ex; }
 
-.hidden { position:absolute;top:368px;left:70px;background-color:#222;padding:5px;z-index:110; }
+.hidden { position:absolute;top:332px;left:54px;padding:5px;z-index:110; }
 
 #color-dialog div {	width:15px;height:15px;border:1px solid black;margin:2px;float:left; }
 
 
 /* SLIDER DIALOGS */
 
-.ui-slider { background: #222 url(images/slider-bg-1.png) no-repeat center center;padding:0px; height:25px;width:210px;position: absolute;}
+.ui-slider { background: transparent url(images/slider-bg-1.png) no-repeat center center;padding:0px; height:25px;width:90px;position: absolute;}
 .ui-slider-handle { position: absolute;z-index: 121; top: 0;width: 10px;height: 23px;
 	background: #555 url(images/0d0d0d_40x100_textures_02_glass_60.png) 0 50% repeat-x; border: 1px solid #dddddd; }
 .ui-slider-handle:hover { background: #0d0d0d url(images/0d0d0d_40x100_textures_02_glass_60.png) 0 50% repeat-x;border: 1px solid #dddddd; }
@@ -54,6 +58,8 @@ textarea { font-size: 1.3em;font-family:"Verdana"; background: url(images/white6
 
 .ui-wrapper {z-index: 220;}
 .ui-resizable-handle {z-index:220;}
+
+
 body{
 	padding:0px;
 	margin:0px;
@@ -61,12 +67,16 @@ body{
 
 #protectiveLayer {
 	position:absolute;
-	width:5000px;
-	height:3500px;
+	top:60px;left:90px;
+	border:1px solid #999;
+	margin-bottom:50px;
+	margin-right:50px;
+	background-color:white;
 }
 
 #svgElem {
-	
+	background:white;
+	background-image:none;
 }
 
 #vmlElem{

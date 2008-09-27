@@ -623,7 +623,7 @@ function check(node,parent){
 function remove(id){
 	$.ajax({
 		type: "GET",
-		url: "/element/remove/" + id
+		url: "/document/remove_element/" + id
 		});
 }
 

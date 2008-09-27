@@ -1,0 +1,17 @@
+.section-head
+  %h2 Your documents
+  = link_to 'New', :controller => 'document',:action => 'new'
+- if current_user.documents.size == 0
+  %p.independent
+    = link_to "Create", :controller => 'document', :action => 'new'
+    a new document to start using drawme.
+- else
+  %ul
+    - for doc in current_user.documents
+      %li
+        %h5= link_to doc.title, "/#{doc.id}"
+        = textile doc.description
+        %span
+          = link_to "Delete", {:controller => "document", :action => "delete", :id => doc.id}, :confirm =>"Are you sure?"
+          = link_to "Edit", :controller => "document", :action => "edit", :id => doc.id
+      %li.stats= doc.stats

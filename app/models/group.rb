@@ -46,4 +46,8 @@ class Group < ActiveRecord::Base
     self.owner == user
   end
   
+  def stats
+    "#{self.documents.size} documents available"
+  end
+  
 end

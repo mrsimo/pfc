@@ -33,7 +33,13 @@ class Document < ActiveRecord::Base
   validates_presence_of :title, :description
   
   def get_current_page
-    Page.find_by_number_and_document_id self.current_page, self.id
+    p = Page.find_by_number_and_document_id self.current_page, self.id
+    if !p
+      p = self.pages.find(:first)
+      self.current_page = p.number
+      self.save
+    end
+    p
   end
   def needed_area
     width  = 99999999
@@ -68,12 +74,14 @@ class Document < ActiveRecord::Base
   end
   
   def can_be_seen_by(user)
-    true if self.owner == user
-    true if (self.groups_with_access & user.groups).size > 0
-    true if user.accessible_documents.include? self
+    can_he = false
+    can_he = true if self.owner == user
+    can_he = true if (self.groups_with_access & user.groups).size > 0
+    can_he = true if user.accessible_documents.include? self
+    can_he
   end
   
-  def can_be_editet_by(user)
+  def can_be_edited_by(user)
     can_he = false
     # To be able to edit he must either be the owner, have a group permission, or have direct permission
     can_he = true if self.owner == user #owner
@@ -91,5 +99,9 @@ class Document < ActiveRecord::Base
   
   def can_be_deleted_by(user)
     self.owner == user
+  end
+  
+  def stats
+   "#{self.pages.size} pages, #{self.elements.size} drawings, #{self.users_with_access.size} users, #{self.groups_with_access.size} groups" 
   end
 end

@@ -45,6 +45,16 @@ class User < ActiveRecord::Base
     membership.admin
   end
   
+  def all_accessible_documents
+    docs = Array.new
+    docs = docs + self.accessible_documents
+    for group in self.groups
+      docs = docs + group.documents
+    end
+    docs.uniq!
+    docs
+  end
+  
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
   def self.authenticate(login, password)
     u = find_by_login(login) # need to get the salt

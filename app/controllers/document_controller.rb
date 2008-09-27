@@ -3,10 +3,6 @@ class DocumentController < ApplicationController
   before_filter :login_required, :except => [ :image, :export ]
   before_filter :authorized?, :only => [ :image, :export ]
   
-  def cute_name
-    "test"
-  end
-  
   def new
     @doc = Document.new
   end
@@ -21,16 +17,20 @@ class DocumentController < ApplicationController
   
   def edit
     @doc = Document.find(params[:id])
+    get_out unless @doc.can_be_edited_by current_user
   end
   
   def update
     @doc = Document.find(params[:id])
+    get_out unless @doc.can_be_edited_by current_user
     @doc.update_attributes params[:document]
     redirect_to :action => "edit", :id => @doc.id
   end
   
   def delete
-    Document.find(params[:id]).destroy
+    @doc = Document.find(params[:id])
+    get_out unless @doc.can_be_deleted_by current_user
+    @doc.destroy
     redirect_to :controller => 'website', :action => "panel", :reload => (rand*1000).to_i
   end
   
@@ -54,9 +54,7 @@ class DocumentController < ApplicationController
   
   def uninvite_user
     @doc = Document.find(params[:id])
-    @doc.users_with_access.delete User.find(params[:user])
-    #DocumentPermission.find(params[:id]).destroy
-    
+    @doc.users_with_access.delete User.find(params[:user])    
     render :partial => "users"
   end
   
@@ -80,7 +78,13 @@ class DocumentController < ApplicationController
 
   def draw
     @document = Document.find(params[:id])
-    render :layout => false
+    if @document.pages.size > 0 and @document.can_be_seen_by current_user
+      render :layout => false
+    elsif @document.can_be_edited_by current_user
+      redirect_to :action => 'edit', :id => @document
+    else
+      redirect_to :controller => 'website'
+    end
   end
   
   def add_element

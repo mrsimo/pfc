@@ -9,15 +9,15 @@
 	if ua.include? "MSIE"
 		headText = "<html xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:v=\"urn:schemas-microsoft-com:vml\">"
 		styleText = "<style>v\\:* { behavior: url(#default#VML);}</style>"
-		mainText = "<div id=\"vmlElem\" style=\"height:3500px;width:5000px;\">\n
+		mainText = "<div id=\"vmlElem\" style=\"height:#{@document.height}px;width:#{@document.width}px;position:absolute;top:60px;left:160px;\">\n
 					</div>"
 	else
 		headText = " <!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">" + 
 					"<html xmlns=\"http://www.w3.org/1999/xhtml\">"
 		styleText = ""
-		mainText = "<div id=\"protectiveLayer\">\n
+		mainText = "<div id=\"protectiveLayer\" style=\"width:#{@document.width}px;height:#{@document.height};\" >\n
 						<svg id=\"svgElem\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" \n
-							preserveAspectRatio=\"none\" height=\"3500px\" width=\"5000px\">\n
+							preserveAspectRatio=\"none\" height=\"#{@document.height}px\" width=\"#{@document.width}px\">\n
 							<rect x=\"0\" y=\"0\" height=\"3500\" width=\"5000\" 
 							style=\"stroke:white;stroke-width:1px;fill:none;\" />\n
 						</svg>\n
@@ -39,7 +39,7 @@
 		var pageNum = <%= @document.get_current_page.number %>;
 	</script>
 	<script type="text/javascript" charset="utf-8" language="javascript" src="/javascripts/jquery.js"></script>
-	<script type="text/javascript" charset="utf-8" language="javascript"  src="/javascripts/jqueryui.js"></script>
+	<script type="text/javascript" charset="utf-8" language="javascript" src="/javascripts/jqueryui.js"></script>
 	<script type="text/javascript" language="javascript" charset="utf-8" src="/javascripts/tooltip.js"></script>
 	<script type="text/javascript" language="javascript" charset="utf-8" src="/javascripts/drawer.js"></script>
 	
@@ -47,12 +47,14 @@
 	<title>Drawme - You are drawing on Whiteboard n.<%= @document.id %></title>
 </head>
 <body>
+
+<div id="corner">&nbsp;</div>
+
 <div id="top">
-	<p><%= @document.title %>, <%= @document.pages.size %> pages.</p>
+	<p id="info"><%= @document.title %>, <%= @document.pages.size %> pages.</p>
 </div>
 
-<div id="tools">
-
+<div id="tools" unselectable="on" onselectstart="return false;" >
 		<div id="pencil" onclick="selectTool('pencil');"></div>
 		<div id="line" onclick="selectTool('line');"></div>
 		<div id="square" onclick="selectTool('square');"></div>
@@ -63,17 +65,15 @@
 		<div id="color" onclick="toggle('color');"></div>
 		<div id="fill"  onclick="toggle('fill');">80</div>
 		<div id="thick" onclick="toggle('thick');">3</div>		
-</div>
-
-<div id="pages">
-	<p><a href="#" onclick="previousPage();">Previous</a> <input type="text" value="<%= @document.get_current_page.number %>" /> <a href="#" onclick="nextPage();">Next</a></p>
+		<p id="pages">
+      <img onclick="previousPage();" src="/images/prev.png" /><input type="text" value="<%= @document.get_current_page.number %>" /> <img onclick="nextPage();" src="/images/next.png" /></p>
 </div>
 
 <div id="color-dialog" class="hidden" style="display:none;">
 	<div style="background-color:#fff" onclick="selectColor('#fff');"></div>
 	<div style="background-color:#f00" onclick="selectColor('#f00');"></div>
 	<div style="background-color:#0f0" onclick="selectColor('#0f0');"></div>
-	<div style="background-color:#00f" onclick="selectColor('#00f');"></div>
+	<div style="background-color:#00f" onclick="selectColor('#00f');"></div><br />
 	<div style="background-color:#ff0" onclick="selectColor('#ff0');"></div>
 	<div style="background-color:#f0f" onclick="selectColor('#f0f');"></div>
 	<div style="background-color:#0ff" onclick="selectColor('#0ff');"></div>

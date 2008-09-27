@@ -1,0 +1,12 @@
+.section-head
+  %h2 Your groups
+  = link_to 'New', :controller => 'groups', :action => 'new'
+%ul
+  - for group in current_user.groups do
+    %li
+      %h5= link_to group.name, {:controller => "groups", :action => "view", :id => group.id}
+      = textile group.description
+      %span
+        = (link_to "Delete", {:controller => "groups", :action => "delete", :id => group.id}, :confirm =>"Are you sure?") if group.is_owner? current_user
+        = link_to "Edit", {:controller => "groups", :action => "edit", :id => group.id} if group.is_admin? current_user
+    %li.stats= group.stats

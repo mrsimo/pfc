@@ -17,4 +17,8 @@ module ApplicationHelper
     content_for(:title) {text}
   end
   
+  def get_out
+    redirect_to :controller => "welcome", :action => "index"
+  end
+  
 end
