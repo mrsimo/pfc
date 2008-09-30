@@ -2,11 +2,11 @@ body {background-color:#fafafa;}
 
 #corner {width:72px;height:35px;position:absolute;}
 #top { height:35px;left:70px;padding:0px; position:absolute;z-index:3;}
-#top p {padding:0 10px;display:inline;line-height:35px;font-size:1.4em;font-family:"Lucida Sans Unicode","Georgia", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;}
+#top p {padding:0 60px;display:inline;line-height:35px;font-size:1.4em;font-family:"Lucida Sans Unicode","Georgia", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;}
 
 
 
-#tools { position: absolute;top:35px;z-index:3;background-image:none;}
+#tools { position: absolute;top:70px;z-index:3;background-image:none;}
 
 p#pages {width:62px;text-align:center; padding:0 5px;}
 p#pages a {text-decoration:none;}
@@ -30,16 +30,18 @@ p#pages input {height:12px;width:20px;float:left;display:block;text-align:center
 #tools div#fill 	{background-image: url(/images/transparency.png);}
 #tools div#thick 	{background-image: url(/images/thickness.png);}
 
-#fill-dialog  { top: 390px; }
-#thick-dialog { top: 440px; }
+#tools div.selected {border:1px solid black;}
+
+.hidden { position:absolute;top:367px;left:54px;padding:5px;z-index:110; }
+#fill-dialog  { top: 425px; }
+#thick-dialog { top: 475px; }
+
+#color-dialog div {	width:15px;height:15px;border:1px solid black;margin:2px;float:left; }
 
 .tooltip { z-index:4;background-color:white;border:1px solid #ddd;color:#444; }
 .tooltip span { font-size:0.8em; }
 .tooltip .text { padding:.4ex .7ex .2ex; }
 
-.hidden { position:absolute;top:332px;left:54px;padding:5px;z-index:110; }
-
-#color-dialog div {	width:15px;height:15px;border:1px solid black;margin:2px;float:left; }
 
 
 /* SLIDER DIALOGS */

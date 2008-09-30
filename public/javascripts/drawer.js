@@ -553,7 +553,7 @@ function consult(repeat){
  */
 function load(content){
 	var t = eval("(" + content + ")");	// Convert JSON compatible data into actual data.
-	console.log(t);
+	//console.log(t);
 	// Load the good background
 	bg = t.background;
 	$(container).css("background","url(\"/image/" + pageId + "\")");
@@ -561,7 +561,7 @@ function load(content){
 	$(container).css("background-position","200px 100px");
 	
 	// Change page number if needed
-	$("#tools p strong").text(t.page);
+	$("#pages input").val(t.page);
 	pageNum = t.page_num;
 	pageId = t.page_id;
 	
@@ -573,9 +573,9 @@ function load(content){
 			var tmp = document.getElementById(t.elements[i].id);
 			if(tmp) tmp.id += " ok";
 			else {
-				console.log("Voy a cagar un algo: " + t.elements[i].id )
+				//console.log("Voy a cagar un algo: " + t.elements[i].id )
 				var e = eval("(" + t.elements[i].attr + ")");
-				console.log(e)
+				//console.log(e)
 				var tp;
 				switch (e.type) {
 			        case "line":   
@@ -647,7 +647,7 @@ function changePage(num){
 	});
 	
 	// Update on-screen info
-	$("#pages p input").val(num + "");
+	$("#pages input").val(num + "");
 	
 	// Reload the proper elements
 	consult(false);
@@ -695,13 +695,13 @@ $(document).ready(function(){
 
 	// Attach events where needed
 	if (svg) {
-		$("body").bind("mousedown", mouseDown);
-		$("body").bind("mousemove", mouseMove);
-		$("body").bind("mouseup", mouseUp);
+		$("#protectiveLayer").bind("mousedown", mouseDown);
+		$("#protectiveLayer").bind("mousemove", mouseMove);
+		$("#protectiveLayer").bind("mouseup",   mouseUp);
 	} else {
 		$("#vmlElem").bind("mousedown", mouseDown);
 		$("#vmlElem").bind("mousemove", mouseMove);
-		$("#vmlElem").bind("mouseup", mouseUp);
+		$("#vmlElem").bind("mouseup",   mouseUp);
 	}
 	
 	// Set the appropiate variables
@@ -739,10 +739,15 @@ $(document).ready(function(){
 	$("#fill-dialog").slider({min: 0, max:100, startValue: 80, change: function(e,ui){
 		fill = (ui.value/100);
 		$("#fill").html(ui.value);
+	}, stop: function(e,ui){
+		toggle("fill");
 	}});
+	
 	$("#thick-dialog").slider({min:1, max:15,  startValue: 3, change: function(e,ui){
 		thick= ui.value;
 		$("#thick").html(ui.value);
+	}, stop: function(e,ui){
+		toggle("thick");
 	}});
 	
 	$("#pages p input").bind("change blur",function(e){
@@ -756,10 +761,8 @@ $(document).ready(function(){
 function selectTool(inputTool){
     tool = inputTool;
     if (tool == "text") texting = true;
-	//$("#tools div").css("background-color","#fff");
-	//$("#tools div:hover").css("background-color","#ccc");
-	//$("#" + tool).css("background-color","#ccc");
-	
+	$("#tools div").removeClass("selected");
+	$("#tools div#" + inputTool).addClass("selected");	
 }
 
 function currPositionX(e){
