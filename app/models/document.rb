@@ -41,6 +41,7 @@ class Document < ActiveRecord::Base
     end
     p
   end
+  
   def needed_area
     width  = 99999999
     height = 99999999
@@ -78,6 +79,7 @@ class Document < ActiveRecord::Base
     can_he = true if self.owner == user
     can_he = true if (self.groups_with_access & user.groups).size > 0
     can_he = true if user.accessible_documents.include? self
+    can_he = true if self.public
     can_he
   end
   

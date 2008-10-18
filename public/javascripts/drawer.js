@@ -556,9 +556,10 @@ function load(content){
 	//console.log(t);
 	// Load the good background
 	bg = t.background;
-	$(container).css("background","url(\"/image/" + pageId + "\")");
-	$(container).css("background-repeat","no-repeat");
-	$(container).css("background-position","200px 100px");
+	if (bg) {
+		$(container).css("background","transparent url(\"/image/" + pageId + "\") no-repeat 200px 100px");
+		if(svg) $(mainElem).css("background-color","transparent");
+	}
 	
 	// Change page number if needed
 	$("#pages input").val(t.page);

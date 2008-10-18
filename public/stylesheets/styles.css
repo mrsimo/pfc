@@ -102,6 +102,7 @@ form.generic input[type="submit"] {width:60%;margin:auto;}
 .extra div#doc-stats {border:1px solid #aaa;margin:20px;background-color:#ddd;}
 .extra div#doc-stats ul {list-style-type:none;text-align:left;}
 .extra div#doc-stats input.size {width:40px;text-align:center;}
+.extra div#see {border:1px solid #aaa;margin:20px;text-align:center;}
 .extra div.option {width:357px;margin:10px 20px;padding:10px;border:1px solid #ddd;display:block;text-align:left;}
 .extra div.option h3 {width:337px;margin:0;}
 .extra div.option input[type="text"] {width:30px;text-align:center;}
