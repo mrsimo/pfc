@@ -556,15 +556,11 @@ function load(content){
 	//console.log(t);
 	// Load the good background
 	bg = t.background;
-	if (bg) {
-		$(container).css("background","transparent url(\"/image/" + pageId + "\") no-repeat 200px 100px");
+		$(container).css("background","white url(\"/image/" + pageId + "\") no-repeat 100px 100px");
 		if(svg) $(mainElem).css("background-color","transparent");
-	}
 	
 	// Change page number if needed
-	$("#pages input").val(t.page);
-	pageNum = t.page_num;
-	pageId = t.page_id;
+	change_page_to(t);
 	
 	if(t.elements.length>0){	// It's a way to see if some data has been returned.
 		var i;
@@ -634,6 +630,14 @@ function remove(id){
  * nextPage
  * reloadStuff
  */
+function change_page_to(t){
+	if(t.page_num != pageNum) $("#pages input").val(t.page_num);
+	pageNum = t.page_num;
+	pageId = t.page_id;
+	if(t.page_num == 1){ $("#prev").hide();$("#next").show(); }
+	else if(t.page_num == pages) { $("#prev").show();$("#next").hide(); }
+	else { $("#prev").show();$("#next").show(); }
+}
 function previousPage() { 	changePage(--pageNum); }
 function nextPage(){ 		changePage(++pageNum); }
 function changePage(num){
@@ -661,20 +665,15 @@ function toJSON(element){
 	//Now the type-dependant
 	switch(element.type){
 		case "line":
-			out += jsonSimple(element,["thick","x1","x2","y1","y2"]);
-			break;
+			out += jsonSimple(element,["thick","x1","x2","y1","y2"]);break;
 		case "pencil":
-			out += jsonSimple(element,["thick","points"]);
-			break;
+			out += jsonSimple(element,["thick","points"]);break;
 		case "square":
-			out += jsonSimple(element,["thick","x","y","width","height"]);
-			break;
+			out += jsonSimple(element,["thick","x","y","width","height"]);break;
 		case "circle":
-			out += jsonSimple(element,["thick","x","y","rx","ry"]);
-			break;
+			out += jsonSimple(element,["thick","x","y","rx","ry"]);break;
 		case "text":
-			out += jsonSimple(element,["font","size","text","x","y"]);
-			break;
+			out += jsonSimple(element,["font","size","text","x","y"]);sbreak;
 	}
 	//Remove the last comma
 	out = out.substring(0,out.length-1);

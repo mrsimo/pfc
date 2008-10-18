@@ -8,10 +8,11 @@ body {background-color:#fafafa;}
 
 #tools { position: absolute;top:70px;z-index:3;background-image:none;}
 
-p#pages {width:62px;text-align:center; padding:0 5px;}
-p#pages a {text-decoration:none;}
-p#pages img {display:block;float:left;cursor:pointer;}
-p#pages input {height:12px;width:20px;float:left;display:block;text-align:center;}
+ul#pages {width:62px;text-align:center; padding:0 5px;list-style:none;}
+ul#pages li {display:block;width:19px;float:left;}
+ul#pages a {text-decoration:none;}
+ul#pages img {display:block;float:left;cursor:pointer;}
+ul#pages input {height:12px;width:20px;float:left;display:block;text-align:center;}
 
 #tools {-moz-user-select:none;}
 #tools div { width:40px;height:40px;margin:5px 12px;text-align:center;line-height:40px;border:1px solid #ddd;color: black;

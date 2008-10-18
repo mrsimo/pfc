@@ -37,6 +37,7 @@
 		var ownerId = <%= @document.user_id %>;
 		var pageId = <%= @document.get_current_page.id %>;
 		var pageNum = <%= @document.get_current_page.number %>;
+		var pages = <%= @document.pages.size %>;
 	</script>
 	<script type="text/javascript" charset="utf-8" language="javascript" src="/javascripts/jquery.js"></script>
 	<script type="text/javascript" charset="utf-8" language="javascript" src="/javascripts/jqueryui.js"></script>
@@ -65,8 +66,11 @@
 		<div id="color" onclick="toggle('color');"></div>
 		<div id="fill"  onclick="toggle('fill');">80</div>
 		<div id="thick" onclick="toggle('thick');">3</div>		
-		<p id="pages">
-      <img onclick="previousPage();" src="/images/prev.png" /><input type="text" value="<%= @document.get_current_page.number %>" /> <img onclick="nextPage();" src="/images/next.png" /></p>
+		<ul id="pages">
+      <li style="width:16px;">&nbsp;<img id="prev" onclick="previousPage();" src="/images/prev.png" /></li>
+      <li style="width:28px;">&nbsp;<input type="text" value="<%= @document.get_current_page.number %>" /></li>
+      <li style="width:16px;">&nbsp;<img onclick="nextPage();" src="/images/next.png" id="next" /></li> 
+    </ul>
 </div>
 
 <div id="color-dialog" class="hidden" style="display:none;">
