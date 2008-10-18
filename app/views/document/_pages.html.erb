@@ -25,6 +25,7 @@
 	</div>
 	
 <% else %>
+  <div id="see"><%= link_to "See your document in Action!", :action => 'draw', :id => @doc %></div>
 	<div id="doc-stats">
 	  <% form_for :document, @doc, :url => {:action => "update", :id => @doc.id} do |f| %>
 		<ul>
