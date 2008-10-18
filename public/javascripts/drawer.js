@@ -553,7 +553,6 @@ function consult(repeat){
  */
 function load(content){
 	var t = eval("(" + content + ")");	// Convert JSON compatible data into actual data.
-	//console.log(t);
 	// Load the good background
 	bg = t.background;
 		$(container).css("background","white url(\"/image/" + pageId + "\") no-repeat 100px 100px");
@@ -561,6 +560,12 @@ function load(content){
 	
 	// Change page number if needed
 	change_page_to(t);
+
+	// Change users list
+	var users = "";
+	for (u in t.users) users = users + t.users[u] + " ";
+	for (u in t.anonymous) users = users + t.anonymous[u] + " ";
+	$("#users").text(users);
 	
 	if(t.elements.length>0){	// It's a way to see if some data has been returned.
 		var i;

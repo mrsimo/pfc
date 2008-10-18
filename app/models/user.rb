@@ -26,6 +26,8 @@ class User < ActiveRecord::Base
   
   has_many :invitations, :foreign_key => "target_id"
   
+  has_many :activities
+  
   # Cosas del plugin
   # Virtual attribute for the unencrypted password
   attr_accessor :password

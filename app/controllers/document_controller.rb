@@ -1,6 +1,6 @@
 class DocumentController < ApplicationController
 
-  before_filter :login_required, :except => [ :image, :export ]
+  before_filter :login_required, :except => [ :image, :export, :draw, :list_elements ]
   before_filter :authorized?, :only => [ :image, :export ]
   
   def new
@@ -102,10 +102,13 @@ class DocumentController < ApplicationController
     doc = Document.find(params[:id])
     @current_page = doc.get_current_page
     @elements = @current_page.elements
+    doc.ping current_user, request.remote_ip
     @object = Hash.new
     @object["page_num"] = @current_page.number
     @object["page_id"] = @current_page.id
     @object["elements"] = @elements
+    @object["users"] = doc.recent_usernames
+    @object["anonymous"] = doc.recent_anonymous_ips
     render :layout => false
   end
 

@@ -27,10 +27,37 @@ class Document < ActiveRecord::Base
   has_many :group_permissions, :dependent => :destroy
   has_many :groups_with_access, :through => :group_permissions, :class_name => "Group", :source => "group"
   
+  has_many :activities
+  has_many :recent_activities, :class_name => "Activity", :conditions => ["activities.when > ?", 30.seconds.ago]
+  has_many :anonymous_activities, :class_name => "Activity", :conditions => ["activities.anonymous = ?",true]
+  has_many :recent_anonymous_activities, :class_name => "Activity", :conditions => ["activities.anonymous = ? AND activities.when > ?", true, 30.seconds.ago]
+  has_many :visitors, :through => :activities, :source => :user
+  has_many :active_users, :through => :activities, :source => :user, :conditions => ["activities.when > ?", 30.seconds.ago]
+  
   acts_as_ferret :fields => [ :title, :description ]
   
   # Validations
   validates_presence_of :title, :description
+  
+  def recent_anonymous_ips
+    self.recent_anonymous_activities.collect {|a| a.ip}
+  end
+  
+  def recent_usernames
+    self.active_users.collect {|a| a.login}
+  end
+  
+  def ping(user,ip) # user has just loaded info, we must update activity
+    if user != :false
+      activity = Activity.find_or_create_by_user_id_and_document_id user,self.id
+      activity.when = Time.now
+      activity.save
+    else
+      activity = Activity.find_or_create_by_ip_and_document_id_and_anonymous ip,self.id,true
+      activity.when = Time.now
+      activity.save
+    end
+  end
   
   def get_current_page
     p = Page.find_by_number_and_document_id self.current_page, self.id
@@ -80,10 +107,12 @@ class Document < ActiveRecord::Base
   
   def can_be_seen_by(user)
     can_he = false
-    can_he = true if self.owner == user
-    can_he = true if (self.groups_with_access & user.groups).size > 0
-    can_he = true if user.accessible_documents.include? self
     can_he = true if self.public
+    if user != :false
+      can_he = true if self.owner == user
+      can_he = true if (self.groups_with_access & user.groups).size > 0
+      can_he = true if user.accessible_documents.include? self
+    end
     can_he
   end
   
