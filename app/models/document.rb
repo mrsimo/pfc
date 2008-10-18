@@ -43,25 +43,17 @@ class Document < ActiveRecord::Base
   end
   
   def needed_area
-    width  = 99999999
-    height = 99999999
+    width  = 0
+    height = 0
     self.pages.each do |p|
-      width  = width  < p.image.width ? width : p.image.width
-      height = height < p.image.height ? height : p.image.height
+      width  = width  > p.image.width ? width : p.image.width
+      height = height > p.image.height ? height : p.image.height
     end
-    {:width => width,:height => height}
+    {:width => width + 200,:height => height + 200}
   end
   
   def update_needed_area
-    width  = 99999999
-    height = 99999999
-    self.pages.each do |p|
-      width  = width  < p.image.width ? width : p.image.width
-      height = height < p.image.height ? height : p.image.height
-    end
-    self.width = width
-    self.height = height
-    self.save
+    self.update_attributes self.needed_area
   end
   
   def is_user_admin?(user)

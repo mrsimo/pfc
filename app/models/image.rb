@@ -22,7 +22,7 @@ class Image < ActiveRecord::Base
   has_attachment  :content_type => :image,
                   :processor => 'MiniMagick',
                   :storage => :file_system,
-                  :thumbnails => {:small => '120x120>',
+                  :thumbnails => {:small => '85x>',
                                   :medium => '360x360>',
                                   :big => '800x800>'},
                   :thumbnail_class => "Thumbnail",
