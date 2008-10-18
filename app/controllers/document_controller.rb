@@ -134,18 +134,26 @@ class DocumentController < ApplicationController
   def add_1_page
     @doc = Document.find(params[:doc])
     Page.create :number => @doc.pages.size + 1, :document_id => @doc.id
+    @doc.save
     render :partial => 'pages'
   end
   
   def add_blank_pages
-    (1..params[:number].to_i).each do |page_num|
-      Page.create :number => page_num, :document_id => params[:doc]
-    end
     @doc = Document.find(params[:doc])
-    @doc.height = params[:height]
-    @doc.width = params[:width]
-    @doc.save
+    current_page = @doc.pages.size
+    (1..params[:number].to_i).each do |page_num|
+      Page.create :number => (page_num + current_page), :document_id => params[:doc]
+    end
+
     render :partial => 'pages'
+  end
+  
+  def add_page_from_file
+    @doc = Document.find params[:id]
+    p = Page.create :number => (@doc.pages.size+1), :document_id => @doc.id
+    Image.create :uploaded_data => params[:file], :page_id => p.id
+    @doc.update_needed_area
+    redirect_to :action => 'edit', :id => @doc.id
   end
   
   def add_pages_from_file
@@ -198,11 +206,14 @@ class DocumentController < ApplicationController
     end
     
     @doc = Document.find params[:id]
+    current_pages = @doc.pages.size
     files.each_with_index do |f,i|
-      p = Page.create :number => i+1, :document_id => @doc.id
-      Image.create  :uploaded_data => ActionController::TestUploadedFile.new("#{f}", MIME::Types.type_for(f)),
-                :page_id => p.id
+      p = Page.create :number => (current_pages+i+1), :document_id => @doc.id
+      Image.create :uploaded_data => ActionController::TestUploadedFile.new("#{f}", MIME::Types.type_for(f)), :page_id => p.id
     end
+    
+    # Set the document's size automatically
+    @doc.update_needed_area
     
     # Now just remove the temporary files :)
     FileUtils.rm_rf extract_dir   

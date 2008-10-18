@@ -1,58 +1,57 @@
 <% if @doc.pages.size == 0 %>
-	<p><strong>You haven't got any pages in your document</strong>. Before you can start using this document you have to add pages to it.</p>
-	<p>For this, you have to options.</p>
-	
-	<div class="option">
-		<h3 class="number">1. Add blank pages</h3>
-		<% form_tag 'fake', :multipart => true do |f| %>
-		<p>Add <%= text_field_tag "number", 20 %> pages<br />
-			with a size of <%= text_field_tag "width", 800 %> x <%= text_field_tag "height", 600 %> px
-		<%= submit_to_remote "Create", 'create', 
-			:url => {:action => 'add_blank_pages', :doc => @doc.id},
-			:update => 'extra-stuff',
-			:complete => visual_effect(:highlight, 'extra-stuff', :duration => 1) %>
-		</p>
-		<% end %>
-	</div>
-	
-	<div class="option">
-		<h3 class="number">2. Upload background images</h3>
-		<p>If you want, you can upload a document, and pages will be created from it. See the information about our accepted formats for extense information, but you can upload pdf's, zip's, rar's or tar.gz's.</p>
-		<% form_tag "/document/add_pages_from_file/#{@doc.id}", :multipart => true do |f| %>
-			<%= file_field_tag "file" %>
-			<%= submit_tag "Upload" %>
-		<% end %>
-	</div>
-	
+  <p><strong>You haven't got any pages in your document</strong>. Before you can start using this document you have to add pages to it.</p>
 <% else %>
   <div id="see"><%= link_to "See your document in Action!", :action => 'draw', :id => @doc %></div>
-	<div id="doc-stats">
-	  <% form_for :document, @doc, :url => {:action => "update", :id => @doc.id} do |f| %>
-		<ul>
-			<li>Number of pages: <%= @doc.pages.size %> <span>[<%= link_to_remote 'Add blank',
-				:url => {:action => 'add_1_page',:doc =>@doc.id},:update => 'extra-stuff' %>]</span></li>
-			<li>
-			  Page size (pixels): <%= f.text_field :width, :class => "size" %> x <%= f.text_field :height,:class => "size" %>
-			</li>
-			<% if !@doc.pages.first.image.nil? %>
-			<li>
-			  <% needed_area = @doc.needed_area %>
-			  <span>In order to view every image of your document properly you will need a minimum size of <%= "#{needed_area[:width]} x #{needed_area[:height]}" %>.<br />
-			    We suggest you set your board to have a 200px margin so that you can annotate properly. Would you like to do so?</span>
-		  </li>
-		  <% end %>
-		  <li><%= f.submit "Save"%></li>
-		</ul>
-		<% end %>
-	</div>
-	<% if !@doc.pages.first.image.nil? %>
-		<p>These are the current images that will appear on every page of your document.<br /><span>Click on them to see them in big</span></p>
-		<% for page in @doc.pages %>
-			<div class="page-item"><%= page.number %><br />
-			  <%= lightbox_image_tag "/image/#{page.id}/small", "/image/#{page.id}/big" %>
-			</div>
-		<% end %>
-		<div class="clear"></div>
-	<% end %>
-	<p>If you want to upload a (new) document to have as background, <%= link_to "remove all", :action => 'remove_all_pages', :doc => @doc.id %> these pages and select that option.</p>
 <% end %>
+
+<div id="doc-stats">
+  
+	<ul>
+	  <li>
+	    <% form_for :document, @doc, :url => {:action => "update", :id => @doc} do |f| %>
+		    Page size (pixels): <%= f.text_field :width, :class => "small" %> x <%= f.text_field :height,:class => "small" %> <%= f.submit "Save"%>
+	    <% end %>
+		</li>
+		
+		<li>Number of pages: <%= @doc.pages.size %></li>
+		<li>
+		  <ul id="upload-options">
+		    <li><%= link_to_remote 'Add blank page', :url => {:action => 'add_1_page',:doc =>@doc.id},:update => 'extra-stuff' %></li>
+		    <li>
+      		<% form_tag 'fake' do |f| %>
+      		  Add <%= text_field_tag "number", 20,:class => "small" %> blank pages	<%= submit_to_remote "Add", 'Add', 
+      		  	:url => {:action => 'add_blank_pages', :doc => @doc.id},
+      		  	:update => 'extra-stuff',
+      		  	:complete => visual_effect(:highlight, 'extra-stuff', :duration => 1) %>
+      		<% end %>
+		    </li>
+		    <li>Upload 1 image for 1 page:
+		      <% form_tag "/document/add_page_from_file/#{@doc.id}", :multipart => true do |f| %>
+		        <%= file_field_tag "file" %>
+		        <%= submit_tag "Upload" %>
+		      <% end %>
+		    </li>
+		    <li>Upload from a PDF or compressed file:
+		      <% form_tag "/document/add_pages_from_file/#{@doc.id}", :multipart => true do |f| %>
+      			<%= file_field_tag "file" %>
+      			<%= submit_tag "Upload" %>
+      		<% end %>
+		    </li>
+		    <li><%= link_to "remove all", :action => 'remove_all_pages', :doc => @doc.id %></li>
+		  </ul>
+		</li>
+	</ul>
+	<%= link_to "Need help?", ''%>
+</div>
+<% if @doc.pages.size > 0 %>
+	<p>These are the current images that will appear on every page of your document.<br /><span>Click on them to see them in big</span></p>
+	<% for page in @doc.pages %>
+		<div class="page-item"><%= page.number %><br />
+		  <% if page.image %><%= lightbox_image_tag "/image/#{page.id}/small", "/image/#{page.id}/big" %>
+		  <% else %>&nbsp;
+		  <% end %>
+		</div>
+	<% end %>
+	<div class="clear"></div>
+<% end %>
+

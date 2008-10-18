@@ -52,6 +52,18 @@ class Document < ActiveRecord::Base
     {:width => width,:height => height}
   end
   
+  def update_needed_area
+    width  = 99999999
+    height = 99999999
+    self.pages.each do |p|
+      width  = width  < p.image.width ? width : p.image.width
+      height = height < p.image.height ? height : p.image.height
+    end
+    self.width = width
+    self.height = height
+    self.save
+  end
+  
   def is_user_admin?(user)
     dp = DocumentPermission.find_by_user_id_and_document_id user, self
     dp.permission != 0 unless dp.nil?
