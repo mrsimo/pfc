@@ -8,7 +8,7 @@ body {background-color:#fafafa;}
 
 #tools { position: absolute;top:70px;z-index:3;background-image:none;}
 
-ul#pages {width:62px;text-align:center; padding:0 5px;list-style:none;}
+ul#pages {position:absolute;width:62px;text-align:center; padding:0 5px;list-style:none;}
 ul#pages li {display:block;width:19px;float:left;}
 ul#pages a {text-decoration:none;}
 ul#pages img {display:block;float:left;cursor:pointer;}

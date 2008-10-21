@@ -114,9 +114,14 @@ class DocumentController < ApplicationController
 
   def change_page
     doc = Document.find(params[:id])
-    doc.current_page = params[:page]
-    doc.save
-    render :text => "#{doc.get_current_page.id}"
+    if params[:page].to_i > doc.pages.size
+      id = 0
+    else
+      doc.current_page = params[:page]
+      doc.save
+      id = doc.get_current_page.id
+    end
+    render :text => "#{id}"
   end
   
   # Safe way to have only the adequate people access images. Images are in an unaccessible path

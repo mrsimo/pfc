@@ -652,15 +652,15 @@ function changePage(num){
 		data: {page: num},
 		url: "/document/change_page/" + docId,
 		success: function(ret){
-			pageId = ret;
+			if(ret == "0") $("#pages input").val(pageNum);
+			else {
+				pageId = ret;	
+				consult(false);
+				$("#pages input").val(num + "");
+			}
 		}
 	});
 	
-	// Update on-screen info
-	$("#pages input").val(num + "");
-	
-	// Reload the proper elements
-	consult(false);
 }
 
 function toJSON(element){
@@ -730,15 +730,15 @@ $(document).ready(function(){
 	
 	// Adding tooltips
 	$('#pencil').tooltip({text: 'Use this to draw freely like a <strong>pencil</strong>'});
-	$('#line').tooltip({text: 'Draw straight <strong>line</strong>s'});
+	$('#line').tooltip(  {text: 'Draw straight <strong>line</strong>s'});
 	$('#square').tooltip({text: 'Draw <strong>rectangle</strong>s'});
 	$('#circle').tooltip({text: 'Draw <strong>circle</strong>s'});
 	$('#eraser').tooltip({text: 'This is the <strong>eraser</strong> tool.<br />Click over elements to remove them.'});
-	$('#text').tooltip({text: 'Click somwhere to start writing.<br /><span>Tip: press tab once you\'re done.</span>'});
+	$('#text').tooltip(  {text: 'Click somwhere to start writing.<br /><span>Tip: press tab once you\'re done.</span>'});
 	
-	$('#color').tooltip({text: 'Select the <strong>color</strong> to draw with.<br /><span>Tip. click here to spawn the dialog</span>'});
-	$('#fill').tooltip({text: 'Select the <strong>transparency</strong> of your drawings.<br /><span>Tip. click here to spawn the dialog</span>'});
-	$('#thick').tooltip({text: 'Select the <strong>thickness</strong> of your lines.<br /><span>Tip. click here to spawn the dialog</span>'});
+	$('#color').tooltip( {text: 'Select the <strong>color</strong> to draw with.<br /><span>Tip. click here to spawn the dialog</span>'});
+	$('#fill').tooltip(  {text: 'Select the <strong>transparency</strong> of your drawings.<br /><span>Tip. click here to spawn the dialog</span>'});
+	$('#thick').tooltip( {text: 'Select the <strong>thickness</strong> of your lines.<br /><span>Tip. click here to spawn the dialog</span>'});
 	
 	//Creating sliders
 	$("#fill-dialog").slider({min: 0, max:100, startValue: 80, change: function(e,ui){
@@ -755,9 +755,10 @@ $(document).ready(function(){
 		toggle("thick");
 	}});
 	
-	$("#pages p input").bind("change blur",function(e){
+	$("#pages input").bind("change blur",function(e){
 		var v = parseInt(this.value);
 		if(v) changePage(v);
+		else $("#pages input").val(pageNum + "");
 	});
 	
 });
