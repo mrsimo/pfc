@@ -3,13 +3,13 @@ require 'rubygems'
 require "daemons"
 require 'yaml'
 require 'erb'
-require 'active_support'
+#require 'active_support'
 
-options = YAML.load(
-  ERB.new(
-  IO.read(
-  File.dirname(__FILE__) + "/../../config/daemons.yml"
-  )).result).with_indifferent_access
-options[:dir_mode] = options[:dir_mode].to_sym
-
+options = {
+    :dir_mode   => :script,
+    :dir        => '../../log',
+    :multiple   => false,
+    :backtrace  => true,
+    :monitor    => true
+  }
 Daemons.run File.dirname(__FILE__) + '/processor.rb', options
