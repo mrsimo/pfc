@@ -2,9 +2,11 @@
 - @membership = @group.membership(current_user)
 .view-group.left
   %h3= @group.name
-  = textile @group.description
   - if @membership and @membership.admin
-    %p= link_to "Edit", :action => "edit", :id => @group.id
+    = in_place_editor_field :group, :description, {}, {:rows => 20, :cols => 50, :load_text_url => {:action => :get_description, :id => @group.id}}
+    //%p= link_to "Edit", :action => "edit", :id => @group.id
+  - else
+    = @group.description
 .view-group.right
   %h3 Current members
   - if @membership and @membership.admin

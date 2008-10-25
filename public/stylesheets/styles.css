@@ -147,10 +147,19 @@ div.view-group div.right {text-align:right;}
 #group-view-right img {margin:0;border:none;}
 
 #group-documents {background-color:#f2f2f2;border:1px solid #ddd;}
-#group
 
 /* INVITATIONS */
-#invitations {border: 1px solid #06f; border-left:0;border-right:0;background-color:#e0edff;padding:10px;margin:0;}
+div#invitations {
+	background-color:#DDFFFF;
+	border-bottom-color:#DDDDDD;
+	border-bottom-style:solid;
+	border-bottom-width:1px;
+	display:block;
+	padding-bottom:10px;
+	padding-left:10px;
+	padding-right:10px;
+	padding-top:10px;
+}
 #invitations * {margin:0;padding:5px;}
 
 
@@ -166,3 +175,8 @@ div.view-group div.right {text-align:right;}
 #footer { width:100%;background-color: #222; color:#fff; text-align:center; font-size:0.9em; margin-top:10px;}
 #footer p { padding:5px; margin:0px;}
 
+
+/* IN PLACE EDITOR */
+form.inplaceeditor-form {
+	padding:10px;
+}

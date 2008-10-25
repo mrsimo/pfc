@@ -1,6 +1,8 @@
 class GroupsController < ApplicationController
   before_filter :login_required
   
+  in_place_edit_for :group, :description
+  
   def new
     @group =  Group.new
   end
@@ -33,6 +35,17 @@ class GroupsController < ApplicationController
     Group.find(params[:id]).destroy
     @groups = Group.find :all
     redirect_to :controller => "website"
+  end
+  
+  def get_description
+    render :text => Group.find(params[:id]).description(:source)
+  end
+  
+  def update_description
+    g = Group.find(params[:id])
+    g.update_attribute(:description, params[:value])
+    g.reload
+    render :text => RedCloth.new(g.description).to_html
   end
   
   def invite

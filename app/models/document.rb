@@ -37,7 +37,7 @@ class Document < ActiveRecord::Base
   acts_as_ferret :fields => [ :title, :description ]
   
   # Validations
-  validates_presence_of :title, :description
+  validates_presence_of :title
   
   def recent_anonymous_ips
     self.recent_anonymous_activities.collect {|a| a.ip}

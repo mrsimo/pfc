@@ -8,5 +8,4 @@
       = textile group.description
       %span
         = (link_to "Delete", {:controller => "groups", :action => "delete", :id => group.id}, :confirm =>"Are you sure?") if group.is_owner? current_user
-        = link_to "Edit", {:controller => "groups", :action => "edit", :id => group.id} if group.is_admin? current_user
     %li.stats= group.stats

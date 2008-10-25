@@ -28,7 +28,8 @@ class Group < ActiveRecord::Base
   
   # Validations
   validates_presence_of :name
-  validates_presence_of :description  
+  
+  acts_as_textiled :description
   
   def membership(user)
     Membership.find_by_user_id_and_group_id(user,self)

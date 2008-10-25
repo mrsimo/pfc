@@ -10,7 +10,6 @@ class DocumentController < ApplicationController
   def create
     doc = Document.new params[:document]
     doc.user_id = current_user.id
-    doc.description = "No description" if params[:document][:description].blank?
     if doc.save
       redirect_to :controller => "document", :action => "edit", :id => doc.id
     else
