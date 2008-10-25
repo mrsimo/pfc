@@ -12,7 +12,8 @@ end
 
 while($running) do
 
-  Task.find_by_done(false).process
+  t = Task.find_by_done(false)
+  t.process if t
   
   sleep 1
 end
