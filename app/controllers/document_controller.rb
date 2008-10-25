@@ -145,12 +145,10 @@ class DocumentController < ApplicationController
   
   def add_1_page
     @doc = Document.find(params[:doc])
-    puts @doc.pages.size
     p = Page.new :number => @doc.pages.size + 1
     p.document = @doc
     p.save
-    puts @doc.pages.size
-    #@doc.save
+    @doc = Document.find(params[:doc])
     render :partial => 'pages'
   end
   

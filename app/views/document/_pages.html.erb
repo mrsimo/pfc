@@ -16,9 +16,9 @@
 		<li>Number of pages: <%= @doc.pages.size %></li>
 		<li>
 		  <ul id="upload-options">
-		    <li><%= link_to_remote 'Add blank page', :url => {:action => 'add_1_page',:doc =>@doc.id},:update => 'extra-stuff' %></li>
+		    <li><%= link_to_remote 'Add blank page', :url => {:action => 'add_1_page',:doc =>@doc.id},:update => 'extra-stuff', 	:complete => visual_effect(:highlight, 'extra-stuff', :duration => 1) %></li>
 		    <li>
-      		<% form_tag 'fake' do |f| %>
+      		<% form_tag 'fake' do %>
       		  Add <%= text_field_tag "number", 20,:class => "small" %> blank pages	<%= submit_to_remote "Add", 'Add', 
       		  	:url => {:action => 'add_blank_pages', :doc => @doc.id},
       		  	:update => 'extra-stuff',
@@ -26,13 +26,13 @@
       		<% end %>
 		    </li>
 		    <li>Upload 1 image for 1 page:
-		      <% form_tag "/document/add_page_from_file/#{@doc.id}", :multipart => true do |f| %>
+		      <% form_tag "/document/add_page_from_file/#{@doc.id}", :multipart => true do  %>
 		        <%= file_field_tag "file" %>
 		        <%= submit_tag "Upload" %>
 		      <% end %>
 		    </li>
 		    <li>Upload from a PDF or compressed file:
-		      <% form_tag "/document/add_pages_from_file/#{@doc.id}", :multipart => true do |f| %>
+		      <% form_tag "/document/add_pages_from_file/#{@doc.id}", :multipart => true do %>
       			<%= file_field_tag "file" %>
       			<%= submit_tag "Upload" %>
       		<% end %>
