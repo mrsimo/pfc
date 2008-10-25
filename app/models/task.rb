@@ -52,7 +52,9 @@ class Task < ActiveRecord::Base
     @doc = self.document
     current_pages = @doc.pages.size
     files.each_with_index do |f,i|
+      puts "Processing #{f}"
       if [".jpg",".jpeg",".gif",".png"].include? File.extname(f)
+        puts "OK!!"
         p = Page.create :number => (current_pages+i+1), :document_id => @doc.id
         Image.create :uploaded_data => ActionController::TestUploadedFile.new("#{f}", MIME::Types.type_for(f)), :page_id => p.id
       end
