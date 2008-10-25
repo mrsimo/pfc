@@ -10,9 +10,13 @@ class DocumentController < ApplicationController
   def create
     doc = Document.new params[:document]
     doc.user_id = current_user.id
-    doc.save
-    
-    redirect_to :controller => "document", :action => "edit", :id => doc.id
+    doc.description = "No description" if params[:document][:description].blank?
+    if doc.save
+      redirect_to :controller => "document", :action => "edit", :id => doc.id
+    else
+      flash[:notice] = "There was some problem creating the document"
+      redirect_to :action => "new"
+    end
   end
   
   def edit
@@ -141,8 +145,12 @@ class DocumentController < ApplicationController
   
   def add_1_page
     @doc = Document.find(params[:doc])
-    Page.create :number => @doc.pages.size + 1, :document_id => @doc.id
-    @doc.save
+    puts @doc.pages.size
+    p = Page.new :number => @doc.pages.size + 1
+    p.document = @doc
+    p.save
+    puts @doc.pages.size
+    #@doc.save
     render :partial => 'pages'
   end
   
