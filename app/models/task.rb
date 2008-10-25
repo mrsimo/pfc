@@ -26,6 +26,8 @@ class Task < ActiveRecord::Base
       `convert -density 100 #{file} #{directory}/im.jpg`
     end
        
+    `rm #{file}`
+       
     # Now we have to create the Page's with them. For that, we
     # explore the directory recursivelly.      
     files = Array.new
