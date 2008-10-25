@@ -49,21 +49,27 @@ class GroupsController < ApplicationController
   end
   
   def invite
-    user = User.find(:first, :conditions => ["upper(login) LIKE ?", params[:user]])
-    if user
-      # Possible problems, the user is already a member, or has another invitation
-      if Invitation.find_by_target_id(user.id)
-        flash[:notice] = "The user already has an invitation for this group! He just has to accept it :)"
-      elsif Membership.find_by_user_id_and_group_id(user.id,params[:id])
-        flash[:notice] = "The user is already a member of this group :)"
-      else
-        inv = Invitation.new :target_id => user.id, :source_id => current_user.id, :group_id => params[:id]
-        flash[:notice] = "Invitation sent!" if inv.save
+    emails = params[:users].split("\n")
+    @log = Array.new
+    if emails
+      for email in emails
+        user = User.find_by_email(email)
+        if user
+          # Possible problems, the user is already a member, or has another invitation
+          if Invitation.find_by_target_id(user.id)
+            @log << "#{email} already has an invitation for this group. He just has to accept it!"
+          elsif Membership.find_by_user_id_and_group_id(user.id,params[:id])
+            @log << "#{email} is already a member of this group :)"
+          else
+            inv = Invitation.new :target_id => user.id, :source_id => current_user.id, :group_id => params[:id]
+            @log << "#{email} has received an invitation" if inv.save
+          end
+        else
+        @log << "#{email} isn't a member of drawme yet. He should signup."
+        end
       end
-    else
-      flash[:notice] = "User not found, try again"
-      flash[:type] = "bad"
     end
+    flash[:log] = @log
     redirect_to :action => "view", :id => params[:id]
   end
   

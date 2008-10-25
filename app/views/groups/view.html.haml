@@ -1,4 +1,9 @@
 - title "Groups >> \'#{@group.name}\'"
+- if flash[:log]
+  #log
+    %p
+      - for message in flash[:log]
+        == #{message}<br />
 - @membership = @group.membership(current_user)
 .view-group.left
   %h3= @group.name
@@ -9,16 +14,17 @@
     = @group.description
 .view-group.right
   %h3 Current members
-  - if @membership and @membership.admin
-    %p You can invite new people, write his/her username:
-    - form_tag :action => "invite", :id => @group.id do
-      = text_field_tag :user
-      = submit_tag "Invite!"
   %h5
     %span.left Admins
     %span.right Users
   #members-list
-    = render :partial => "members"
+  = render :partial => "members"
+  - if @membership and @membership.admin
+    
+    %p You can invite new people, write their emails, one per line:
+    - form_tag :action => "invite", :id => @group.id do
+      = text_area_tag :users, "", :rows => 10, :cols => 50
+      = submit_tag "Invite!"
 
 .clear
 
