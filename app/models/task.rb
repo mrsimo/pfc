@@ -8,21 +8,23 @@ class Task < ActiveRecord::Base
     require 'find'
     
     ext = File.extname(self.file)
+    directory = "../../#{directory}"
+    file = "#{directory}/#{self.file}"
     case ext
     when ".zip"
-      puts `unzip #{self.dir}/#{self.file} -d #{self.dir}`
+      puts `unzip #{file} -d #{directory}`
     when ".gz"
-      puts `tar xzf #{self.dir}/#{self.file} -C #{self.dir}`
+      puts `tar xzf #{file} -C #{directory}`
     when ".rar"
-      puts `unrar-free #{self.dir}/#{self.file} #{self.dir}`
+      puts `unrar-free #{file} #{directory}`
     when ".pdf"
-      `convert -density 100 #{self.dir}/#{self.file} #{self.dir}/im.jpg`
+      `convert -density 100 #{file} #{directory}/im.jpg`
     end
        
     # Now we have to create the Page's with them. For that, we
     # explore the directory recursivelly.      
     files = Array.new
-    Find.find(self.dir) do |path|
+    Find.find(directory) do |path|
       if FileTest.directory?(path)
         if File.basename(path)[0] == ?.
           Find.prune
@@ -51,7 +53,7 @@ class Task < ActiveRecord::Base
     @doc.update_needed_area
     
     # Now just remove the temporary files :)
-    FileUtils.rm_rf self.dir  
+    FileUtils.rm_rf directory  
     self.done = true
     self.save    
   end
