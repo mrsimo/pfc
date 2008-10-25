@@ -8,7 +8,7 @@ class Task < ActiveRecord::Base
     require 'find'
     
     ext = File.extname(self.file)
-    directory = "../../#{directory}"
+    directory = "../../#{self.dir}"
     file = "#{directory}/#{self.file}"
     case ext
     when ".zip"
