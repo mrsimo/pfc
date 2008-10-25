@@ -34,6 +34,8 @@ class Document < ActiveRecord::Base
   has_many :visitors, :through => :activities, :source => :user
   has_many :active_users, :through => :activities, :source => :user, :conditions => ["activities.when > ?", 30.seconds.ago]
   
+  has_many :tasks
+  
   acts_as_ferret :fields => [ :title, :description ]
   
   # Validations
