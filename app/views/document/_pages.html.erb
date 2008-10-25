@@ -25,13 +25,7 @@
       		  	:complete => visual_effect(:highlight, 'extra-stuff', :duration => 1) %>
       		<% end %>
 		    </li>
-		    <li>Upload 1 image for 1 page:
-		      <% form_tag "/document/add_page_from_file/#{@doc.id}", :multipart => true do  %>
-		        <%= file_field_tag "file" %>
-		        <%= submit_tag "Upload" %>
-		      <% end %>
-		    </li>
-		    <li>Upload from a PDF or compressed file:
+		    <li>Upload an image, a PDF or a compressed file:
 		      <% form_tag "/document/add_pages_from_file/#{@doc.id}", :multipart => true do %>
       			<%= file_field_tag "file" %>
       			<%= submit_tag "Upload" %>
@@ -48,7 +42,7 @@
 	<% @doc.pages.each_with_index do |page,i| %>
 		<div class="page-item"><%= page.number %><br />
 		  <% if page.image %><%= lightbox_image_tag "/image/#{page.id}/small", "/image/#{page.id}/big" %>
-		  <% else %>&nbsp;
+		  <% else %><%= image_tag 'layout/blank.png'%>
 		  <% end %>
 		</div>
 		<% if i%4 == 3 %><div class="clear"></div><% end %>

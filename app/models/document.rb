@@ -73,8 +73,10 @@ class Document < ActiveRecord::Base
     width  = 0
     height = 0
     self.pages.each do |p|
-      width  = width  > p.image.width ? width : p.image.width
-      height = height > p.image.height ? height : p.image.height
+      if p.image
+        width  = width  > p.image.width ? width : p.image.width
+        height = height > p.image.height ? height : p.image.height
+      end
     end
     {:width => width + 200,:height => height + 200}
   end

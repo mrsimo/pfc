@@ -168,6 +168,7 @@ class DocumentController < ApplicationController
     Image.create :uploaded_data => params[:file], :page_id => p.id
     @doc.update_needed_area
     redirect_to :action => 'edit', :id => @doc.id
+    return
   end
   
   def add_pages_from_file
@@ -184,20 +185,26 @@ class DocumentController < ApplicationController
     ext = File.extname(file.original_filename)
     # but we have to do it differently depending on the format :)
     case ext
-      when ".zip"
-        puts `unzip #{file.path} -d #{extract_dir}`
-      when ".gz"
-        puts `tar xzf #{file.path} -C #{extract_dir}`
-      when ".rar"
-        puts `unrar-free #{file.path} #{extract_dir}`
-      when ".pdf"
-        `convert -density 100 #{file.path} #{extract_dir}/im.jpg`
-      else
-        flash[:notice] = "We don't accept that type of file, sorry :("
-        flash[:type] = "bad"
-        redirect_to :action => "new"
+    when ".zip"
+      puts `unzip #{file.path} -d #{extract_dir}`
+    when ".gz"
+      puts `tar xzf #{file.path} -C #{extract_dir}`
+    when ".rar"
+      puts `unrar-free #{file.path} #{extract_dir}`
+    when ".pdf"
+      `convert -density 100 #{file.path} #{extract_dir}/im.jpg`
+    else
+      if [".jpg",".jpeg",".gif",".png"].include? ext
+        add_page_from_file
         return
+      else
+         flash[:notice] = "We don't accept that type of file, sorry :("
+         flash[:type] = "bad"
+         redirect_to :action => "edit", :id => params[:id]
+         return
+      end
     end
+       
     # Now we have to create the Page's with them. For that, we
     # explore the directory recursivelly.      
     files = Array.new
@@ -232,5 +239,6 @@ class DocumentController < ApplicationController
     # Now just remove the temporary files :)
     FileUtils.rm_rf extract_dir   
     redirect_to :action => 'edit', :id => @doc.id
+    return
   end
 end
