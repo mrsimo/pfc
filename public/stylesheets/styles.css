@@ -11,13 +11,15 @@ a:hover {color:#FF8700;}
 
 /* HEADER */
 #header { width:968px;height:100px;margin:auto; border:1px solid black;border-top:0;border-left:0;}
-#header h1 {margin:0;background: transparent url(/images/layout/header.jpg) no-repeat scroll 0 0;}
+#header h1 {margin:0;background: transparent url(/images/layout/header2.jpg) no-repeat scroll 0 0;}
 #header h1 a {display:block; text-indent:-9999px;height:100px;width:440px;}
 
 /* CONTENT */
 #content { width:969px;margin:auto;}
-#flash {font-size: 1.4em;display:block;float:right;margin-top:65px;padding-right:30px;color:#9eff91;}
-#flash.bad {color:#ff4747;}
+.flash {border-bottom:1px solid #DDDDDD;display:block;padding:10px;}
+.flash.notice {background-color:#DDFFFF;}
+.flash.bad {background-color:#ffc8c8;}
+.flash * {margin:0;padding:5px;}
 
 /* PANEL */
 #big-panel {float:right; width:240px;border-left:1px solid #ddd;padding:0;}
@@ -147,21 +149,6 @@ div.view-group div.right {text-align:right;}
 #group-view-right img {margin:0;border:none;}
 
 #group-documents {background-color:#f2f2f2;border:1px solid #ddd;}
-
-/* INVITATIONS */
-div#log {
-	background-color:#DDFFFF;
-	border-bottom-color:#DDDDDD;
-	border-bottom-style:solid;
-	border-bottom-width:1px;
-	display:block;
-	padding-bottom:10px;
-	padding-left:10px;
-	padding-right:10px;
-	padding-top:10px;
-}
-#log * {margin:0;padding:5px;}
-
 
 /* SEARCH RESULTS */
 #results {margin-top:30px;}

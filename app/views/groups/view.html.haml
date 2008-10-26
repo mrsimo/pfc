@@ -1,9 +1,4 @@
 - title "Groups >> \'#{@group.name}\'"
-- if flash[:log]
-  #log
-    %p
-      - for message in flash[:log]
-        == #{message}<br />
 - @membership = @group.membership(current_user)
 .view-group.left
   %h3= @group.name

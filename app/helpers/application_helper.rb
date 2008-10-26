@@ -5,8 +5,7 @@ module ApplicationHelper
   end
   
   def problem(text)
-    flash[:notice] = text
-    flash[:type] = "bad"
+    flash[:bad] = text
   end
   
   def textile(text)    

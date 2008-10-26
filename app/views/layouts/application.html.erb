@@ -8,23 +8,33 @@
 </head>
 <body>
 	<div id="header">
-		<% if flash[:notice] %>
-			<div id="flash" class="<%= flash[:type] -%>"><%=h flash[:notice] %></div>
-		<% end %>
 			<h1><%= link_to 'Drawme', '/' %></h1>
-			
 	</div>
 	<div id="content">
 		<% if logged_in? %>
 			<div id="small-panel">
 				Hello <%= current_user.login %>!
 				<ul>
-					<li id="control-panel"><%= link_to "Control Panel", { :controller => "website", :action => "panel" }%></li>
+          <%= content_tag("li",link_to("Control Panel", { :controller => "website", :action => "panel" }),:id => "control-panel") unless controller.action_name == "panel"%>
 					<li id="logout"><%= link_to "Logout", { :controller => "sessions", :action => "logout"}%></li>
 				</ul>
 			</div>
 		<% end %>
-		
+		<% if flash %>
+        <% flash.each do |key, msg| %>
+          <div class="flash<%= " #{key}" %>">
+          <% if msg.class.to_s == "Array" %>
+            <p>
+              <% for message in msg %>
+                <%= message %><br />
+              <% end %>
+            </p>
+          <% else %>
+            <%= content_tag :p, msg %>
+          <% end %>
+          </div>
+        <% end %>
+    <% end %>
 		<%= yield %>
 		
 	</div>

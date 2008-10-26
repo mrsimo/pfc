@@ -188,8 +188,7 @@ class DocumentController < ApplicationController
       flash[:notice] = "The file has been queued for process. In a few moments it will be ready"
       redirect_to :action => "edit", :id => params[:id]
     else
-      flash[:notice] = "We don't accept that type of file, sorry :("
-      flash[:type] = "bad"
+      flash[:bad] = "We don't accept that type of file, sorry :("
       redirect_to :action => "edit", :id => params[:id]
       return
     end
