@@ -51,7 +51,7 @@ class Document < ActiveRecord::Base
   
   def ping(user,ip) # user has just loaded info, we must update activity
     if user != :false
-      activity = Activity.find_or_create_by_user_id_and_document_id user,self.id
+      activity = Activity.find_or_create_by_user_id_and_document_id user.id,self.id
       activity.when = Time.now
       activity.save
     else
