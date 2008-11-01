@@ -103,6 +103,7 @@ class DocumentController < ApplicationController
 
   def list_elements
     doc = Document.find(params[:id])
+    doc.reload
     @current_page = doc.get_current_page
     @elements = @current_page.elements
     doc.ping current_user, request.remote_ip
