@@ -42,11 +42,11 @@ class Document < ActiveRecord::Base
   validates_presence_of :title
   
   def recent_anonymous_ips
-    self.recent_anonymous_activities.collect {|a| a.ip}
+    self.recent_anonymous_activities(true).collect {|a| a.ip}
   end
   
   def recent_usernames
-    self.active_users.collect {|a| a.login}
+    self.active_users(true).collect {|a| a.login}
   end
   
   def ping(user,ip) # user has just loaded info, we must update activity
