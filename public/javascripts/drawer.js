@@ -136,6 +136,7 @@ function mouseUp(e){
 function upText(e){
     if (texting) {
 		texting = false;
+		$("#tools div").removeClass("selected");
         var txt = document.createElement("textarea");
         txt.setAttribute("rows", "6");
 		txt.setAttribute("cols", "20");
@@ -467,7 +468,6 @@ function Text(here,x,y,text,color,size,font,fill){
 	this.element.style.zIndex = 200;
 	this.element.style.position = "absolute";
 	
-	this.element.style.border="1px solid black";
 	this.element.style.margin="0px";
 	this.element.style.padding="0px";
 	
@@ -563,9 +563,10 @@ function load(content){
 
 	// Change users list
 	var users = "";
-	for (u in t.users) users = users + t.users[u] + " ";
-	for (u in t.anonymous) users = users + t.anonymous[u] + " ";
-	$("#users").text(users);
+	for (u in t.users) users = users + "<li>" + t.users[u] + "</li>";
+	for (u in t.anonymous) users = users + "<li>" + t.anonymous[u] + "</li>";
+	$("#users-number").text("(" + (t.users.length + t.anonymous.length) + ")");
+	$("#users-list").html(users);
 	
 	if(t.elements.length>0){	// It's a way to see if some data has been returned.
 		var i;
@@ -607,7 +608,7 @@ function load(content){
 		nodes = container.childNodes;
 		for(i=nodes.length;i--;i<0) check(nodes[i],container);
 	}
-			
+
 }
 
 function check(node,parent){
@@ -678,7 +679,7 @@ function toJSON(element){
 		case "circle":
 			out += jsonSimple(element,["thick","x","y","rx","ry"]);break;
 		case "text":
-			out += jsonSimple(element,["font","size","text","x","y"]);sbreak;
+			out += jsonSimple(element,["font","size","text","x","y"]);break;
 	}
 	//Remove the last comma
 	out = out.substring(0,out.length-1);
@@ -760,6 +761,12 @@ $(document).ready(function(){
 		if(v) changePage(v);
 		else $("#pages input").val(pageNum + "");
 	});
+	
+	// mouseover para la lista de usuarios
+	$("#users").hover(
+		function(){ $("#users-list").show(); },
+		function(){ $("#users-list").hide(); }	
+	);
 	
 });
 

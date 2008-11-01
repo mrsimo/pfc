@@ -52,8 +52,13 @@
 <div id="corner">&nbsp;</div>
 
 <div id="top">
-	<p id="info"><%= @document.title %>, <%= @document.pages.size %> pages. <%= link_to "Back to your panel", :action => 'panel', :controller => 'website' %></p>
-	<p id="users"></p>
+	<p id="info"><%= @document.title %>, <%= @document.pages.size %> pages. <%= link_to "Back to your panel", :action => 'panel', :controller => 'website' %></p>	
+</div>
+
+<div id="users">Online users <span id="users-number"></span>
+<ul id="users-list">
+  
+</ul>
 </div>
 
 <div id="tools" unselectable="on" onselectstart="return false;" >
