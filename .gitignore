@@ -11,9 +11,9 @@ doc/plugins
 coverage/*
 db/*.sqlite3
 *.tmproj
-document_temp/*
-document_thumbnails/*
-document_images/*
+document_temp
+document_thumbnails
+document_images
 index/*
 *.pdf
 config/database.yml
