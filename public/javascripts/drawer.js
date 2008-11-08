@@ -59,7 +59,6 @@ function mouseDown(e){
 			break;
     }
 	if(svg) e.stopPropagation();
-	//e.cancelBubble=true;
 	return false;
 }
 
@@ -124,6 +123,7 @@ function mouseUp(e){
 	if(tool == "cursor"){
 		 clearInterval(cursorGrower);
 		 saveCursor(x,y,cursorRadius);
+		 current.element.id = "cursor_pointer";
 		 cursorRadius = 0;
 	} else {
     	refX = container.offsetLeft;
@@ -631,6 +631,12 @@ function load(content){
 		nodes = container.childNodes;
 		for(i=nodes.length;i--;i<0) check(nodes[i],container);
 	}
+	
+	// CURSOR
+	// #1 remove current one, and draw a new one
+	$("#cursor_pointer").remove();
+	c = new Circle(mainElem,t.cursor.x,t.cursor.y,t.cursor.r,t.cursor.r,"red",2,90);
+	c.element.id = "cursor_pointer";
 
 }
 
@@ -732,8 +738,8 @@ $(document).ready(function(){
 
 	// Attach events where needed
 	$(container).bind("mousedown", mouseDown);
-	$("body").bind("mousemove", mouseMove);
-	$("body").bind("mouseup",   mouseUp);
+	$(container).bind("mousemove", mouseMove);
+	$(container).bind("mouseup",   mouseUp);
 
 	
 	// Define the add function
@@ -759,13 +765,17 @@ $(document).ready(function(){
 	//$('#thick').tooltip( {text: 'Select the <strong>thickness</strong> of your lines.<br /><span>Tip. click here to spawn the dialog</span>'});
 	
 	//Creating sliders
-	$("#fill-dialog").slider({min: 0, max:100, startValue: 80, change: function(e,ui){
+	$("#fill-dialog").slider({min: 20, max:100, startValue: 80, change: function(e,ui){
 		fill = (ui.value/100);
+		$("#fill").html(ui.value);
+	}, slide: function(e,ui){
 		$("#fill").html(ui.value);
 	}});
 	
 	$("#thick-dialog").slider({min:1, max:15,  startValue: 3, change: function(e,ui){
 		thick= ui.value;
+		$("#thick").html(ui.value);
+	}, slide: function(e,ui){
 		$("#thick").html(ui.value);
 	}});
 	

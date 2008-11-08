@@ -36,9 +36,9 @@ body {margin:0;padding:0;background-color:#fafafa;font-family:"Lucida Sans Unico
 #tools div#fill 	{background-image: url(/images/transparency.png);}
 #tools div#thick 	{background-image: url(/images/thickness.png);}
 
-#tools div.last {z-index:11;position:absolute;width:auto;height:auto;margin:0;line-height:auto;border:1px solid #aaa;background-color:#f1f1f1;-moz-border-radius-topright:7px;-moz-border-radius-bottomright:7px;}
+#tools div.last {z-index:11;position:absolute;width:auto;height:auto;margin:0;line-height:auto;border:1px solid #aaa;background-color:#f1f1f1;-webkit-border-top-right-radius:7px;-webkit-border-bottom-right-radius:7px;-moz-border-radius-topright:7px;-moz-border-radius-bottomright:7px;}
 #tools div.last div.square  {float:left;margin:5px 5px 5px 10px;}
-#tools div.last div.picker {float:left;height:42px;margin:0;margin-right:5px;padding:5px;line-height:auto;border:0;background-color:transparent;display:none;}
+#tools div.last div.picker {float:left;height:42px;margin:0;margin-right:5px;padding:5px;line-height:auto;border:0;background-color:transparent;display:none;z-index:40;}
 #tools div#cl {margin-top:20px;}
 #tools div#fl {margin-top:85px;}
 #tools div#th {margin-top:151px;}
@@ -52,9 +52,8 @@ body {margin:0;padding:0;background-color:#fafafa;font-family:"Lucida Sans Unico
 
 /* SLIDER DIALOGS */
 
-#tools div.ui-slider {background: transparent url(images/slider-bg-1.png) no-repeat center center;padding:0px; height:25px;width:90px;}
-#tools div.ui-slider-handle { z-index: 121;width: 10px;height: 28px;
-	background: #555 url(images/0d0d0d_40x100_textures_02_glass_60.png) 0 50% repeat-x; }
+#tools div.ui-slider {background: transparent url(images/slider-bg-1.png) no-repeat center center;padding:0px; height:25px;width:90px;z-index:41;}
+#tools div.ui-slider-handle { z-index: 121;width: 10px;height: 20px; background: #555 url(images/0d0d0d_40x100_textures_02_glass_60.png) 0 50% repeat-x;position:absolute;margin-left:56px;margin-top:10px; }
 #tools div.ui-slider-handle:hover { background: #0d0d0d url(images/0d0d0d_40x100_textures_02_glass_60.png) 0 50% repeat-x;border: 1px solid #dddddd; }
 #tools div.ui-slider-handle-active, .ui-slider-handle-active:hover { background: #0d0d0d url(images/0d0d0d_40x100_textures_02_glass_60.png) 0 50% repeat-x;
 	border: 1px solid #dddddd;}
