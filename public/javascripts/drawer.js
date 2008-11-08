@@ -25,7 +25,7 @@ var cursorGrower; var cursorRadius = 0;
 /* Three big events. From here everything's controlled. */
 function mouseDown(e){
 	if(!e) e = window.event;
-	if (ready_to_write) tf(e);
+	if (ready_to_write && t.target.type != "textarea") tf(e);
     drawing = true;
     refX = container.offsetLeft;
     refY = container.offsetTop;
@@ -69,9 +69,7 @@ function growCursor(){
 
 function mouseMove(e){
 	if(!e) e = window.event;
-	if(!svg && drawing && e.button != 1) // Means we mouseUp'd outside the window.
-		mouseUp(e);	// We "force" the mouseUp.
-	
+
     refX = container.offsetLeft;
     refY = container.offsetTop;
     cPX = currPositionX(e);
@@ -115,7 +113,7 @@ function mouseMove(e){
         }
     }
 	if (tool != "text" && e.target.id != "fill-dialog" && e.target.id != "thick-dialog") e.stopPropagation();
-	return false;
+	if (!ready_to_text) return false;
 }
 
 function mouseUp(e){
@@ -142,7 +140,7 @@ function mouseUp(e){
 		if(current != null) save(current);
 		current = null;
 	}
-	return false;
+	if (!ready_to_text) return false;
 }
 
 /* When creating text a little more juice is needed, so there's an
@@ -174,7 +172,6 @@ function upText(e){
 		// Attach the function to proper events
 		$(txt).bind("change blur",tf);
 		ready_to_write = true;
-	//	$(container).bind("click",tf);
     }
 }
 
@@ -738,8 +735,8 @@ $(document).ready(function(){
 
 	// Attach events where needed
 	$(container).bind("mousedown", mouseDown);
-	$(container).bind("mousemove", mouseMove);
-	$(container).bind("mouseup",   mouseUp);
+	$("body").bind("mousemove", mouseMove);
+	$("body").bind("mouseup",   mouseUp);
 
 	
 	// Define the add function

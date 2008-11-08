@@ -61,7 +61,7 @@ body {margin:0;padding:0;background-color:#fafafa;font-family:"Lucida Sans Unico
 	border: 1px solid #595959;border-left: 0;border-right: 0;top: -1px;z-index:121; }
 
 /* DRAWING STUFF */
-textarea { font-size: 1.3em;font-family:"Verdana"; background: url(images/white65.png); }
+textarea { font-size: 1.3em;font-family:"Verdana"; background: url(images/white65.png);z-index:50; }
 
 .ui-wrapper {z-index: 220;}
 .ui-resizable-handle {z-index:220;}
