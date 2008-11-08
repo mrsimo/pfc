@@ -12,7 +12,7 @@ if (navigator.appName == "Microsoft Internet Explorer") svg = false;
 /****** DRAWING MODULE **********/
 /********************************/
 /* HELPING VARIABLES */
-var drawing, erasing, texting;
+var drawing, erasing, texting, ready_to_write, txt;
 var x, y, tmpX, tmpY; // Save original coords in some tools
 var refX, refY; 	// Help positioning the mouse in relation to the screen
 var tool = "line"; 	// What tool is selected?
@@ -25,8 +25,7 @@ var cursorGrower; var cursorRadius = 0;
 /* Three big events. From here everything's controlled. */
 function mouseDown(e){
 	if(!e) e = window.event;
-	if(svg)	if(prohibed.indexOf(e.target.id) != -1) return;
- 	if(!svg) if(e.target.id!="vmlElem") return;	
+	if (ready_to_write) tf(e);
     drawing = true;
     refX = container.offsetLeft;
     refY = container.offsetTop;
@@ -155,7 +154,7 @@ function upText(e){
     if (texting) {
 		texting = false;
 		$("#tools div").removeClass("selected");
-        var txt = document.createElement("textarea");
+        txt = document.createElement("textarea");
         txt.setAttribute("rows", "6");
 		txt.setAttribute("cols", "20");
         txt.setAttribute("class", "drawingText");
@@ -171,22 +170,21 @@ function upText(e){
 		// Auxiliary function that will pop whenever the input thinks
 		// the user has finished. It controls if something is written,
 		// and acts accordingly.
-		var tf = function(e){
-			if(txt.value != ""){
-				var tmp = txt.value.replace(/(\r\n)|(\n)/g,"<br />");
-				tx = new Text(container,tmpX,tmpY,tmp,color,"30","","0");
-				save(tx);
-			} 
-			$(txt).remove();
-		}
+		
 		// Attach the function to proper events
-		$(txt).bind("change",tf);
-		// This helps for explorer since it doesn't pop the onChange
-		// even when we press intro.
-		if(!svg) $(txt).bind("keydown",function(e){
-			if (window.event.keyCode == 13) tf(e);
-			});
+		$(txt).bind("change blur",tf);
+		ready_to_write = true;
+	//	$(container).bind("click",tf);
     }
+}
+
+function tf(e){
+	if(txt.value != ""){
+		var tmp = txt.value.replace(/(\r\n)|(\n)/g,"<br />");
+		tx = new Text(container,tmpX,tmpY,tmp,color,"30","","0");
+		save(tx);
+	} 
+	$(txt).remove();
 }
 
 /********************************/
@@ -580,7 +578,6 @@ function load(content){
 	// Load the good background
 	bg = "url(/image/" + pageId + ")";
 	currentbg = $(container).get(0).style.backgroundImage;
-	console.log(bg + " vs " + currentbg);
 	if(bg != currentbg){
 		$(container).css("background","white url(\"/image/" + pageId + "\") no-repeat 100px 100px");
 		if(svg) $(mainElem).css("background-color","transparent");		
@@ -723,17 +720,6 @@ function jsonSimple(obj,atts){
 $(document).ready(function(){
     texting = true;
 
-	// Attach events where needed
-	if (svg) {
-		$("#protectiveLayer").bind("mousedown", mouseDown);
-		$("body").bind("mousemove", mouseMove);
-		$("body").bind("mouseup",   mouseUp);
-	} else {
-		$("#vmlElem").bind("mousedown", mouseDown);
-		$("body").bind("mousemove", mouseMove);
-		$("body").bind("mouseup",   mouseUp);
-	}
-	
 	// Set the appropiate variables
     if (svg) {
         mainElem = document.getElementById("svgElem");
@@ -743,6 +729,12 @@ $(document).ready(function(){
         mainElem = document.getElementById("vmlElem");
         container = mainElem;
     }
+
+	// Attach events where needed
+	$(container).bind("mousedown", mouseDown);
+	$("body").bind("mousemove", mouseMove);
+	$("body").bind("mouseup",   mouseUp);
+
 	
 	// Define the add function
 	mainElem.add = function(something) {
