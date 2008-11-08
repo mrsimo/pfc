@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081018164024) do
+ActiveRecord::Schema.define(:version => 20081101173132) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id",     :limit => 11
@@ -111,9 +111,21 @@ ActiveRecord::Schema.define(:version => 20081018164024) do
     t.integer  "document_id", :limit => 11, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "cursorx",     :limit => 11
+    t.integer  "cursory",     :limit => 11
+    t.integer  "cursorr",     :limit => 11
   end
 
   add_index "pages", ["document_id"], :name => "index_pages_on_document_id"
+
+  create_table "tasks", :force => true do |t|
+    t.string   "file"
+    t.string   "dir"
+    t.boolean  "done",                      :default => false
+    t.integer  "document_id", :limit => 11
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "thumbnails", :force => true do |t|
     t.integer  "parent_id",    :limit => 11

@@ -21,6 +21,7 @@ var color = "blue";
 var thick = "2";
 var fill = "80";
 var prohibed = new Array("top","tools","pages","fill-dialog","thick-dialog"); 
+var cursorGrower; var cursorRadius = 0;
 /* Three big events. From here everything's controlled. */
 function mouseDown(e){
 	if(!e) e = window.event;
@@ -53,15 +54,26 @@ function mouseDown(e){
         case "image":
             current = new Image(mainElem,x,y,"test.jpg",1);
             break;
+		case "cursor":
+			current = new Circle(mainElem,x,y,1,1,"red",2,90);
+			cursorGrower = setInterval("growCursor();",10);
+			break;
     }
 	if(svg) e.stopPropagation();
 	//e.cancelBubble=true;
+	return false;
+}
+
+function growCursor(){
+	cursorRadius += 3;
+	current.edit(x,y,cursorRadius,cursorRadius);
 }
 
 function mouseMove(e){
 	if(!e) e = window.event;
 	if(!svg && drawing && e.button != 1) // Means we mouseUp'd outside the window.
 		mouseUp(e);	// We "force" the mouseUp.
+	
     refX = container.offsetLeft;
     refY = container.offsetTop;
     cPX = currPositionX(e);
@@ -105,27 +117,33 @@ function mouseMove(e){
         }
     }
 	if (tool != "text" && e.target.id != "fill-dialog" && e.target.id != "thick-dialog") e.stopPropagation();
-
+	return false;
 }
 
 function mouseUp(e){
 	if(!e) e = window.event;
-	
-    refX = container.offsetLeft;
-    refY = container.offsetTop;
-    cPX = currPositionX(e);
-    cPY = currPositionY(e);
-    drawing = false;
-    switch (tool) {
-        case "eraser":
-            erasing=false;
-            break;
-        case "text":
-            upText(e);
-            break;
-    }
-	if(current != null) save(current);
-	current = null;
+	if(tool == "cursor"){
+		 clearInterval(cursorGrower);
+		 saveCursor(x,y,cursorRadius);
+		 cursorRadius = 0;
+	} else {
+    	refX = container.offsetLeft;
+    	refY = container.offsetTop;
+    	cPX = currPositionX(e);
+    	cPY = currPositionY(e);
+    	drawing = false;
+    	switch (tool) {
+        	case "eraser":
+            	erasing=false;
+            	break;
+        	case "text":
+            	upText(e);
+            	break;
+    	}
+		if(current != null) save(current);
+		current = null;
+	}
+	return false;
 }
 
 /* When creating text a little more juice is needed, so there's an
@@ -474,6 +492,7 @@ function Text(here,x,y,text,color,size,font,fill){
 	container.appendChild(this.element);
 }
 
+
 /* IMAGE CLASS
  * x,y: Coords of origin of the image
  * img: path to the image
@@ -514,8 +533,6 @@ var reloads = 0;	// Counter to ask for everything every number of times
 /* We will save the newly created element through ajax.
  * The parameter 'it' is an object we'll convert into
  * a JSON compatible string.
- * The url that we visit to add a new element is:
- * /doc/:documentID/:pageNumber/add
  * The JSON'd string is passed through GET typical way.
  */
 function save(it){
@@ -528,6 +545,13 @@ function save(it){
 			it.element.id=ret;
 		}
 	});
+}
+
+function saveCursor(x,y,r){
+	$.ajaxQueue({
+		url: "/document/save_cursor/" + docId,
+		data: {x:x,y:y,r:r}
+		});
 }
 
 /* This function will be executed constantly, with a delay of "delay"
@@ -554,9 +578,13 @@ function consult(repeat){
 function load(content){
 	var t = eval("(" + content + ")");	// Convert JSON compatible data into actual data.
 	// Load the good background
-	bg = t.background;
+	bg = "url(/image/" + pageId + ")";
+	currentbg = $(container).get(0).style.backgroundImage;
+	console.log(bg + " vs " + currentbg);
+	if(bg != currentbg){
 		$(container).css("background","white url(\"/image/" + pageId + "\") no-repeat 100px 100px");
-		if(svg) $(mainElem).css("background-color","transparent");
+		if(svg) $(mainElem).css("background-color","transparent");		
+	}	
 	
 	// Change page number if needed
 	change_page_to(t);
@@ -576,12 +604,10 @@ function load(content){
 			var tmp = document.getElementById(t.elements[i].id);
 			if(tmp) tmp.id += " ok";
 			else {
-				//console.log("Voy a cagar un algo: " + t.elements[i].id )
 				var e = eval("(" + t.elements[i].attr + ")");
-				//console.log(e)
 				var tp;
 				switch (e.type) {
-			        case "line":   
+			        case "line":
 						tp = new Line(mainElem,e.x1, e.y1, e.x2, e.y2, e.color, e.thick, e.fill);
 						break;
 			        case "pencil":
@@ -689,9 +715,7 @@ function toJSON(element){
 
 function jsonSimple(obj,atts){
 	var out = "";
-	for (i in atts) {
-		out += '"' + atts[i] + '":"' + obj[atts[i]] + '",';
-	}
+	for (i in atts) { out += '"' + atts[i] + '":"' + obj[atts[i]] + '",'; }
 	return out
 }
 
@@ -702,12 +726,12 @@ $(document).ready(function(){
 	// Attach events where needed
 	if (svg) {
 		$("#protectiveLayer").bind("mousedown", mouseDown);
-		$("#protectiveLayer").bind("mousemove", mouseMove);
-		$("#protectiveLayer").bind("mouseup",   mouseUp);
+		$("body").bind("mousemove", mouseMove);
+		$("body").bind("mouseup",   mouseUp);
 	} else {
 		$("#vmlElem").bind("mousedown", mouseDown);
-		$("#vmlElem").bind("mousemove", mouseMove);
-		$("#vmlElem").bind("mouseup",   mouseUp);
+		$("body").bind("mousemove", mouseMove);
+		$("body").bind("mouseup",   mouseUp);
 	}
 	
 	// Set the appropiate variables
@@ -730,6 +754,7 @@ $(document).ready(function(){
 	consult(true);
 	
 	// Adding tooltips
+	$('#cursor').tooltip({text: 'Highlight certain point to help your explanations.<br /> <span>There can be only one active at any given time.</span>'});
 	$('#pencil').tooltip({text: 'Use this to draw freely like a <strong>pencil</strong>'});
 	$('#line').tooltip(  {text: 'Draw straight <strong>line</strong>s'});
 	$('#square').tooltip({text: 'Draw <strong>rectangle</strong>s'});
@@ -737,23 +762,19 @@ $(document).ready(function(){
 	$('#eraser').tooltip({text: 'This is the <strong>eraser</strong> tool.<br />Click over elements to remove them.'});
 	$('#text').tooltip(  {text: 'Click somwhere to start writing.<br /><span>Tip: press tab once you\'re done.</span>'});
 	
-	$('#color').tooltip( {text: 'Select the <strong>color</strong> to draw with.<br /><span>Tip. click here to spawn the dialog</span>'});
-	$('#fill').tooltip(  {text: 'Select the <strong>transparency</strong> of your drawings.<br /><span>Tip. click here to spawn the dialog</span>'});
-	$('#thick').tooltip( {text: 'Select the <strong>thickness</strong> of your lines.<br /><span>Tip. click here to spawn the dialog</span>'});
+	//$('#color').tooltip( {text: 'Select the <strong>color</strong> to draw with.<br /><span>Tip. click here to spawn the dialog</span>'});
+	//$('#fill').tooltip(  {text: 'Select the <strong>transparency</strong> of your drawings.<br /><span>Tip. click here to spawn the dialog</span>'});
+	//$('#thick').tooltip( {text: 'Select the <strong>thickness</strong> of your lines.<br /><span>Tip. click here to spawn the dialog</span>'});
 	
 	//Creating sliders
 	$("#fill-dialog").slider({min: 0, max:100, startValue: 80, change: function(e,ui){
 		fill = (ui.value/100);
 		$("#fill").html(ui.value);
-	}, stop: function(e,ui){
-		toggle("fill");
 	}});
 	
 	$("#thick-dialog").slider({min:1, max:15,  startValue: 3, change: function(e,ui){
 		thick= ui.value;
 		$("#thick").html(ui.value);
-	}, stop: function(e,ui){
-		toggle("thick");
 	}});
 	
 	$("#pages input").bind("change blur",function(e){
@@ -768,6 +789,24 @@ $(document).ready(function(){
 		function(){ $("#users-list").hide(); }	
 	);
 	
+	if($.browser.msie && $.browser.version > 6) {max=160;min=0}
+	else if ($.browser.msie) {max=175;min=0}
+	else {max=170;min=57}
+	
+	$("#cl").hover(
+		function(){ $("#cl").width(max-10);$("#color-dialog").show(); },
+		function(){ $("#cl").width(min);$("#color-dialog").hide(); }	
+	);
+	
+	$("#fl").hover(
+		function(){ $("#fl").width(max);$("#fill-dialog").show(); },
+		function(){ $("#fl").width(min);$("#fill-dialog").hide(); }	
+	);
+	
+	$("#th").hover(
+		function(){ $("#th").width(max);$("#thick-dialog").show(); },
+		function(){ $("#th").width(min);$("#thick-dialog").hide(); }	
+	);
 });
 
 /* AUXILIARY FUNCTIONS*/

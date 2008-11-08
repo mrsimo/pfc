@@ -101,9 +101,18 @@ class DocumentController < ApplicationController
     render :text => "OK"
   end
 
+  def save_cursor
+    doc = Document.find(params[:id])
+    p = doc.get_current_page
+    p.cursorx = params[:x]
+    p.cursory = params[:y]
+    p.cursorr = params[:r]
+    p.save
+    render :text => "ok"
+  end
+
   def list_elements
     doc = Document.find(params[:id])
-    doc.reload
     @current_page = doc.get_current_page
     @elements = @current_page.elements
     doc.ping current_user, request.remote_ip

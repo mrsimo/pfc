@@ -8,8 +8,8 @@
 
 	if ua.include? "MSIE"
 		headText = "<html xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:v=\"urn:schemas-microsoft-com:vml\">"
-		styleText = "<style>v\\:* { behavior: url(#default#VML);}</style>"
-		mainText = "<div id=\"vmlElem\" style=\"height:#{@document.height}px;width:#{@document.width}px;position:absolute;top:60px;left:160px;\">\n
+		styleText = "<style>v\\:* { behavior: url(#default#VML);z-index:0;}</style>"
+		mainText = "<div id=\"vmlElem\" style=\"height:#{@document.height}px;width:#{@document.width}px;\">\n
 					</div>"
 	else
 		headText = " <!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">" + 
@@ -30,6 +30,8 @@
 <head>
 	
 	<link href="/stylesheets/drawer.css" media="screen" rel="Stylesheet" type="text/css" />
+	<link href="/stylesheets/fauxconsole.css" media="screen" rel="Stylesheet" type="text/css" />
+	
 	
 	<%= styleText %>
 	<script type="text/javascript" charset="utf-8">
@@ -43,25 +45,33 @@
 	<script type="text/javascript" charset="utf-8" language="javascript" src="/javascripts/jqueryui.js"></script>
 	<script type="text/javascript" language="javascript" charset="utf-8" src="/javascripts/tooltip.js"></script>
 	<script type="text/javascript" language="javascript" charset="utf-8" src="/javascripts/drawer.js"></script>
-	
+  <script type="text/javascript" src="/javascripts/fauxconsole.js"></script>
 	
 	<title>Drawme - You are drawing on Whiteboard n.<%= @document.id %></title>
 </head>
 <body>
+  <div id="top">
+    
+    <div id="pages">
+      <div><img id="prev" onclick="previousPage();" src="/images/prev.png" /></div>
+      <div style="width:30px;"><input type="text" value="<%= @document.get_current_page.number %>" /></div>
+      <div><img onclick="nextPage();" src="/images/next.png" id="next" /></div>
+      <div class="clear"></div>
+    </div>
+    
+    <div id="users">
+      Online users <span id="users-number"></span>
+      <ul id="users-list">
 
-<div id="corner">&nbsp;</div>
-
-<div id="top">
-	<p id="info"><%= @document.title %>, <%= @document.pages.size %> pages. <%= link_to "Back to your panel", :action => 'panel', :controller => 'website' %></p>	
-</div>
-
-<div id="users">Online users <span id="users-number"></span>
-<ul id="users-list">
-  
-</ul>
-</div>
-
+      </ul>
+    </div>
+    
+    <p id="info"><%= @document.title %>, <%= @document.pages.size %> pages. <%= link_to "Back to your panel", :action => 'panel', :controller => 'website' %></p>	
+    
+  </div>
+<div class="clear"></div>
 <div id="tools" unselectable="on" onselectstart="return false;" >
+    <div id="cursor" onclick="selectTool('cursor');"></div>
 		<div id="pencil" onclick="selectTool('pencil');"></div>
 		<div id="line"  class="selected" onclick="selectTool('line');"></div>
 		<div id="square" onclick="selectTool('square');"></div>
@@ -69,37 +79,30 @@
 		<div id="text" onclick="selectTool('text');"></div>
 		<div id="eraser" onclick="selectTool('eraser')"></div>
 		
-		<div id="color" onclick="toggle('color');"></div>
-		<div id="fill"  onclick="toggle('fill');">80</div>
-		<div id="thick" onclick="toggle('thick');">3</div>		
-</div>
-
-<ul id="pages">
-  <li style="width:16px;">&nbsp;<img id="prev" onclick="previousPage();" src="/images/prev.png" /></li>
-  <li style="width:28px;">&nbsp;<input type="text" value="<%= @document.get_current_page.number %>" /></li>
-  <li style="width:16px;">&nbsp;<img onclick="nextPage();" src="/images/next.png" id="next" /></li> 
-</ul>
-
-<div id="color-dialog" class="hidden" style="display:none;">
-	<div style="background-color:#fff" onclick="selectColor('#fff');"></div>
-	<div style="background-color:#f00" onclick="selectColor('#f00');"></div>
-	<div style="background-color:#0f0" onclick="selectColor('#0f0');"></div>
-	<div style="background-color:#00f" onclick="selectColor('#00f');"></div><br />
-	<div style="background-color:#ff0" onclick="selectColor('#ff0');"></div>
-	<div style="background-color:#f0f" onclick="selectColor('#f0f');"></div>
-	<div style="background-color:#0ff" onclick="selectColor('#0ff');"></div>
-	<div style="background-color:#000" onclick="selectColor('#000');"></div>
-</div>
-
-<div id="fill-dialog" class="hidden" style="display:none;">
-	<div class='ui-slider-handle'></div>	
-</div>
-
-<div id="thick-dialog" class="hidden" style="display:none;">
-	<div class='ui-slider-handle'></div>	
+		<div id="cl" class="last">
+		  <div id="color" class="square"></div>
+		  <div id="color-dialog" class="picker">
+      	<div style="background-color:#fff;" onclick="selectColor('#fff');"></div>
+      	<div style="background-color:#f00;" onclick="selectColor('#f00');"></div>
+      	<div style="background-color:#0f0;" onclick="selectColor('#0f0');"></div>
+      	<div style="background-color:#00f;" onclick="selectColor('#00f');"></div>
+      	<div style="background-color:#ff0;" onclick="selectColor('#ff0');"></div>
+      	<div style="background-color:#f0f;" onclick="selectColor('#f0f');"></div>
+      	<div style="background-color:#0ff;" onclick="selectColor('#0ff');"></div>
+      	<div style="background-color:#000;" onclick="selectColor('#000');"></div>
+      </div>
+		</div>
+		<div id="fl" class="last">
+		  <div id="fill"  class="square">80</div>
+		  <div  class="picker" id="fill-dialog"><div class='ui-slider-handle'></div></div>
+		</div>
+		<div id="th" class="last">
+		  <div id="thick" class="square">3</div>
+	    <div  class="picker" id="thick-dialog"><div class='ui-slider-handle'></div></div>
+	  </div>
 </div>
 
 <%= mainText %>
-
+<div class="clear"></div>
 </body>
 </html>

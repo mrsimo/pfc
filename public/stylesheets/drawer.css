@@ -1,27 +1,30 @@
-body {background-color:#fafafa;}
+body {margin:0;padding:0;background-color:#fafafa;font-family:"Lucida Sans Unicode","Georgia", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;}
 
-#corner {width:72px;height:35px;position:absolute;}
-#top { height:35px;left:240px;padding:0px; position:absolute;z-index:3;}
-#top p {padding:0 60px;display:inline;line-height:35px;font-size:1.4em;font-family:"Lucida Sans Unicode","Georgia", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;}
+.clear {clear:both;}
+.hidden {}
+#top {margin-bottom:25px;}
 
-#users {position:absolute;left:100px;z-index:1000;font-size:1.2em;font-family:"Lucida Sans Unicode","Georgia", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;}
+#pages {text-align:center; padding:0 5px;margin:0;float:left;padding:10px;}
+#pages div {float:left;width:16px;}
+#pages a {text-decoration:none;}
+#pages img {cursor:pointer;}
+#pages input {width:22px;display:block;text-align:center;font-size:1.1em;}
+
+#top p {padding:0;padding-left:175px;display:inline;font-size:1.4em;margin-bottom:25px;}
+
+#users {position:absolute;left:90px;z-index:100000000000000;}
 #users {border:1px solid #aaa;border-top:0;padding:5px;background-color:#f1f1f1;-moz-border-radius: 7px;-webkit-border-radius: 7px;-moz-border-radius-topleft:0;-moz-border-radius-topright:0;-webkit-border-top-left-radius:0;-webkit-border-top-right-radius:0;}
 #users-list {display:none;list-style:none;padding-left:10px;margin:5px;}
 
-#tools { position: absolute;top:70px;z-index:3;background-image:none;}
+#tools { background-image:none; float:left;margin-left:0;padding-left:0;}
 
-ul#pages {position:absolute;width:62px;text-align:center; padding:0 5px;list-style:none;}
-ul#pages li {display:block;width:19px;float:left;}
-ul#pages a {text-decoration:none;}
-ul#pages img {display:block;float:left;cursor:pointer;}
-ul#pages input {width:22px;float:left;display:block;text-align:center;font-size:1.1em;}
 
-#tools {-moz-user-select:none;}
-#tools div { width:40px;height:40px;margin:5px 12px;text-align:center;line-height:40px;border:1px solid #ddd;color: black;
+#tools {-moz-user-select:none;z-index:11;}
+#tools div { z-index:11;width:40px;height:40px;margin:5px 12px;text-align:center;line-height:40px;border:1px solid #ddd;color: black;
 	font-size:25px;font-family: "Courier New";font-weight:bold;background-color: #fff; background-repeat: no-repeat; background-position: center center; }
 #tools div:hover { border:1px solid black; cursor:pointer;}
-#tools div#color { margin-top:20px; }
 
+#tools div#cursor 	{background-image: url(/images/cursor.png);}
 #tools div#pencil 	{background-image: url(/images/pencil.png);}
 #tools div#line 	{background-image: url(/images/line.png);}
 #tools div#square 	{background-image: url(/images/square.png);}
@@ -33,29 +36,29 @@ ul#pages input {width:22px;float:left;display:block;text-align:center;font-size:
 #tools div#fill 	{background-image: url(/images/transparency.png);}
 #tools div#thick 	{background-image: url(/images/thickness.png);}
 
+#tools div.last {z-index:11;position:absolute;width:auto;height:auto;margin:0;line-height:auto;border:1px solid #aaa;background-color:#f1f1f1;-moz-border-radius-topright:7px;-moz-border-radius-bottomright:7px;}
+#tools div.last div.square  {float:left;margin:5px 5px 5px 10px;}
+#tools div.last div.picker {float:left;height:42px;margin:0;margin-right:5px;padding:5px;line-height:auto;border:0;background-color:transparent;display:none;}
+#tools div#cl {margin-top:20px;}
+#tools div#fl {margin-top:85px;}
+#tools div#th {margin-top:151px;}
 #tools div.selected {border:1px solid black;}
+#tools div#color-dialog {width:87px;}
+#tools div#color-dialog div {width:15px;height:15px;border:1px solid black;margin:2px;float:left; }
 
-.hidden { position:absolute;top:367px;left:54px;padding:5px;z-index:110; }
-#fill-dialog  { top: 425px; }
-#thick-dialog { top: 475px; }
-
-#color-dialog div {	width:15px;height:15px;border:1px solid black;margin:2px;float:left; }
-
-.tooltip { z-index:4;background-color:white;border:1px solid #ddd;color:#444; }
+.tooltip { z-index:11;background-color:white;border:1px solid #ddd;color:#444; }
 .tooltip span { font-size:0.8em; }
 .tooltip .text { padding:.4ex .7ex .2ex; }
 
-
-
 /* SLIDER DIALOGS */
 
-.ui-slider { background: transparent url(images/slider-bg-1.png) no-repeat center center;padding:0px; height:25px;width:90px;position: absolute;}
-.ui-slider-handle { position: absolute;z-index: 121; top: 0;width: 10px;height: 23px;
-	background: #555 url(images/0d0d0d_40x100_textures_02_glass_60.png) 0 50% repeat-x; border: 1px solid #dddddd; }
-.ui-slider-handle:hover { background: #0d0d0d url(images/0d0d0d_40x100_textures_02_glass_60.png) 0 50% repeat-x;border: 1px solid #dddddd; }
-.ui-slider-handle-active, .ui-slider-handle-active:hover { background: #0d0d0d url(images/0d0d0d_40x100_textures_02_glass_60.png) 0 50% repeat-x;
+#tools div.ui-slider {background: transparent url(images/slider-bg-1.png) no-repeat center center;padding:0px; height:25px;width:90px;}
+#tools div.ui-slider-handle { z-index: 121;width: 10px;height: 28px;
+	background: #555 url(images/0d0d0d_40x100_textures_02_glass_60.png) 0 50% repeat-x; }
+#tools div.ui-slider-handle:hover { background: #0d0d0d url(images/0d0d0d_40x100_textures_02_glass_60.png) 0 50% repeat-x;border: 1px solid #dddddd; }
+#tools div.ui-slider-handle-active, .ui-slider-handle-active:hover { background: #0d0d0d url(images/0d0d0d_40x100_textures_02_glass_60.png) 0 50% repeat-x;
 	border: 1px solid #dddddd;}
-.ui-slider-range {height: .8em;background: #0d0d0d url(images/0d0d0d_40x100_textures_02_glass_60.png) 0 50% repeat-x;position: absolute;
+#tools div.ui-slider-range {height: .8em;background: #fff ;
 	border: 1px solid #595959;border-left: 0;border-right: 0;top: -1px;z-index:121; }
 
 /* DRAWING STUFF */
@@ -65,30 +68,9 @@ textarea { font-size: 1.3em;font-family:"Verdana"; background: url(images/white6
 .ui-resizable-handle {z-index:220;}
 
 
-body{
-	padding:0px;
-	margin:0px;
-}
+#protectiveLayer { position:absolute;left:60px;top:65px;border:1px solid #999; margin:0 50px 50px 25px; background-color:white;z-index:0;}
+#svgElem { background:white; background-image:none; }
 
-#protectiveLayer {
-	position:absolute;
-	top:60px;left:90px;
-	border:1px solid #999;
-	margin-bottom:50px;
-	margin-right:50px;
-	background-color:white;
-}
+#svgElem, #svgElem * { -moz-user-select:none; }
 
-#svgElem {
-	background:white;
-	background-image:none;
-}
-
-#svgElem, #svgElem * {
-	-moz-user-select:none;	
-}
-
-#vmlElem{
-	z-index:10;
-	margin:0;
-}
+#vmlElem{ z-index:0; position:absolute; left:80px;top:65px;margin:0;border:1px solid #999;float:left;}
