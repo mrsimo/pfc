@@ -1,3 +1,17 @@
+# == Schema Information
+# Schema version: 20081101173132
+#
+# Table name: tasks
+#
+#  id          :integer(11)     not null, primary key
+#  file        :string(255)     
+#  dir         :string(255)     
+#  done        :boolean(1)      
+#  document_id :integer(11)     
+#  created_at  :datetime        
+#  updated_at  :datetime        
+#
+
 class Task < ActiveRecord::Base
   belongs_to :document
   

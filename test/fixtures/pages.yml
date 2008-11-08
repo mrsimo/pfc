@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 19
+# Schema version: 20081101173132
 #
 # Table name: pages
 #
@@ -8,6 +8,9 @@
 #  document_id :integer(11)     not null
 #  created_at  :datetime        
 #  updated_at  :datetime        
+#  cursorx     :integer(11)     
+#  cursory     :integer(11)     
+#  cursorr     :integer(11)     
 #
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html

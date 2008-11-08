@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 19
+# Schema version: 20081101173132
 #
 # Table name: groups
 #

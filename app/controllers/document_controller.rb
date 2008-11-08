@@ -122,6 +122,7 @@ class DocumentController < ApplicationController
     @object["elements"] = @elements
     @object["users"] = doc.recent_usernames
     @object["anonymous"] = doc.recent_anonymous_ips
+    @object["cursor"] = @current_page.cursor
     render :layout => false
   end
 

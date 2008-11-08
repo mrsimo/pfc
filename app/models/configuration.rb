@@ -1,3 +1,14 @@
+# == Schema Information
+# Schema version: 20081101173132
+#
+# Table name: configurations
+#
+#  id              :integer(11)     not null, primary key
+#  images_path     :string(255)     
+#  thumbnails_path :string(255)     
+#  temp_path       :string(255)     
+#
+
 # The Configuration model acts as the interface to the configurations table. 
 # The configurations table should consist of only one row with one column for each configuration field in your system. 
 #

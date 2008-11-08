@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 19
+# Schema version: 20081101173132
 #
 # Table name: pages
 #
@@ -8,6 +8,9 @@
 #  document_id :integer(11)     not null
 #  created_at  :datetime        
 #  updated_at  :datetime        
+#  cursorx     :integer(11)     
+#  cursory     :integer(11)     
+#  cursorr     :integer(11)     
 #
 
 class Page < ActiveRecord::Base
@@ -17,6 +20,10 @@ class Page < ActiveRecord::Base
                   
   def background_url
     self.public_filename ? "/image/#{self.public_filename}" : nil
+  end
+  
+  def cursor
+    {:r => cursorr, :x => cursorx, :y => cursory}
   end
   
 end
