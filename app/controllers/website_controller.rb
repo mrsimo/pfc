@@ -14,7 +14,7 @@ class WebsiteController < ApplicationController
   end
   
   def find_public
-    @docs = Document.find_with_ferret(params[:s])
+    @docs = Search.documents.with(params[:s])
   end
   
   # For ajax checking

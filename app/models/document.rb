@@ -36,8 +36,6 @@ class Document < ActiveRecord::Base
   
   has_many :tasks
   
-  acts_as_ferret :fields => [ :title, :description ]
-  
   # Validations
   validates_presence_of :title
   
