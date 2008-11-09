@@ -194,7 +194,8 @@ class DocumentController < ApplicationController
       add_page_from_file
       return
     elsif [".zip",".gz",".rar",".pdf"].include? ext
-      `mv #{file.path} #{extract_dir}/file#{ext}`
+      f = File.new("#{extract_dir}/file#{ext}","w")
+      f.write file.read
       t = Task.create :file => "file#{ext}", :dir => extract_dir, :document_id => params[:id]
       flash[:notice] = "The file has been queued for process. In a few moments it will be ready"
       redirect_to :action => "edit", :id => params[:id]
