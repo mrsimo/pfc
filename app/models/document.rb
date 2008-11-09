@@ -72,7 +72,7 @@ class Document < ActiveRecord::Base
   def needed_area
     width  = 0
     height = 0
-    self.pages.each do |p|
+    self.pages(true).each do |p|
       image = p.image
       if image
         width  = width  > image.width ? width : image.width

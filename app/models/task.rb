@@ -76,7 +76,7 @@ class Task < ActiveRecord::Base
     
     # Set the document's size automatically
     @doc.update_needed_area
-    
+
     # Now just remove the temporary files :)
     FileUtils.rm_rf directory  
     self.done = true
