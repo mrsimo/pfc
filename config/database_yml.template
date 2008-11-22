@@ -1,0 +1,17 @@
+development:
+  adapter: mysql
+  encoding: utf8
+  database: drawme_development
+  username: root
+  password: root
+  host: localhost
+  socket: /temp/mysql.sock
+
+production:
+  adapter: mysql
+  encoding: utf8
+  database: drawme_production
+  username: root
+  password: root
+  host: localhost
+  socket: /temp/mysql.sock
