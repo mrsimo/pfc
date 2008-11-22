@@ -11,7 +11,6 @@ Signal.trap("TERM") do
 end
 
 while($running) do
-  puts File.dirname(__FILE__)
   t = Task.find_by_done(false)
   t.process if t
   
