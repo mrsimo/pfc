@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081101173132) do
+ActiveRecord::Schema.define(:version => 20081122123130) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id",     :limit => 11
@@ -22,10 +22,16 @@ ActiveRecord::Schema.define(:version => 20081101173132) do
   end
 
   create_table "configurations", :force => true do |t|
-    t.string "images_path"
-    t.string "thumbnails_path"
-    t.string "temp_path"
+    t.string   "name"
+    t.string   "description"
+    t.string   "permalink"
+    t.text     "value"
+    t.string   "content_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
+
+  add_index "configurations", ["permalink"], :name => "index_configurations_on_permalink"
 
   create_table "document_permissions", :force => true do |t|
     t.integer  "document_id", :limit => 11,                :null => false

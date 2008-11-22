@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ConfigurationTest < ActiveSupport::TestCase
+class Admin::ConfigurationControllerTest < ActionController::TestCase
   # Replace this with your real tests.
   def test_truth
     assert true

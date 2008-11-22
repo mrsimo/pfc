@@ -169,5 +169,9 @@ form.inplaceeditor-form {
 }
 
 
-
-
+/* Configuration */
+ul.configuration {list-style:none;}
+ul.configuration li {overflow:hidden;}
+ul.configuration label {font-weight:bold;display:block;width:250px;text-align:left;float:left;margin-right:30px;}
+ul.configuration input {display:block;width:150px;float:left;margin:5px;}
+ul.configuration span {margin:30px;}
