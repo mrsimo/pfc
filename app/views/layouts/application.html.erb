@@ -15,8 +15,8 @@
 			<div id="small-panel">
 				Hello <%= current_user.login %>!
 				<ul>
-          <%= content_tag("li",link_to("Control Panel", { :controller => "website", :action => "panel" }),:id => "control-panel") unless controller.action_name == "panel"%>
-					<li id="logout"><%= link_to "Logout", { :controller => "sessions", :action => "logout"}%></li>
+          <%= content_tag("li",link_to("Control Panel", { :controller => "/website", :action => "panel" }),:id => "control-panel") unless controller.action_name == "panel"%>
+					<li id="logout"><%= link_to "Logout", { :controller => "/sessions", :action => "logout"}%></li>
 				</ul>
 			</div>
 		<% end %>

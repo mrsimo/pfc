@@ -22,11 +22,6 @@ class Task < ActiveRecord::Base
     require 'find'
     
     ext = File.extname(self.file)
-   # if RAILS_ENV["RAILS_ENV"] == "development"
-   #   directory = "#{self.dir}"
-   # else
-   #   directory = "/home/simo/www/drawme/current/#{self.dir}"
-   # end
     directory = "#{ENV["PWD"]}/#{self.dir}"
 
     file = "#{directory}/#{self.file}"

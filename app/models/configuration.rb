@@ -1,42 +1,30 @@
-# == Schema Information
-# Schema version: 20081101173132
-#
-# Table name: configurations
-#
-#  id              :integer(11)     not null, primary key
-#  images_path     :string(255)     
-#  thumbnails_path :string(255)     
-#  temp_path       :string(255)     
-#
-
-# The Configuration model acts as the interface to the configurations table. 
-# The configurations table should consist of only one row with one column for each configuration field in your system. 
-#
-# Callbacks prevent rows from being added to or removed from the table.
-#
 class Configuration < ActiveRecord::Base
   
-    before_create :check_for_existing
-    before_destroy :check_for_existing
-
-   # class methods
-   
-   # Returns the system configuration record. You should use this instead of doing an explicit #find on this object, as this
-   # method will retrieve only the first row from the table.
-   #
-   # If no configuration record exists, one will be created with blank fields.
-   def self.load
-      configuration = Configuration.find :first
-       if configuration.nil?
-         configuration = Configuration.create() 
-       end
-      configuration
-   end
-    
-   protected
-   
-   # Prevents the destruction or creation of more than one record.
-   def check_for_existing
-        return false if Configuration.find(:all).size >= 1 
+  has_permalink :name
+  
+  def self.get(permalink)
+    begin
+      if config = Configuration.find_by_permalink(permalink)
+      
+      if config.content_type == 'number'
+        config.value.to_i
+      elsif config.content_type == 'boolean'
+        if config.value == 'false' or config.value == '0'
+          false
+        else
+          true
+        end
+      elsif config.content_type == 'list'
+        config.value.split(",").collect { |v| v.strip }
+      elsif config.content_type == 'random'
+          config.value.split(",").collect { |v| v.strip }.rand
+      else
+        config.value
+      end
     end
+    rescue Exception => e
+      e
+    end
+  end
+  
 end
