@@ -142,8 +142,7 @@ class DocumentController < ApplicationController
   # and they are read and transmited from that file directly.
   def image
     @p = Page.find(params[:page])
-    @f = File.open @p.image.public_filename(params[:thumb]) if !@p.image.nil?  and !@p.image.filename.nil? and params[:page] != "undefined"
-    render :layout => false
+    send_file @p.image.public_filename(params[:thumb]) if !@p.image.nil? and !@p.image.filename.nil? and params[:page] != "undefined"
   end
 
   def remove_all_pages
