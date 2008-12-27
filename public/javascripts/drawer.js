@@ -12,7 +12,7 @@ if (navigator.appName == "Microsoft Internet Explorer") svg = false;
 /****** DRAWING MODULE **********/
 /********************************/
 /* HELPING VARIABLES */
-var drawing, erasing, texting, ready_to_write, txt;
+var drawing, erasing, texting, clicked_inside,ready_to_write, txt;
 var x, y, tmpX, tmpY; // Save original coords in some tools
 var refX, refY; 	// Help positioning the mouse in relation to the screen
 var tool = "line"; 	// What tool is selected?
@@ -26,7 +26,7 @@ var cursorGrower; var cursorRadius = 0;
 function mouseDown(e){
 	if(!e) e = window.event;
 	if (ready_to_write && t.target.type != "textarea") tf(e);
-    drawing = true;
+    drawing = true;clicked_inside=true;
     refX = container.offsetLeft;
     refY = container.offsetTop;
     x = currPositionX(e);
@@ -134,12 +134,13 @@ function mouseUp(e){
             	erasing=false;
             	break;
         	case "text":
-            	upText(e);
+				if(clicked_inside) upText(e);
             	break;
     	}
 		if(current != null) save(current);
 		current = null;
 	}
+	clicked_inside=false;
 	if (!ready_to_text) return false;
 }
 
