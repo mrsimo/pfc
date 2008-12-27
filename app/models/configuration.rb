@@ -1,3 +1,18 @@
+# == Schema Information
+# Schema version: 20081122123130
+#
+# Table name: configurations
+#
+#  id           :integer(11)     not null, primary key
+#  name         :string(255)     
+#  description  :string(255)     
+#  permalink    :string(255)     
+#  value        :text            
+#  content_type :string(255)     
+#  created_at   :datetime        
+#  updated_at   :datetime        
+#
+
 class Configuration < ActiveRecord::Base
   
   has_permalink :name
