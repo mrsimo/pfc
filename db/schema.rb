@@ -9,13 +9,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081122123130) do
+ActiveRecord::Schema.define(:version => 20081213112803) do
 
   create_table "activities", :force => true do |t|
-    t.integer  "user_id",     :limit => 11
-    t.integer  "document_id", :limit => 11
+    t.integer  "user_id"
+    t.integer  "document_id"
     t.datetime "when"
-    t.boolean  "anonymous",                 :default => false
+    t.boolean  "anonymous",   :default => false
     t.string   "ip"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -33,10 +33,23 @@ ActiveRecord::Schema.define(:version => 20081122123130) do
 
   add_index "configurations", ["permalink"], :name => "index_configurations_on_permalink"
 
+  create_table "delayed_jobs", :force => true do |t|
+    t.integer  "priority",   :default => 0
+    t.integer  "attempts",   :default => 0
+    t.text     "handler"
+    t.string   "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "document_permissions", :force => true do |t|
-    t.integer  "document_id", :limit => 11,                :null => false
-    t.integer  "user_id",     :limit => 11,                :null => false
-    t.integer  "permission",  :limit => 11, :default => 0
+    t.integer  "document_id",                :null => false
+    t.integer  "user_id",                    :null => false
+    t.integer  "permission",  :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -44,21 +57,21 @@ ActiveRecord::Schema.define(:version => 20081122123130) do
   create_table "documents", :force => true do |t|
     t.string   "title"
     t.text     "description"
-    t.integer  "current_page", :limit => 11, :default => 1
-    t.integer  "user_id",      :limit => 11,                    :null => false
+    t.integer  "current_page", :default => 1
+    t.integer  "user_id",                         :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "height",       :limit => 11, :default => 600
-    t.integer  "width",        :limit => 11, :default => 800
-    t.boolean  "has_file",                   :default => false
-    t.boolean  "public",                     :default => false
+    t.integer  "height",       :default => 600
+    t.integer  "width",        :default => 800
+    t.boolean  "has_file",     :default => false
+    t.boolean  "public",       :default => false
   end
 
   add_index "documents", ["user_id"], :name => "index_documents_on_user_id"
 
   create_table "elements", :force => true do |t|
-    t.text     "attr",                     :null => false
-    t.integer  "page_id",    :limit => 11, :null => false
+    t.text     "attr",       :null => false
+    t.integer  "page_id",    :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -66,17 +79,17 @@ ActiveRecord::Schema.define(:version => 20081122123130) do
   add_index "elements", ["page_id"], :name => "index_elements_on_page_id"
 
   create_table "group_permissions", :force => true do |t|
-    t.integer  "document_id", :limit => 11,                :null => false
-    t.integer  "group_id",    :limit => 11,                :null => false
-    t.integer  "permission",  :limit => 11, :default => 0
+    t.integer  "document_id",                :null => false
+    t.integer  "group_id",                   :null => false
+    t.integer  "permission",  :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "groups", :force => true do |t|
-    t.string   "name",                      :default => "", :null => false
+    t.string   "name",        :default => "", :null => false
     t.text     "description"
-    t.integer  "owner_id",    :limit => 11,                 :null => false
+    t.integer  "owner_id",                    :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -84,42 +97,42 @@ ActiveRecord::Schema.define(:version => 20081122123130) do
   add_index "groups", ["owner_id"], :name => "index_groups_on_owner_id"
 
   create_table "images", :force => true do |t|
-    t.integer  "parent_id",    :limit => 11
+    t.integer  "parent_id"
     t.string   "content_type"
     t.string   "filename"
     t.string   "thumbnail"
-    t.integer  "size",         :limit => 11
-    t.integer  "width",        :limit => 11
-    t.integer  "height",       :limit => 11
-    t.integer  "page_id",      :limit => 11
+    t.integer  "size"
+    t.integer  "width"
+    t.integer  "height"
+    t.integer  "page_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "invitations", :force => true do |t|
-    t.integer  "target_id",  :limit => 11
-    t.integer  "source_id",  :limit => 11
-    t.integer  "group_id",   :limit => 11
+    t.integer  "target_id"
+    t.integer  "source_id"
+    t.integer  "group_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "memberships", :force => true do |t|
-    t.integer  "group_id",   :limit => 11,                    :null => false
-    t.integer  "user_id",    :limit => 11,                    :null => false
-    t.boolean  "admin",                    :default => false
+    t.integer  "group_id",                      :null => false
+    t.integer  "user_id",                       :null => false
+    t.boolean  "admin",      :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "pages", :force => true do |t|
-    t.integer  "number",      :limit => 11, :null => false
-    t.integer  "document_id", :limit => 11, :null => false
+    t.integer  "number",      :null => false
+    t.integer  "document_id", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "cursorx",     :limit => 11
-    t.integer  "cursory",     :limit => 11
-    t.integer  "cursorr",     :limit => 11
+    t.integer  "cursorx"
+    t.integer  "cursory"
+    t.integer  "cursorr"
   end
 
   add_index "pages", ["document_id"], :name => "index_pages_on_document_id"
@@ -127,20 +140,20 @@ ActiveRecord::Schema.define(:version => 20081122123130) do
   create_table "tasks", :force => true do |t|
     t.string   "file"
     t.string   "dir"
-    t.boolean  "done",                      :default => false
-    t.integer  "document_id", :limit => 11
+    t.boolean  "done",        :default => false
+    t.integer  "document_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "thumbnails", :force => true do |t|
-    t.integer  "parent_id",    :limit => 11
+    t.integer  "parent_id"
     t.string   "content_type"
     t.string   "filename"
     t.string   "thumbnail"
-    t.integer  "size",         :limit => 11
-    t.integer  "width",        :limit => 11
-    t.integer  "height",       :limit => 11
+    t.integer  "size"
+    t.integer  "width"
+    t.integer  "height"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
