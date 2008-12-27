@@ -1,30 +1,17 @@
-# == Schema Information
-# Schema version: 20081122123130
-#
-# Table name: tasks
-#
-#  id          :integer(11)     not null, primary key
-#  file        :string(255)     
-#  dir         :string(255)     
-#  done        :boolean(1)      
-#  document_id :integer(11)     
-#  created_at  :datetime        
-#  updated_at  :datetime        
-#
+# Fake model to perform delayed actions
 
-class Task < ActiveRecord::Base
-  belongs_to :document
+class Task < Struct.new(:filename,:dir,:document_id)
   
-  def process
+  def perform
     require 'action_controller'
     require 'action_controller/test_process.rb'
     require 'mime/types'
     require 'find'
     
-    ext = File.extname(self.file)
-    directory = "#{ENV["PWD"]}/#{self.dir}"
+    ext = File.extname(filename)
+    directory = "#{ENV["PWD"]}/#{dir}"
 
-    file = "#{directory}/#{self.file}"
+    file = "#{directory}/#{filename}"
     case ext
     when ".zip"
       puts `unzip #{file} -d #{directory}`
@@ -59,12 +46,10 @@ class Task < ActiveRecord::Base
       files.sort! {|aa,bb| File.basename(aa) <=> File.basename(bb)}
     end
     
-    @doc = self.document
+    @doc = Document.find(document_id)
     current_pages = @doc.pages.size
     files.each_with_index do |f,i|
-      puts "Processing #{f}"
       if [".jpg",".jpeg",".gif",".png"].include? File.extname(f)
-        puts "OK!!"
         p = Page.create :number => (current_pages+i+1), :document_id => @doc.id
         Image.create :uploaded_data => ActionController::TestUploadedFile.new("#{f}", MIME::Types.type_for(f)), :page_id => p.id
       end
@@ -74,9 +59,7 @@ class Task < ActiveRecord::Base
     @doc.update_needed_area
 
     # Now just remove the temporary files :)
-    FileUtils.rm_rf directory  
-    self.done = true
-    self.save    
+    # FileUtils.rm_rf directory  
   end
   
 end
