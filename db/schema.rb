@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081213112803) do
+ActiveRecord::Schema.define(:version => 20090117105354) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(:version => 20081213112803) do
     t.integer  "width",        :default => 800
     t.boolean  "has_file",     :default => false
     t.boolean  "public",       :default => false
+    t.boolean  "editable",     :default => false
   end
 
   add_index "documents", ["user_id"], :name => "index_documents_on_user_id"
