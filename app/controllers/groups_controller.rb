@@ -8,13 +8,20 @@ class GroupsController < ApplicationController
   end
   
   def create
+    if params[:group][:name].blank?
+      flash[:bad] = "You must name your group."
+      redirect_to :action => :new
+      return
+    end
+    
     group = Group.new(params[:group])
     group.owner_id = current_user.id
     flash[:notice] = "Group created correctly" if group.save
     
     mem = Membership.new :user_id => current_user.id, :group_id => group.id, :admin => true
     mem.save
-    redirect_to :controller => "website", :action  => "panel"
+    
+    redirect_to :action  => :view, :id => group
   end
 
   def view
@@ -91,15 +98,16 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:id])
     params[:users].each do |key,val|
       membership = @group.membership(key).update_attribute(:admin, true)
-    end if @group.is_admin? current_user
+    end if @group.is_admin? current_user and not params[:users].blank?
     render :partial => "members"
   end
   
   def unpromote
     @group = Group.find(params[:id])
+    puts params[:users].to_yaml
     params[:admins].each do |key,val|
       membership = @group.membership(key).update_attribute(:admin, false) unless @group.is_owner? User.find(key)
-    end if @group.is_owner? current_user
+    end if @group.is_owner? current_user and not params[:admins].blank?
     render :partial => "members"
   end
 end

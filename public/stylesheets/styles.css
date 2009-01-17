@@ -19,6 +19,7 @@ a:hover {color:#FF8700;}
 .flash {border-bottom:1px solid #DDDDDD;display:block;padding:10px;}
 .flash.notice {background-color:#DDFFFF;}
 .flash.bad {background-color:#ffc8c8;}
+.flash.log {background-color:#dde6ff;}
 .flash * {margin:0;padding:5px;}
 
 /* PANEL */
@@ -161,6 +162,8 @@ div.view-group div.right {text-align:right;}
 
 #group-documents {background-color:#f2f2f2;border:1px solid #ddd;}
 
+#invite_people {margin-top:10px;}
+
 /* SEARCH RESULTS */
 #results {margin-top:30px;}
 #results li { display:block; overflow:hidden;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid #ddd;}
@@ -175,9 +178,11 @@ div.view-group div.right {text-align:right;}
 
 
 /* IN PLACE EDITOR */
-form.inplaceeditor-form {
-	padding:10px;
-}
+div.view-group form.inplaceeditor-form {padding:20px;}
+div.view-group form.inplaceeditor-form textarea {display:block;}
+div.view-group form.inplaceeditor-form input {margin-right:20px;}
+span.in_place_editor_field {display:block;}
+
 
 
 /* Configuration */

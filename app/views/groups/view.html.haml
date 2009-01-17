@@ -3,8 +3,7 @@
 .view-group.left
   %h3= @group.name
   - if @membership and @membership.admin
-    = in_place_editor_field :group, :description, {}, {:rows => 20, :cols => 50, :load_text_url => {:action => :get_description, :id => @group.id}}
-    //%p= link_to "Edit", :action => "edit", :id => @group.id
+    = in_place_editor_field :group, :description, {:default_value => "<p>Add description</p>"}, { :rows => 10, :cols => 50, :load_text_url => {:action => :get_description, :id => @group.id}, :save_text => "Save"}
   - else
     = @group.description
 .view-group.right
@@ -13,17 +12,18 @@
     %span.left Admins
     %span.right Users
   #members-list
-  = render :partial => "members"
+    = render :partial => "members"
   - if @membership and @membership.admin
     
     %p You can invite new people, write their emails, one per line:
     - form_tag :action => "invite", :id => @group.id do
       = text_area_tag :users, "", :rows => 10, :cols => 50
-      = submit_tag "Invite!"
+      = submit_tag "Invite!", :id => "invite_people"
 
 .clear
 
 - @docs = @group.documents
-#group-documents
-  %h4 Documents
-  = render :partial => "website/documents_list"
+- if @docs and @docs.size > 0
+  #group-documents
+    %h4 Documents
+    = render :partial => "website/documents_list"

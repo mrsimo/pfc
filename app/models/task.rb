@@ -59,7 +59,7 @@ class Task < Struct.new(:filename,:dir,:document_id)
     @doc.update_needed_area
 
     # Now just remove the temporary files :)
-    # FileUtils.rm_rf directory  
+    FileUtils.rm_rf directory  
   end
   
 end
