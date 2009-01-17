@@ -8,10 +8,18 @@
 	<% if controller.action_name == "edit" %>
 		<h3>Permissions</h3>
 		<div id="permissions">
-			<ul>
-				<li><%= f.radio_button :public,'true'  %><label for="document_public_true">Everyone can access it</label></li>
-				<li><%= f.radio_button :public,'false' %><label for="document_public_false">Only the people I specify.</label></li>
+			<ul class="first">
+				<li><%= f.check_box :public %><label for="document_public">Everyone can <strong>see</strong> it</label></li>
+				<li><label>Also, you can give permission to users or groups.</label></li>
+			</ul>
+			<ul id="help">
+				<li><%= image_tag "icons/bullet_delete.png"%> remove from the list</li>
+				<li><%= image_tag "icons/bullet_black.png"%> can <strong>see</strong> the document. Click on it to change rights.</li>
+				<li><%= image_tag "icons/bullet_green.png"%> can <strong>edit</strong> the document. Click on it to change rights.</li>
 				<li>
+		  </ul>
+		  <ul>
+		    <li>
 				<ul>
 					<li>
 						<%= text_field_tag 'user' %>
@@ -21,10 +29,11 @@
 					</li>
 					<li><div id="users_list"><%= render :partial => 'users'%></div></li>
 					<li>
-						<%= select_tag 'group', options_for_select(current_user.groups.collect{|g| [g.name, g.id]}) %>
+					  <% user_groups = current_user.groups.collect{|g| [g.name, g.id]} %>
+						<%= select_tag 'group', options_for_select(user_groups) %>
 						<%= submit_to_remote 'Invite Group', 'Invite Group',
 						:url => {:action => 'invite_group', :id => @doc.id},
-						:update => "groups_list" %>
+						:update => "groups_list", :html => {:disabled => (user_groups.size > 0 ? false : true)} %>
 					</li>
 					<li><div id="groups_list"><%= render :partial => 'groups'%></div></li>
 				</ul>

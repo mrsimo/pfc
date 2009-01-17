@@ -43,15 +43,19 @@ class DocumentController < ApplicationController
     if @user
       @doc.users_with_access << @user unless @doc.users_with_access.include? @user
     else
-      @error =  "User not found :("
+      @error =  "User #{params[:user]} not found :("
     end
     render :partial => "users"
   end
   
   def invite_group
     @doc = Document.find params[:id]
-    @group = Group.find params[:group]
-    @doc.groups_with_access << @group unless @doc.groups_with_access.include? @group
+    if params[:group] and not params[:group].blank?
+      @group = Group.find params[:group]
+      @doc.groups_with_access << @group unless @doc.groups_with_access.include? @group
+    else
+      @error = "You have to select a group"
+    end
     render :partial => "groups"
   end
   

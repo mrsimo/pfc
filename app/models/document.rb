@@ -121,8 +121,9 @@ class Document < ActiveRecord::Base
   
   def can_be_edited_by(user)
     can_he = false
+    can_he = true if self.editable
     if user != :false
-    # To be able to edit he must either be the owner, have a group permission, or have direct permission
+    # To be able to edit he must either be the owner, have a group permission, or have direct permission, or be editable
       can_he = true if self.owner == user #owner
       # group permission
       groups =  (self.groups_with_access & user.groups)

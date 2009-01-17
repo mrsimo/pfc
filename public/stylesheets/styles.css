@@ -133,7 +133,11 @@ form.generic input[type="submit"] {width:60%;margin:auto;}
 #permissions ul {list-style-type:none;padding-left:20px;}
 #permissions select{font-size:1.1em;}
 
+#permissions ul.first li {padding-top:20px;}
+
 #permissions div#users_list, #permissions div#groups_list {width:400px;border:1px solid #ddd; padding:15px;margin-bottom:30px;}
+
+#help {margin:10px;padding:10px;background-color:#f2f2f2;color:#444;}
 
 /* GROUP VIEW */
 div.view-group {width:452px;border:1px solid #ddd; background-color: #f2f2f2;margin:20px 0;}
