@@ -22,7 +22,7 @@ var thick = "2";
 var fill = "80";
 var prohibed = new Array("top","tools","pages","fill-dialog","thick-dialog"); 
 var cursorGrower; var cursorRadius = 0;
-
+/* Three big events. From here everything's controlled. */
 function mouseDown(e){
 	if(!e) e = window.event;
 	if (ready_to_write && t.target.type != "textarea") tf(e);
@@ -61,6 +61,12 @@ function mouseDown(e){
 	if(svg) e.stopPropagation();
 	return false;
 }
+
+function growCursor(){
+	cursorRadius += 3;
+	current.edit(x,y,cursorRadius,cursorRadius);
+}
+
 function mouseMove(e){
 	if(!e) e = window.event;
 
@@ -109,6 +115,7 @@ function mouseMove(e){
 	if (tool != "text" && e.target.id != "fill-dialog" && e.target.id != "thick-dialog") e.stopPropagation();
 	if (!ready_to_text) return false;
 }
+
 function mouseUp(e){
 	if(!e) e = window.event;
 	if(tool == "cursor"){
@@ -136,6 +143,12 @@ function mouseUp(e){
 	clicked_inside=false;
 	if (!ready_to_text) return false;
 }
+
+/* When creating text a little more juice is needed, so there's an
+ * auxiliary function.
+ * We create a new input where we click, to whom we attach the event
+ * onChange, that will pop when the user is done writing.
+ */
 function upText(e){
     if (texting) {
 		texting = false;
@@ -185,9 +198,6 @@ function tf(e){
  * fill: transparency of the stroke
  * element: javascript node element
  * * * * * * * * * * * * * * * * * * * * * */
- 
- 
- 
 function Line(here,x1, y1, x2, y2, color, thick, fill){
 	this.x1=x1;this.y1=y1;this.x2=x2;this.y2=y2;
 	this.color=color;this.thick=thick;this.fill=fill;
@@ -246,6 +256,14 @@ function Line(here,x1, y1, x2, y2, color, thick, fill){
 		
     }
 }
+
+/* PENCIL CLASS
+ * points: string with the list of coords.
+ * color: of the stroke
+ * thick: ness of the stroke
+ * fill: transparency of the stroke
+ * element: javascript node element
+ * * * * * * * * * * * * * * * * * * * * * */
 function Pencil(here,points, color, thick, fill){
 	this.points=points;
 	this.color=color;this.thick=thick;this.fill=fill;
@@ -290,6 +308,16 @@ function Pencil(here,points, color, thick, fill){
 		}
     }
 }
+
+
+/* SQUARE CLASS
+ * x,y: Coords of the start of the square
+ * width,height: Width and height of the square
+ * color: of the stroke
+ * thick: ness of the stroke
+ * fill: transparency of the filling
+ * element: javascript node element
+ * * * * * * * * * * * * * * * * * * * * * */
 function Square(here,x, y, w, h, color, thick, fill){
 	this.x = x;this.y = y;
 	this.width = w;this.height = h;
@@ -354,6 +382,16 @@ function Square(here,x, y, w, h, color, thick, fill){
 		}
 	}
 }
+
+
+/* CIRCLE CLASS
+ * x,y: Coords of the center of the square
+ * rx,ry: Vertican and horizontal radius
+ * color: of the stroke
+ * thick: ness of the stroke
+ * fill: transparency of the filling
+ * element: javascript node element
+ * * * * * * * * * * * * * * * * * * * * * */
 function Circle(here,cx,cy,rx,ry,color,thick,fill){
 	this.x=cx,this.y=cy;this.rx=rx;this.ry=ry;
 	this.color=color;this.thick=thick;this.fill=fill;
@@ -418,6 +456,16 @@ function Circle(here,cx,cy,rx,ry,color,thick,fill){
 		}
 	}
 }
+
+/* TEXT CLASS
+ * x,y: Coords of origin of the textbox
+ * text: string of text represented
+ * color: of the text
+ * size: font size of the text
+ * font: font of the text
+ * fill: transparency of the filling
+ * element: javascript node element
+ * * * * * * * * * * * * * * * * * * * * * */
 function Text(here,x,y,text,color,size,font,fill){
 	this.x=x;this.y=y;this.text=text;
 	this.color=color;this.size=size;this.fill=fill;
@@ -439,6 +487,14 @@ function Text(here,x,y,text,color,size,font,fill){
 	
 	container.appendChild(this.element);
 }
+
+
+/* IMAGE CLASS
+ * x,y: Coords of origin of the image
+ * img: path to the image
+ * scale: scalation that should be applied to the image
+ * element: javascript node element
+ * * * * * * * * * * * * * * * * * * * * * */
 function Image(here,x,y,img,scale){
 	this.x=x;this.y=y;this.img=img;this.scale=scale;
 	this.type = "image";
@@ -487,14 +543,6 @@ function save(it){
 	});
 }
 
-function save(element){
-  var json = toJSON(element);
-  $.ajaxQueue({
-    ...
-  });
-}
-
-
 function saveCursor(x,y,r){
 	$.ajaxQueue({
 		url: "/document/save_cursor/" + docId,
@@ -523,8 +571,6 @@ function consult(repeat){
  * provided after consulting the server. It iterates
  * through it and adds the new elements.
  */
- 
- 
 function load(content){
 	var t = eval("(" + content + ")");	// Convert JSON compatible data into actual data.
 	// Load the good background
