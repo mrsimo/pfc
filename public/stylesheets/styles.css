@@ -114,12 +114,10 @@ form.generic input[type="submit"] {width:60%;margin:auto;}
 .extra div#doc-stats ul ul {margin-left:20px;list-style-type:square;}
 .extra div#doc-stats form {margin:0;}
 .extra div#doc-stats input.small {width:40px;text-align:center;}
-.extra div#see {border:1px solid #aaa;margin:20px;text-align:center;}
+.extra div#see {border:1px solid #aaa;margin:20px;text-align:center;font-size:1.3em;background-color:#111;padding:10px;}
 .extra div.option {width:357px;margin:10px 20px;padding:10px;border:1px solid #ddd;display:block;text-align:left;}
 .extra div.option h3 {width:337px;margin:0;}
 .extra div.option input[type="text"] {width:30px;text-align:center;}
-
-.extra
 
 /* NEW DOCUMENT */
 #new-doc div#board-options {width:446px;padding:15px;}
