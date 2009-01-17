@@ -111,7 +111,8 @@ form.generic input[type="submit"] {width:60%;margin:auto;}
 .extra div#doc-stats {border:1px solid #aaa;margin:20px;background-color:#f2f2f2;padding:20px;}
 
 .extra div#doc-stats ul {list-style-type:none;text-align:left;margin:0;padding:0;}
-.extra div#doc-stats ul ul {margin-left:20px;list-style-type:square;}
+.extra div#doc-stats ul ul {margin-left:0px;}
+.extra div#doc-stats ul ul li {margin:10px; border:1px solid #aaa; border-width:1px 0;padding:5px;background-color:#fafafa;}
 .extra div#doc-stats form {margin:0;}
 .extra div#doc-stats input.small {width:40px;text-align:center;}
 .extra div#see {border:1px solid #aaa;margin:20px;text-align:center;font-size:1.3em;background-color:#111;padding:10px;}
