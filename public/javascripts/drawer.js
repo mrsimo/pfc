@@ -25,7 +25,7 @@ var cursorGrower; var cursorRadius = 0;
 /* Three big events. From here everything's controlled. */
 function mouseDown(e){
 	if(!e) e = window.event;
-	if (ready_to_write && t.target.type != "textarea") tf(e);
+	if (ready_to_write && e.target.type != "textarea") tf(e);
     drawing = true;clicked_inside=true;
     refX = container.offsetLeft;
     refY = container.offsetTop;
@@ -34,29 +34,29 @@ function mouseDown(e){
     cPX = x;
     cPY = y;
     switch (tool) {
-        case "line":
-            current = new Line(mainElem,x, y, x, y, color, thick, fill);
-            break;
-        case "pencil":
-			current = new Pencil(mainElem,"", color, thick, fill);
-			current.addPoint(x,y);
-            break;
-        case "square":
-			current = new Square(mainElem,x,y,1,1,color,thick,fill);
-            break;
-        case "circle":
-			current = new Circle(mainElem,x,y,1,1,color,thick,fill);
-            break;
-        case "eraser":
-            erasing=true;
-            break;
-        case "image":
-            current = new Image(mainElem,x,y,"test.jpg",1);
-            break;
+    case "line":
+        current = new Line(mainElem,x, y, x, y, color, thick, fill);
+        break;
+    case "pencil":
+		    current = new Pencil(mainElem,"", color, thick, fill);
+		    current.addPoint(x,y);
+        break;
+    case "square":
+		    current = new Square(mainElem,x,y,1,1,color,thick,fill);
+        break;
+    case "circle":
+		    current = new Circle(mainElem,x,y,1,1,color,thick,fill);
+        break;
+    case "eraser":
+        erasing=true;
+        break;
+    case "image":
+        current = new Image(mainElem,x,y,"test.jpg",1);
+        break;
 		case "cursor":
-			current = new Circle(mainElem,x,y,1,1,"red",2,90);
-			cursorGrower = setInterval("growCursor();",10);
-			break;
+		    current = new Circle(mainElem,x,y,1,1,"red",2,90);
+		    cursorGrower = setInterval("growCursor();",10);
+		    break;
     }
 	if(svg) e.stopPropagation();
 	return false;
@@ -113,7 +113,7 @@ function mouseMove(e){
         }
     }
 	if (tool != "text" && e.target.id != "fill-dialog" && e.target.id != "thick-dialog") e.stopPropagation();
-	if (!ready_to_text) return false;
+	//if (!ready_to_text) return false;
 }
 
 function mouseUp(e){
@@ -141,7 +141,7 @@ function mouseUp(e){
 		current = null;
 	}
 	clicked_inside=false;
-	if (!ready_to_text) return false;
+	//if (!ready_to_text) return false;
 }
 
 /* When creating text a little more juice is needed, so there's an
@@ -181,6 +181,7 @@ function tf(e){
 		var tmp = txt.value.replace(/(\r\n)|(\n)/g,"<br />");
 		tx = new Text(container,tmpX,tmpY,tmp,color,"30","","0");
 		save(tx);
+		ready_to_write = false;
 	} 
 	$(txt).remove();
 }
