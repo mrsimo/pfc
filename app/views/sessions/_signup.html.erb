@@ -1,4 +1,4 @@
-<% return if logged_in? %>	
+
 		<h6>Sign Up</h6>
 		<% form_for :user, :url => {:action => "signup", :controller => "sessions"} do |f| -%>
 		<label for="login">Username</label><br />
@@ -18,4 +18,4 @@
 		
 		<%= submit_tag 'Sign up', :class => "submit" %>
 		<div class="clear"></div>
-		<% end -%>
+    <% end -%>
