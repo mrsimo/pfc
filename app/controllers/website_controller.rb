@@ -15,6 +15,7 @@ class WebsiteController < ApplicationController
   
   def find_public
     @docs = Search.documents.with(params[:s])
+    @docs.reject!{|d| d.can_be_seen_by(current_user)}
   end
   
   # For ajax checking

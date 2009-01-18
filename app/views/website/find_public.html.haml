@@ -1,3 +1,6 @@
 - title "Search results"
-%h5 Some results have been found
-= render :partial => "documents_list"
+- if @docs.size > 0
+  %h5 Some results have been found
+  = render :partial => "documents_list"
+- else
+  %h5 No results found
