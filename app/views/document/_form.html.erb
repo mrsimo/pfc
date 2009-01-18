@@ -13,35 +13,37 @@
 				<li><label>Also, you can give permission to users or groups.</label></li>
 			</ul>
 			<ul id="help">
-				<li><%= image_tag "icons/bullet_delete.png"%> remove from the list</li>
-				<li><%= image_tag "icons/bullet_black.png"%> can <strong>see</strong> the document. Click on it to change rights.</li>
-				<li><%= image_tag "icons/bullet_green.png"%> can <strong>edit</strong> the document. Click on it to change rights.</li>
-				<li>
+				<li><%= image_tag "icons/bullet_delete_greybg.png" %> remove from the list</li>
+				<li><%= image_tag "icons/bullet_black_greybg.png"  %> can <strong>see</strong>  the document. Click on it to change rights.</li>
+				<li><%= image_tag "icons/bullet_green_greybg.png"  %> can <strong>edit</strong> the document. Click on it to change rights.</li>
 		  </ul>
 		  <ul>
 		    <li>
 				<ul>
 					<li>
-						<%= text_field_tag 'user' %>
+						<%= text_field_tag 'user',"", :class => "wide" %>
 						<%= submit_to_remote 'Invite User', 'Invite User',
 						:url => {:action => 'invite_user', :id => @doc.id},
-						:update => "users_list" %>
+						:update => "users_list",
+						:html => {:class =>"button"} %>
 					</li>
 					<li><div id="users_list"><%= render :partial => 'users'%></div></li>
 					<li>
 					  <% user_groups = current_user.groups.collect{|g| [g.name, g.id]} %>
-						<%= select_tag 'group', options_for_select(user_groups) %>
+						<%= select_tag 'group', options_for_select(user_groups), :class => "wide" %>
 						<%= submit_to_remote 'Invite Group', 'Invite Group',
 						:url => {:action => 'invite_group', :id => @doc.id},
-						:update => "groups_list", :html => {:disabled => (user_groups.size > 0 ? false : true)} %>
+						:update => "groups_list", :html => {:disabled => (user_groups.size > 0 ? false : true)},
+						:html => {:class => "button"} %>
 					</li>
 					<li><div id="groups_list"><%= render :partial => 'groups'%></div></li>
 				</ul>
 				</li>
 			</ul>
+			<%= f.submit "Submit", :class => "bottom" %>
 		</div>
 	<% end %>
 	
-	<%= f.submit "Submit" %>
+	
 	
 <% end %>

@@ -7,7 +7,7 @@ ul, li,h1,h2,h3,h4,h5,h6 {margin:0;padding:0;}
 a img {border:0;}
 a {text-decoration:none;color:#CB7400;}
 a:hover {color:#FF8700;}
-
+img {filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(...);}
 
 /* HEADER */
 #header { width:968px;height:100px;margin:auto; border:1px solid black;border-top:0;border-left:0;}
@@ -93,8 +93,8 @@ div.extra p, div.extra ul {padding:20px;margin:0;}
 
 form.generic label {font-size:1.3em;}
 form.generic span {margin-bottom:20px;display:block;}
-form.generic input {display:block;width:510px;font-size:1.3em;}
-form.generic textarea {display:block;width:510px;}
+form.generic input {display:block;width:490px;font-size:1.3em;}
+form.generic textarea {display:block;width:490px;}
 form.generic input[type="text"], form.generic textarea { margin:10px 0; }
 form.generic input[type="radio"], form.generic input[type="checkbox"] {display:inline;width:auto;height:auto;}
 form.generic input[type="file"] {width:auto;font-size:1em;display:inline;}
@@ -124,16 +124,19 @@ form.generic input[type="submit"] {width:60%;margin:auto;}
 .extra div.option input[type="text"] {width:30px;text-align:center;}
 
 /* NEW DOCUMENT */
+#new-doc {  }
 #new-doc div#board-options {width:446px;padding:15px;}
 #new-doc div#board-options input {display:inline;width:100px;}
 
 #document_description {height:100px;}
 
-#permissions input {font-size:inherit;display:inline;}
-#permissions input[type="button"] {width:120px;}
-#permissions input[type="text"], #permissions select {width:300px;}
+#permissions input {font-size:inherit;display:inline;width:100px;}
 #permissions ul {list-style-type:none;padding-left:20px;}
 #permissions select{font-size:1.1em;}
+
+#permissions input.wide, #permissions select.wide {width:280px;}
+#permissions input.button {width:auto;font-size:1em;}
+#permissions input.bottom {margin:auto;display:block;width:auto;}
 
 #permissions ul.first li {padding-top:20px;}
 
