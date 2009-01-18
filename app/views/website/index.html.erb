@@ -1,5 +1,6 @@
 <% title " >> Welcome!"%>
 <% if !logged_in? %>
+<div id="indexRight">
 	<div id="big-panel">
 		<div id="login">
 			<%= render :partial => "sessions/login"%>
@@ -8,27 +9,30 @@
 			<%= render :partial => "sessions/signup" %>
 		</div>
 	</div>
+</div>
 <% end %>
 
-<div id="speech">
-<p>Drawme is a shared whiteboard online application focused towards helping you with your presentations.</p>
-</div>
-
-<%= error_messages_for :user %>
-
-<div id="intro">
-	<p>
-		With drawme you will be able to:
-		<ul>
-			<li>Upload your documents</li>
-			<li>Draw and write all over them</li>
-			<li>Invite people to see exactly what you see</li>
-			<li>Have other people draw all over your documents</li>
-		</ul>
-	</p>
-	<p>
-		Drawme is the perfect solutions for when you have to make a presentation but the rest of the people are not phisically with you. Talk with them over your favourite converence technology, and help your expositions with the tools we provide you. All with the highest level of privacy and security.
-	</p>
-
-	<p>Fill up the super-fast, super-simple form and start working straight away. No second steps, no activation, just these four fields:</p>
+<div id="indexLeft">
+  <div id="speech">
+  <p>Drawme is a shared whiteboard online application focused towards helping you with your presentations.</p>
+  </div>
+  
+  <%= error_messages_for :user %>
+  
+  <div id="intro">
+  	<p>
+  		With drawme you will be able to:
+  		<ul>
+  			<li>Upload your documents</li>
+  			<li>Draw and write all over them</li>
+  			<li>Invite people to see exactly what you see</li>
+  			<li>Have other people draw all over your documents</li>
+  		</ul>
+  	</p>
+  	<p>
+  		Drawme is the perfect solutions for when you have to make a presentation but the rest of the people are not phisically with you. Talk with them over your favourite converence technology, and help your expositions with the tools we provide you. All with the highest level of privacy and security.
+  	</p>
+  
+  	<p>Fill up the super-fast, super-simple form and start working straight away. No second steps, no activation, just these four fields:</p>
+  </div>
 </div>

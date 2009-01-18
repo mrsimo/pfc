@@ -23,7 +23,8 @@ a:hover {color:#FF8700;}
 .flash * {margin:0;padding:5px;}
 
 /* PANEL */
-#big-panel {float:right; width:240px;border-left:1px solid #ddd;padding:0;}
+#indexRight {float:right;width:241px;padding:0;margin:0;}
+#big-panel {border-left:1px solid #ddd;}
 #big-panel h6 {padding:10px 10px 10px 20px;font-size:1.3em;display:block;background:transparent url(/images/layout/bg1.jpg) no-repeat scroll 0 0;border-right:1px solid #ddd;border-bottom:1px solid #ddd;}
 #big-panel label {width:230px;padding:10px 0 0 10px;font-size:1.3em;color:#222;}
 #big-panel input {width:224px;margin:5px 0 0 10px;	font-size:1.3em;}
@@ -37,8 +38,8 @@ a:hover {color:#FF8700;}
 #signup-single input[type="submit"] {width:270px; margin-top:20px;}
 
 div#login {margin-bottom:20px;}
-#login label#remember {display:inline;}
-#login input[type="checkbox"]{display:inline;width:inherit;}
+#remember {display:inline;}
+#remember_me {display:inline;width:inherit;}
 #signup {padding-bottom:10px;}
 #signup h6 {border-top:1px solid #ddd;}
 
@@ -47,10 +48,11 @@ div#login {margin-bottom:20px;}
 #small-panel ul li {display:inline;margin:10px;}
 
 /* MAIN PAGE CONTENT */
-#speech { font-size: 2em; text-align:center; padding:20px;width:727px;padding:0;background:transparent url(/images/layout/bg1.jpg) no-repeat scroll 0 0;border-bottom:1px solid #ddd;border-left:1px solid #ddd;}
+#indexLeft {float:right;width:728px;}
+#speech {font-size:2em;text-align:center;padding:20px;padding:0;margin:0;background:transparent url(/images/layout/bg1.jpg) no-repeat scroll 0 0;border-bottom:1px solid #ddd;border-left:1px solid #ddd;}
 #speech p {margin:0;padding:20px;}
 
-#intro {width:727px;margin-top:10px;}
+#intro {margin-top:10px;}
 #intro p { margin:10px 10px 10px 10px; }
 #intro ul {margin:30px;}
 
@@ -145,12 +147,13 @@ div.view-group h3 {display:block;padding:10px; margin:0;border-bottom:1px solid 
 div.view-group p {padding:15px;margin:0;}
 div.view-group form {padding:15px;padding-top:0;}
 div.view-group ul {list-style:none;padding:15px;}
-div.view-group h5 {border-bottom:1px solid #aaa;display:block;padding:0 20px;overflow:hidden;margin-top:20px;}
+div.view-group h5 {background-color:#FAFAFA;border-bottom:1px solid #AAAAAA;border-top:1px solid #AAAAAA;display:block;margin:20px;overflow:hidden;padding:5px;}
 div.view-group form.members {overflow:hidden;padding:0;}
-div.view-group div.members {width:200px;}
+div.view-group div.members {width:181px;}
 div.view-group div.members-arrows {text-align:center;width:50px;f}
 div.view-group div.right {text-align:right;}
 
+div#members-list {border-top:1px solid #aaa;border-bottom:1px solid #aaa;margin:20px;background-color:#fafafa;}
 
 #group-view-left {width:440px; float:left;border: 1px solid #ddd; background-color: #fafafa;margin-right:20px;margin:20px;}
 #group-view-left * {margin:10px;}

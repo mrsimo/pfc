@@ -11,9 +11,11 @@
   %h5
     %span.left Admins
     %span.right Users
+    .clear
   #members-list
     = render :partial => "members"
-  - if @membership and @membership.admin
+    .clear
+  - if @group.is_admin?(current_user)
     
     %p You can invite new people, write their emails, one per line:
     - form_tag :action => "invite", :id => @group.id do

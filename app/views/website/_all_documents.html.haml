@@ -2,7 +2,7 @@
   %h2 All the documents
 .independent
   %h5 Public documents
-  - form_tag 'find_public' do |f|
+  - form_tag 'find_public' do
     = text_field_tag  's'
     = submit_tag 'search'
   == Or you can also #{link_to "browse", :action => "list_public"} them.
@@ -13,7 +13,7 @@
     - for doc in current_user.all_accessible_documents
       %li
         %h5= link_to doc.title, :controller => 'document', :action => 'draw', :id => doc.id
-        = textile doc.description
+        = textile doc.descripti on
         %span
           = link_to("Delete", {:controller => "document", :action => "delete", :id => doc.id}, :confirm =>"Are you sure?") if doc.can_be_deleted_by current_user
           = link_to("Edit", :controller => "document", :action => "edit", :id => doc.id) if doc.can_be_edited_by current_user

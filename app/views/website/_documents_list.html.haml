@@ -11,3 +11,4 @@
         %span 
           = link_to("Delete", {:controller => "document", :action => "delete", :id => doc.id}, :confirm =>"Are you sure?") if doc.can_be_deleted_by current_user
           = link_to("Edit", :controller => "document", :action => "edit", :id => doc.id) if doc.can_be_edited_by current_user
+      .clear

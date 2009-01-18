@@ -2,13 +2,13 @@
   <div class="members left">
     <ul>
   	   <% for user in @group.admins %>
-  	      <li><%= check_box_tag "admins[#{user.id}]" %>
+  	      <li><%= check_box_tag "admins[#{user.id}]" if @group.is_admin?(current_user) %>
   	          <span id="<%= "u#{user.id}" %>"><%= @group.is_owner?(user) ? content_tag("strong",user.login) : user.login %></span>
   	      </li>
   	   <% end if @group.admins%>
   	</ul>
   </div>
-  
+  <% if @group.is_admin?(current_user) %>
   <div class="members-arrows left">
     <ul>
     <li>
@@ -21,12 +21,13 @@
     </li> 
     </ul>
   </div>
+  <% end %>
   
   <div class="members right">
     <ul>
   	   <% if @group.users %>
    	    <% for user in @group.users %>
-   	      <li><span id="<%= "u#{user.id}" %>"><%= user.login %></span><%= check_box_tag "users[#{user.id}]" %></li>
+   	      <li><span id="<%= "u#{user.id}" %>"><%= user.login %></span><%= check_box_tag "users[#{user.id}]" if @group.is_admin?(current_user) %></li>
    	    <% end %>
        <% else %>
         No users yet
